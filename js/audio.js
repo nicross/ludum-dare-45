@@ -1,9 +1,8 @@
 const audio = (function IIFE() {
-
   const context = new AudioContext()
 
   return {
-    activate: () => {
+    activate: function () {
       context.resume()
       return this
     },
