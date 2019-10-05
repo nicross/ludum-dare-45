@@ -19,7 +19,7 @@ function main() {
     pickupDistance = 2
 
   pickups.filter((item) => {
-    return item.collectible && distance(x, y, item.x, item.y) <= pickupDistance
+    return !item.inventory && item.collectible && distance(x, y, item.x, item.y) <= pickupDistance
   }).forEach((item) => {
     item.pickup()
   })
