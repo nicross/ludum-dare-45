@@ -4,7 +4,7 @@ const position = (function IIFE() {
     tau = 2 * Math.PI
 
   const position = {
-    angle: 0,
+    angle: Math.PI / 2,
     x: 0,
     y: 0,
   }
