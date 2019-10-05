@@ -4,7 +4,7 @@ function activate() {
 
   // XXX: Foobar
   pickups.push(
-    spawnItem({x: 2, y: 0})
+    spawnItem({index: 0, x: 2, y: 0})
   )
 
   window.requestAnimationFrame(main)

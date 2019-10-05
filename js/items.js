@@ -52,7 +52,7 @@ const itemBase = {
     this.masterGain = new GainNode(context)
     this.masterPan = context.createStereoPanner()
 
-    this.masterGain.connect(this.panner)
+    this.masterGain.connect(this.masterPan)
     this.masterPan.connect(context.destination)
 
     this.onSpawn()
@@ -98,7 +98,8 @@ function inventItem(id, definition) {
   }, itemBase)
 }
 
-function spawnItem(options) {
-  const type = items[Math.floor(Math.random() * items.length)]
+function spawnItem({index, ...options}) {
+  index = index || Math.floor(Math.random() * items.length)
+  const type = items[index]
   return Object.create(type).spawn(options)
 }
