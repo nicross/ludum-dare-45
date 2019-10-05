@@ -27,6 +27,10 @@ const itemBase = {
 
     return normal
   },
+  destroy: function () {
+    this.masterPan.disconnect(context.destination)
+    return this
+  },
   getDistance: function (x, y) {
     return distance(this.x, this.y, x, y)
   },
@@ -45,11 +49,11 @@ const itemBase = {
     this.x = x
     this.y = y
 
-    this.gain = new GainNode(context)
-    this.panner = context.createStereoPanner()
+    this.masterGain = new GainNode(context)
+    this.masterPan = context.createStereoPanner()
 
-    this.gain.connect(this.panner)
-    this.panner.connect(context.destination)
+    this.masterGain.connect(this.panner)
+    this.masterPan.connect(context.destination)
 
     this.onSpawn()
 
@@ -58,8 +62,8 @@ const itemBase = {
   update: function ({angle, x, y}) {
     const context = audio.context()
 
-    this.gain.gain.value = this.calculateGain({x, y})
-    this.panner.pan.value = this.calculatePan({angle, x, y})
+    this.masterGain.gain.value = this.calculateGain({x, y})
+    this.masterPan.pan.value = this.calculatePan({angle, x, y})
 
     this.onUpdate({angle, x, y})
 
@@ -75,7 +79,7 @@ const items = [
     },
     onSpawn: function () {
       this.oscillator = new OscillatorNode(audio.context())
-      this.oscillator.connect(this.gain)
+      this.oscillator.connect(this.masterGain)
       this.oscillator.start()
     },
   }),
