@@ -67,7 +67,25 @@ const itemBase = {
   },
 }
 
-const items = []
+const items = [
+  inventItem('Foobar', {
+    collectible: true,
+    onPickup: function () {
+      this.oscillator.type = 'triangle'
+    },
+    onSpawn: function () {
+      this.oscillator = new OscillatorNode(audio.context())
+      this.oscillator.connect(this.gain)
+      this.oscillator.start()
+    },
+  }),
+  // TODO: Compass - White noise with filter that's brightest when facing north
+  // TODO: Kick - Footstep sounds, increases power via inventory size?
+  // TODO: 1+3+5 - Subtle notes that change chords based on x/y position
+  // TODO: Seashell - You can hear the ocean
+  // TODO: Snare - Every other footstep
+  // TODO: Non-collectible ambient sounds
+]
 
 function inventItem(id, definition) {
   return Object.setPrototypeOf({

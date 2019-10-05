@@ -2,6 +2,11 @@ function activate() {
   audio.activate()
   controls.activate()
 
+  // XXX: Foobar
+  pickups.push(
+    spawnItem({x: 2, y: 0})
+  )
+
   window.requestAnimationFrame(main)
 }
 
