@@ -1,9 +1,9 @@
 const controls = (function IIFE() {
 
-  const backwardButton = document.querySelector('.o-app--backward'),
-    forwardButton = document.querySelector('.o-app--forward'),
-    leftButton = document.querySelector('.o-app--left'),
-    rightButton = document.querySelector('.o-app--right')
+  const backward = document.querySelector('.o-app--backward'),
+    forward = document.querySelector('.o-app--forward'),
+    left = document.querySelector('.o-app--left'),
+    right = document.querySelector('.o-app--right')
 
   let movingBackward = false,
     movingForward = false,
@@ -44,25 +44,25 @@ const controls = (function IIFE() {
 
   return {
     activate: () => {
-      backwardButton.addEventListener('mouseover', onBackwardStart)
-      backwardButton.addEventListener('touchstart', onBackwardStart)
-      backwardButton.addEventListener('mouseout', onBackwardStop)
-      backwardButton.addEventListener('touchend', onBackwardStop)
+      backward.addEventListener('mouseover', onBackwardStart)
+      backward.addEventListener('touchstart', onBackwardStart)
+      backward.addEventListener('mouseout', onBackwardStop)
+      backward.addEventListener('touchend', onBackwardStop)
 
-      forwardButton.addEventListener('mouseover', onForwardStart)
-      forwardButton.addEventListener('touchstart', onForwardStart)
-      forwardButton.addEventListener('mouseout', onForwardStop)
-      forwardButton.addEventListener('touchend', onForwardStop)
+      forward.addEventListener('mouseover', onForwardStart)
+      forward.addEventListener('touchstart', onForwardStart)
+      forward.addEventListener('mouseout', onForwardStop)
+      forward.addEventListener('touchend', onForwardStop)
 
-      leftButton.addEventListener('mouseover', onLeftStart)
-      leftButton.addEventListener('touchstart', onLeftStart)
-      leftButton.addEventListener('mouseout', onLeftStop)
-      leftButton.addEventListener('touchend', onLeftStop)
+      left.addEventListener('mouseover', onLeftStart)
+      left.addEventListener('touchstart', onLeftStart)
+      left.addEventListener('mouseout', onLeftStop)
+      left.addEventListener('touchend', onLeftStop)
 
-      rightButton.addEventListener('mouseover', onRightStart)
-      rightButton.addEventListener('touchstart', onRightStart)
-      rightButton.addEventListener('mouseout', onRightStop)
-      rightButton.addEventListener('touchend', onRightStop)
+      right.addEventListener('mouseover', onRightStart)
+      right.addEventListener('touchstart', onRightStart)
+      right.addEventListener('mouseout', onRightStop)
+      right.addEventListener('touchend', onRightStop)
 
       window.addEventListener('keydown', (e) => {
         switch (e.which) {
