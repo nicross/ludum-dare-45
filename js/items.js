@@ -24,6 +24,7 @@ const itemBase = {
     normal /= Math.PI
     normal *= 2
     normal -= 1
+    normal *= -1
 
     return normal
   },
