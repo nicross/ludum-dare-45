@@ -35,10 +35,10 @@ function inventItem(id, definition) {
   }, itemBase)
 }
 
-function solveAngle(x1, y1, x2, y2, x3, y3) {
-  const a = distance(x2, y2, x3, y3),
-    b = distance(x1, y1, x3, y3),
-    c = distance(x1, y1, x2, y2)
+function solveAngle(ax, ay, bx, by, cx, cy) {
+  const a = distance(bx, by, cx, cy),
+    b = distance(ax, ay, cx, cy),
+    c = distance(ax, ay, bx, by)
 
   let A = (b ** 2 + c ** 2 - a ** 2) / (2 * b * c)
   A = Math.max(-1, Math.min(A, 1))
