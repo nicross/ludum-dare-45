@@ -90,16 +90,3 @@ const items = [
   // TODO: Snare - Every other footstep
   // TODO: Non-collectible ambient sounds
 ]
-
-function inventItem(id, definition) {
-  return Object.setPrototypeOf({
-    ...definition,
-    id,
-  }, itemBase)
-}
-
-function spawnItem({index, ...options}) {
-  index = index || Math.floor(Math.random() * items.length)
-  const type = items[index]
-  return Object.create(type).spawn(options)
-}
