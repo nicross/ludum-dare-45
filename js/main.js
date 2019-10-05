@@ -16,7 +16,7 @@ function main() {
   )
 
   const {angle, x, y} = position.get(),
-    pickupDistance = 1
+    pickupDistance = 2
 
   pickups.filter((item) => {
     return item.collectible && distance(x, y, item.x, item.y) <= pickupDistance
