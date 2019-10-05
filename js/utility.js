@@ -1,3 +1,7 @@
+function angleToPan(radians) {
+  return (2 * radians / Math.PI) - 1
+}
+
 function createNoiseMachine() {
   const context = audio.context(),
     source = context.createBufferSource()

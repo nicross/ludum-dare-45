@@ -11,15 +11,9 @@ const itemBase = {
       return 0
     }
 
-    const A = solveAngle(x, y, this.x, this.y, x + Math.sin(angle), y + Math.cos(angle))
-
-    let normal = A
-    normal /= Math.PI
-    normal *= 2
-    normal -= 1
-    normal *= -1
-
-    return normal
+    return -angleToPan(
+      solveAngle(x, y, this.x, this.y, x + Math.sin(angle), y + Math.cos(angle))
+    )
   },
   destroy: function () {
     this.masterPan.disconnect(context.destination)
