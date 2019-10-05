@@ -83,7 +83,7 @@ const position = (function IIFE() {
         vector.rotation = 0
       }
 
-      position.angle = (position.angle + vector.rotation) % tau
+      position.angle = Math.abs((position.angle + vector.rotation) % tau)
       position.x += vector.velocity * Math.cos(position.angle)
       position.y += vector.velocity * Math.sin(position.angle)
 
