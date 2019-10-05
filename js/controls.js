@@ -71,13 +71,13 @@ const controls = (function IIFE() {
             return onForwardStart()
           case 39:
           case 68:
-            return onLeftStart()
+            return onRightStart()
           case 40:
           case 83:
             return onBackwardStart()
           case 37:
           case 65:
-            return onRightStart()
+            return onLeftStart()
         }
       })
 
@@ -88,13 +88,13 @@ const controls = (function IIFE() {
             return onForwardStop()
           case 39:
           case 68:
-            return onLeftStop()
+            return onRightStop()
           case 40:
           case 83:
             return onBackwardStop()
           case 37:
           case 65:
-            return onRightStop()
+            return onLeftStop()
         }
       })
 
