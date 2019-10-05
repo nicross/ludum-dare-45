@@ -14,11 +14,31 @@
   top: 0;
   transform: translateX(-50%);
   width: 1px;
+  z-index: 2;
 }
+  .o-app--activate {
+    align-items: center;
+    background-image: radial-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.75));
+    color: #FFFFFF;
+    display: flex;
+    font-family: monospace;
+    font-size: 2em;
+    height: 100%;
+    left: 0;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    transition: opacity 0.5s ease;
+    width: 100%;
+    z-index: 3;
+  }
   .o-app--control {
     opacity: 0;
     position: absolute;
     transition: opacity 0.5s ease;
+    z-index: 1;
   }
   .o-app--control:hover {
     opacity: 1;
@@ -55,3 +75,7 @@
     top: 0;
     width: 33.33%;
   }
+
+.o-app-inactive .o-app--activate {
+  opacity: 1;
+}

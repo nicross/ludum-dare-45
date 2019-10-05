@@ -1,3 +1,10 @@
+function activate() {
+  audio.activate()
+  controls.activate()
+
+  window.requestAnimationFrame(main)
+}
+
 function main() {
   position.update(
     controls.get()
@@ -7,5 +14,10 @@ function main() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  window.requestAnimationFrame(main)
+  document.querySelector('.o-app').addEventListener('click', function onClick() {
+    activate()
+
+    this.classList.remove('o-app-inactive')
+    this.removeEventListener('click', onClick)
+  })
 })
