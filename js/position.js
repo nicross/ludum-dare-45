@@ -15,13 +15,13 @@ const position = (function IIFE() {
   }
 
   const maxVector = {
-    rotation: ifps * (tau / 4),
+    rotation: ifps * (tau / 8),
     velocity: ifps * 2,
   }
 
   const acceleration = {
-    rotation: ifps * maxVector.rotation / 2,
-    velocity: ifps * maxVector.velocity / 2,
+    rotation: ifps * maxVector.rotation,
+    velocity: ifps * maxVector.velocity / 4,
   }
 
   return {
@@ -46,7 +46,7 @@ const position = (function IIFE() {
         if (vector.velocity > 0) {
           vector.velocity = 0
         }
-        if (vector.velocity < maxVector.velocity) {
+        if (vector.velocity > -maxVector.velocity) {
           vector.velocity -= acceleration.velocity
         }
       } else if (vector.velocity >= acceleration.velocity) {
@@ -70,7 +70,7 @@ const position = (function IIFE() {
         if (vector.rotation > 0) {
           vector.rotation = 0
         }
-        if (vector.rotation < maxVector.rotation) {
+        if (vector.rotation > -maxVector.rotation) {
           vector.rotation -= acceleration.rotation
         }
       } else if (vector.rotation >= acceleration.rotation) {
@@ -83,7 +83,12 @@ const position = (function IIFE() {
         vector.rotation = 0
       }
 
-      position.angle = Math.abs((position.angle + vector.rotation) % tau)
+      position.angle = (position.angle + vector.rotation) % tau
+
+      if (position.angle < 0) {
+        position.angle += tau
+      }
+
       position.x += vector.velocity * Math.cos(position.angle)
       position.y += vector.velocity * Math.sin(position.angle)
 
