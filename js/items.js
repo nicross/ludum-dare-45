@@ -12,7 +12,7 @@ const itemBase = {
     }
 
     return angleToPan(
-      solveAngle(x, y, this.x, this.y, x + Math.cos(angle), y + Math.sin(angle))
+      solveAngle(x, y, this.x, this.y, x + Math.sin(angle), y + Math.cos(angle))
     )
   },
   destroy: function () {
