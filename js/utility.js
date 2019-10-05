@@ -35,6 +35,18 @@ function inventItem(id, definition) {
   }, itemBase)
 }
 
+function solveAngle(x1, y1, x2, y2, x3, y3) {
+  const a = distance(x2, y2, x3, y3),
+    b = distance(x1, y1, x3, y3),
+    c = distance(x1, y1, x2, y2)
+
+  let A = (b ** 2 + c ** 2 - a ** 2) / (2 * b * c)
+  A = Math.max(-1, Math.min(A, 1))
+  A = Math.acos(A)
+
+  return A
+}
+
 function spawnItem({index, ...options}) {
   index = index || Math.floor(Math.random() * items.length)
   const type = items[index]

@@ -11,14 +11,7 @@ const itemBase = {
       return 0
     }
 
-    const cx = x + Math.sin(angle),
-      cy = y + Math.cos(angle)
-
-    const a = this.getDistance(cx, cy),
-      b = distance(x, y, cx, cy),
-      c = this.getDistance(x, y)
-
-    const A = Math.acos(Math.max(-1, Math.min((b ** 2 + c ** 2 - a ** 2) / (2 * b * c), 1)))
+    const A = solveAngle(x, y, this.x, this.y, x + Math.sin(angle), y + Math.cos(angle))
 
     let normal = A
     normal /= Math.PI
