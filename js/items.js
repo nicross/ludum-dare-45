@@ -42,14 +42,12 @@ const itemBase = {
     this.onPickup()
     return this
   },
-  spawn: function ({x, y}) {
+  spawn: function (options) {
     const context = audio.context()
 
-    this.inventory = false
-    this.x = x
-    this.y = y
+    Object.entries(options).forEach(([key, value]) => this[key] = value)
 
-    this.masterGain = new GainNode(context)
+    this.masterGain = context.createGain()
     this.masterPan = context.createStereoPanner()
 
     this.masterGain.connect(this.masterPan)
