@@ -97,7 +97,7 @@ const controls = (function IIFE() {
   }
 
   return {
-    getState: () => ({
+    get: () => ({
       movingBackward,
       movingForward,
       turningLeft,

@@ -25,7 +25,7 @@ const position = (function IIFE() {
   }
 
   function step() {
-    state = controls.getState()
+    state = controls.get()
 
     if (state.movingForward) {
       if (vector.velocity < 0) {
