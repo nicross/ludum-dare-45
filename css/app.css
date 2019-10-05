@@ -19,6 +19,7 @@
 }
   .o-app--activate {
     align-items: center;
+    background-color: transparent;
     background-image: radial-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.75));
     color: #FFFFFF;
     display: flex;
