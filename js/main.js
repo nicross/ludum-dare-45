@@ -10,14 +10,16 @@ function main() {
     controls.get()
   )
 
-  const {x, y} = position.get(),
+  const {angle, x, y} = position.get(),
     pickupDistance = 1
 
-  pickups.filter((pickup) => {
-    return distance(x, y, pickup.x, pickup.y) <= pickupDistance
-  }).forEach((pickup) => {
-    pickup.inventory = true
+  pickups.filter((item) => {
+    return item.collectible && distance(x, y, item.x, item.y) <= pickupDistance
+  }).forEach((item) => {
+    item.pickup()
   })
+
+  pickups.forEach((pickup) => pickup.update({angle, x, y}))
 
   window.requestAnimationFrame(main)
 }
