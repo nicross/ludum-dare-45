@@ -1,4 +1,8 @@
 const position = (function IIFE() {
+  const fps = 60,
+    ifps = 1 / fps,
+    tau = 2 * Math.PI
+
   const position = {
     angle: 0,
     x: 0,
@@ -10,14 +14,14 @@ const position = (function IIFE() {
     velocity: 0,
   }
 
-  const acceleration = {
-    rotation: (1 / 60) * (2 * Math.PI) / 12,
-    velocity: 1 / 100,
+  const maxVector = {
+    rotation: ifps * (tau / 4),
+    velocity: ifps * 2,
   }
 
-  const maxVector = {
-    rotation: (2 * Math.PI) / 12,
-    velocity: 1,
+  const acceleration = {
+    rotation: ifps * maxVector.rotation / 2,
+    velocity: ifps * maxVector.velocity / 2,
   }
 
   function step() {
