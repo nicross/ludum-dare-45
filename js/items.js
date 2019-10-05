@@ -11,8 +11,8 @@ const itemBase = {
       return 0
     }
 
-    return -angleToPan(
-      solveAngle(x, y, this.x, this.y, x + Math.sin(angle), y + Math.cos(angle))
+    return angleToPan(
+      solveAngle(x, y, this.x, this.y, x + Math.cos(angle), y + Math.sin(angle))
     )
   },
   destroy: function () {
@@ -69,9 +69,37 @@ const items = [
       this.oscillator.start()
     },
   }),
+  inventItem('Compass', {
+    collectible: true,
+    onPickup: function () {
+
+    },
+    onSpawn: function () {
+      this.noise = createNoiseMachine()
+      this.noise.output.connect(this.masterGain)
+    },
+    onUpdate: function ({angle, x, y}) {
+      if (this.inventory) {
+        const north = Math.PI / 2,
+          tau = Math.PI * 2
+
+        let frequency = audio.context().sampleRate / 2
+        frequency *= Math.abs((angle - north) % tau)
+        frequency /= tau
+
+        let gain = 1 / (frequency + 1)
+        gain **= 2
+        gain *= 0.25
+        gain += 0.25
+
+        this.noise.filter.frequency.value = frequency
+        this.noise.output.gain.value = gain
+      }
+    },
+  }),
   // TODO: Compass - White noise with filter that's brightest when facing north
   // TODO: Kick - Footstep sounds, increases power via inventory size?
-  // TODO: 1+3+5 - Subtle notes that change chords based on x/y position
+  // TODO: 1+3+5 - Subtle notes that change chords based on x/y position, (a randomly generated, infinitely expanding map, of 3 voices per cell--each of the 3 items has a slightly different timbre and glide speed between notes)
   // TODO: Seashell - You can hear the ocean
   // TODO: Snare - Every other footstep
   // TODO: Non-collectible ambient sounds
