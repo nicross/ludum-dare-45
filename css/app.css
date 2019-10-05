@@ -1,46 +1,57 @@
 .o-app {
-  background-color: #000000;
+  background-color: #FF1C69;
+  background-image: conic-gradient(#FF1C69, #FF4B69);
   height: 100%;
   position: relative;
   width: 100%;
 }
+.o-app::before {
+  background-color: #FFDC69;
+  content: '';
+  height: 50%;
+  left: 50%;
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  width: 1px;
+}
   .o-app--control {
-    background-color: transparent;
+    opacity: 0;
     position: absolute;
-    transition: background-color 0.5s ease;
+    transition: opacity 0.5s ease;
   }
-  .o-app--control:focus {
-    background-color: rgba(255, 255, 255, 0.25);
-  }
-  .o-app--control:active,
   .o-app--control:hover {
-    background-color: #FFFFFF;
+    opacity: 1;
   }
   .o-app--backward {
+    background-image: linear-gradient(180deg, rgba(255, 220, 105, 0) 0%, rgba(255, 220, 105, 0.66) 100%);
     bottom: 0;
-    clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%);
-    height: 25%;
+    clip-path: polygon(33.33% 0%, 66.66% 0%, 100% 100%, 0% 100%);
+    height: 33.33%;
     left: 0;
     width: 100%;
   }
   .o-app--forward {
-    clip-path: polygon(0% 0%, 100% 0%, 75% 100%, 25% 100%);
-    height: 25%;
+    background-image: linear-gradient(0deg, rgba(255, 220, 105, 0) 0%, rgba(255, 220, 105, 0.66) 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 66.66% 100%, 33.33% 100%);
+    height: 33.33%;
     left: 0;
     top: 0;
     width: 100%;
   }
   .o-app--left {
-    clip-path: polygon(0% 0%, 100% 25%, 100% 75%, 0% 100%);
+    background-image: linear-gradient(270deg, rgba(255, 220, 105, 0) 0%, rgba(255, 220, 105, 0.66) 100%);
+    clip-path: polygon(0% 0%, 100% 33.33%, 100% 66.66%, 0% 100%);
     height: 100%;
     left: 0;
     top: 0;
-    width: 25%;
+    width: 33.33%;
   }
   .o-app--right {
-    clip-path: polygon(0% 25%, 100% 0%, 100% 100%, 0% 75%);
+    background-image: linear-gradient(90deg, rgba(255, 220, 105, 0) 0%, rgba(255, 220, 105, 0.66) 100%);
+    clip-path: polygon(0% 33.33%, 100% 0%, 100% 100%, 0% 66.66%);
     height: 100%;
     right: 0;
     top: 0;
-    width: 25%;
+    width: 33.33%;
   }
