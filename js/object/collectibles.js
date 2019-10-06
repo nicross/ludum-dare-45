@@ -108,7 +108,4 @@ const collectibles = shuffle([
       }
     },
   }),
-  // TODO: Kick - Footstep sounds, increases power via inventory size?
-  // TODO: Seashell - You can hear the ocean
-  // TODO: Snare - Every other footstep
 ])
