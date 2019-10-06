@@ -16,5 +16,6 @@ const audio = (function IIFE() {
     },
     context: () => context,
     noiseBuffer: () => noiseBuffer,
+    time: (delta = 0) => context.currentTime + delta,
   }
 })()

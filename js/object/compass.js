@@ -2,11 +2,11 @@ const compass = inventObject({
   collectible: true,
   id: 'Compass',
   onPickup: function () {
-    this.masterGain.gain.linearRampToValueAtTime(0.125, time(1))
-    this.masterPan.pan.linearRampToValueAtTime(0, time(1))
+    this.masterGain.gain.linearRampToValueAtTime(0.125, audio.time(1))
+    this.masterPan.pan.linearRampToValueAtTime(0, audio.time(1))
 
     this.isRampingNoiseGain = true
-    this.noise.output.gain.linearRampToValueAtTime(0.125, time(1))
+    this.noise.output.gain.linearRampToValueAtTime(0.125, audio.time(1))
     setTimeout(() => this.isRampingNoiseGain = false, 1000)
   },
   onSpawn: function () {

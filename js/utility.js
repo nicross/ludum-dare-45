@@ -138,7 +138,3 @@ function spawn(prototype, options) {
 function spawnFrom(prototypes, options) {
   return spawn(randomValue(prototypes), options)
 }
-
-function time(delta = 0) {
-  return audio.context().currentTime + delta
-}
