@@ -8,18 +8,37 @@ const objectBase = {
   },
   onPickup: function () {},
   onSpawn: function () {},
-  onUpdate: function ({angle, x, y}) {},
+  onUpdate: function () {},
   pickup: function () {
     this.inventory = true
-    this.masterGain.gain.value = 1
+    this.rampMasterGain(1, audio.time(0.5))
     this.masterPan.pan.value = 0
 
-    this.onPickup()
+    this.onPickup.apply(this, arguments)
+
+    return this
+  },
+  rampMasterGain: function (value, duration) {
+    this.isRampingMasterGain = true
+    this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, audio.time())
+    this.masterGain.gain.exponentialRampToValueAtTime(value, audio.time(duration))
+
+    setTimeout(() => this.isRampingMasterGain = false, duration * 1000)
+
+    return this
+  },
+  rampMasterPan: function (value, duration) {
+    this.isRampingMasterPan = true
+    this.masterPan.pan.setValueAtTime(this.masterPan.pan.value, audio.time())
+    this.masterPan.pan.exponentialRampToValueAtTime(value, audio.time(duration))
+
+    setTimeout(() => this.isRampingMasterPan = false, duration * 1000)
 
     return this
   },
   spawn: function (options) {
-    const context = audio.context()
+    const context = audio.context(),
+      {x, y} = position.get()
 
     Object.entries(options).forEach(([key, value]) => this[key] = value)
 
@@ -29,21 +48,27 @@ const objectBase = {
     this.masterGain.connect(this.masterPan)
     this.masterPan.connect(context.destination)
 
+    this.masterGain.gain.value = 1 / 10 ** 10
+    this.rampMasterGain(1 / (this.getDistance(x, y) ** 2), 1)
+
     this.onSpawn()
 
     return this
   },
-  update: function ({angle, x, y}) {
+  update: function ({x, y}) {
     const context = audio.context()
 
     if (!this.inventory) {
-      this.masterGain.gain.value = 1 / (this.getDistance(x, y) ** 2)
+      if (!this.isRampingMasterGain) {
+        this.masterGain.gain.value = 1 / (this.getDistance(x, y) ** 2)
+      }
+
       this.masterPan.pan.value = angleToPan(
         -position.angleTowardPoint(this.x, this.y)
       )
     }
 
-    this.onUpdate({angle, x, y})
+    this.onUpdate.apply(this, arguments)
 
     return this
   },
