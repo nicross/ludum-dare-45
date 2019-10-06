@@ -39,6 +39,10 @@ function inventItem(id, definition) {
   }, itemBase)
 }
 
+function midiToFrequency(note) {
+  return 440 * Math.pow(2, (note - 69) / 12)
+}
+
 function solveAngle(ax, ay, bx, by, cx, cy) {
   const a = distance(bx, by, cx, cy),
     b = distance(ax, ay, cx, cy),
