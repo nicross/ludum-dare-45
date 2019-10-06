@@ -17,8 +17,8 @@ const compass = inventObject({
       frequency *= strength ** 2
       frequency /= 8
 
-      let gain = (1 - strength) ** 2
-      gain = 0.125 + (gain * 0.5)
+      let gain = (1 - strength) ** 4
+      gain = 0.0125 + (gain * 0.25)
 
       this.noise.filter.frequency.value = frequency
       this.noise.output.gain.value = gain
