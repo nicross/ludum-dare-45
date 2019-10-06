@@ -7,7 +7,7 @@ const pickups = (function IIFE() {
 
   return {
     activate: () => {
-      collectibles.unshift(compass)
+      collectibles.unshift(footsteps, compass)
     },
     update: ({d, x, y}) => {
       objects.filter((object) => {
