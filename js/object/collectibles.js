@@ -9,7 +9,7 @@ const collectibles = shuffle([
     onSpawn: function () {
       const context = audio.context()
 
-      this.note = chord.getChord(this.x, this.y)[0]
+      this.note = chord.getNote(0)
 
       this.gain = context.createGain({gain: 1})
       this.gain.connect(this.masterGain)
@@ -20,14 +20,12 @@ const collectibles = shuffle([
       this.oscillator.start()
     },
     onUpdate: function () {
-      if (this.inventory) {
-        const note = chord.getNote(0)
+      const note = chord.getNote(0)
 
-        if (this.note != note) {
-          this.oscillator.frequency.setValueAtTime(midiToFrequency(this.note), audio.time())
-          this.oscillator.frequency.exponentialRampToValueAtTime(midiToFrequency(note), audio.time(1))
-          this.note = note
-        }
+      if (this.note != note) {
+        this.oscillator.frequency.setValueAtTime(midiToFrequency(this.note), audio.time())
+        this.oscillator.frequency.exponentialRampToValueAtTime(midiToFrequency(note), audio.time(1))
+        this.note = note
       }
     },
   }),
@@ -43,7 +41,7 @@ const collectibles = shuffle([
     onSpawn: function () {
       const context = audio.context()
 
-      this.note = chord.getChord(this.x, this.y)[1]
+      this.note = chord.getNote(1)
 
       this.gain = context.createGain({gain: 1})
       this.gain.connect(this.masterGain)
@@ -55,17 +53,17 @@ const collectibles = shuffle([
     },
     onUpdate: function () {
       if (this.inventory) {
-        const note = chord.getNote(1)
-
-        if (this.note != note) {
-          this.oscillator.frequency.setValueAtTime(midiToFrequency(this.note), audio.time())
-          this.oscillator.frequency.exponentialRampToValueAtTime(midiToFrequency(note), audio.time(1))
-          this.note = note
-        }
-
         if (!this.isRampingMasterPan) {
           this.masterPan.pan.value = angleToPan(position.angleTowardDirection(0))
         }
+      }
+
+      const note = chord.getNote(1)
+
+      if (this.note != note) {
+        this.oscillator.frequency.setValueAtTime(midiToFrequency(this.note), audio.time())
+        this.oscillator.frequency.exponentialRampToValueAtTime(midiToFrequency(note), audio.time(1))
+        this.note = note
       }
     },
   }),
@@ -81,7 +79,7 @@ const collectibles = shuffle([
     onSpawn: function () {
       const context = audio.context()
 
-      this.note = chord.getChord(this.x, this.y)[2]
+      this.note = chord.getNote(2)
 
       this.gain = context.createGain({gain: 1})
       this.gain.connect(this.masterGain)
@@ -93,17 +91,17 @@ const collectibles = shuffle([
     },
     onUpdate: function () {
       if (this.inventory) {
-        const note = chord.getNote(2)
-
-        if (this.note != note) {
-          this.oscillator.frequency.setValueAtTime(midiToFrequency(this.note), audio.time())
-          this.oscillator.frequency.exponentialRampToValueAtTime(midiToFrequency(note), audio.time(1))
-          this.note = note
-        }
-
         if (!this.isRampingMasterPan) {
           this.masterPan.pan.value = angleToPan(position.angleTowardDirection(Math.PI))
         }
+      }
+
+      const note = chord.getNote(2)
+
+      if (this.note != note) {
+        this.oscillator.frequency.setValueAtTime(midiToFrequency(this.note), audio.time())
+        this.oscillator.frequency.exponentialRampToValueAtTime(midiToFrequency(note), audio.time(1))
+        this.note = note
       }
     },
   }),
