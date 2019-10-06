@@ -79,10 +79,7 @@ const chord = (function IIFE() {
     getChord: (x, y) => getChord(normalize(x), normalize(y)),
     getNote: (index) => currentChord[index % currentChord.length],
     update: function ({x, y}) {
-      currentChord = getChord(
-        normalize(x),
-        normalize(y)
-      )
+      currentChord = getChord(x, y)
       return this
     },
   }

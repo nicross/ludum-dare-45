@@ -18,7 +18,7 @@ function main() {
   )
 
   chord.update(
-    position.get()
+    position.grid()
   )
 
   const {angle, x, y} = position.get(),

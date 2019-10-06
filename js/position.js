@@ -41,6 +41,14 @@ const position = (function IIFE() {
       rotation: vector.rotation,
       velocity: vector.velocity,
     }),
+    grid: () => ({
+      x: Math.round(position.x / 50),
+      y: Math.round(position.y / 50),
+    }),
+    step: () => ({
+      x: Math.floor(position.x),
+      y: Math.floor(position.y),
+    }),
     update: (state) => {
       if (state.movingForward) {
         if (vector.velocity < 0) {
