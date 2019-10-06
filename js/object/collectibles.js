@@ -17,9 +17,9 @@ const collectibles = shuffle([
     collectible: true,
     id: 'Root',
     onSpawn: function () {
-      this.oscillator = audio.context.createOscillator()
+      this.oscillator = audio.context().createOscillator()
       this.oscillator.connect(this.masterGain)
-      this.oscillator.frequency.value = chord.getChord(x, y)[0]
+      this.oscillator.frequency.value = chord.getChord(this.x, this.y)[0]
     },
     onUpdate: function () {
       if (this.inventory) {
@@ -32,9 +32,9 @@ const collectibles = shuffle([
     collectible: true,
     id: 'Third',
     onSpawn: function () {
-      this.oscillator = audio.context.createOscillator()
+      this.oscillator = audio.context().createOscillator()
       this.oscillator.connect(this.masterGain)
-      this.oscillator.frequency.value = chord.getChord(x, y)[1]
+      this.oscillator.frequency.value = chord.getChord(this.x, this.y)[1]
     },
     onUpdate: function () {
       if (this.inventory) {
@@ -48,9 +48,9 @@ const collectibles = shuffle([
     collectible: true,
     id: 'Fifth',
     onSpawn: function () {
-      this.oscillator = audio.context.createOscillator()
+      this.oscillator = audio.context().createOscillator()
       this.oscillator.connect(this.masterGain)
-      this.oscillator.frequency.value = chord.getChord(x, y)[2]
+      this.oscillator.frequency.value = chord.getChord(this.x, this.y)[2]
     },
     onUpdate: function () {
       if (this.inventory) {
