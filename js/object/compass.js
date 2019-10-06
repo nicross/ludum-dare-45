@@ -2,8 +2,8 @@ const compass = inventObject({
   collectible: true,
   id: 'Compass',
   onPickup: function () {
-    this.masterGain.gain.linearRampToValueAtTime(0.125, audio.time(1))
-    this.masterPan.pan.linearRampToValueAtTime(0, audio.time(1))
+    this.rampMasterGain(0.125, 1)
+    this.rampMasterPan(0, 1)
 
     this.noise.filter.Q.value = 4
     this.noise.filter.type = 'bandpass'
