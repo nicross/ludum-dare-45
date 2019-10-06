@@ -2,7 +2,7 @@ const chord = (function IIFE() {
   const grid = {}
 
   // TODO: Inversions and melodies
-  const chords = [
+  const chords = shuffle([
     // Cm
     [
       [60,],
@@ -27,9 +27,9 @@ const chord = (function IIFE() {
       [62,],
       [65,],
     ],
-  ].map(
+  ]).map(
     chord => chord.map(
-      notes => notes.map(midiToFrequency)
+      notes => shuffle(notes.map(midiToFrequency))
     )
   )
 
