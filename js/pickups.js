@@ -2,7 +2,7 @@ const pickups = (function IIFE() {
   const pickupRadius = 2,
     pickupRelocate = 50
 
-  let nextPickup = 12.5,
+  let nextPickup = 1,
     pickupSpawned = false
 
   return {

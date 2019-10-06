@@ -106,7 +106,7 @@ function nextSpawnLocation(baseDistance, theta, offset) {
     : (Math.random() * theta) + offset
 
   const angle = a + randomAngle,
-    distance = (baseDistance * 0.5) + (Math.random() * baseDistance * 0.5)
+    distance = (baseDistance * 0.75) + (Math.random() * baseDistance * 0.25)
 
   return {
     x: x + (Math.cos(angle) * distance),
