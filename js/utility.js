@@ -46,6 +46,18 @@ function midiToFrequency(note) {
   return 440 * Math.pow(2, (note - 69) / 12)
 }
 
+function nextSpawnLocation(baseDistance) {
+  const {x, y} = position.get()
+
+  const angle = (Math.random() * Math.PI) - (Math.PI / 2),
+    distance = (baseDistance * 0.5) + (Math.random() * baseDistance)
+
+  return {
+    x: x + (Math.cos(angle) * distance),
+    y: y + (Math.sin(angle) * distance),
+  }
+}
+
 function randomValue(array) {
   return array[
     Math.floor(Math.random() * array.length)

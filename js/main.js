@@ -27,7 +27,10 @@ function main() {
     return !object.inventory && object.collectible && distance(x, y, object.x, object.y) <= pickupDistance
   }).forEach((object) => {
     object.pickup()
-    // TODO: Spawn another
+
+    if (collectibles.length) {
+      spawn(collectibles.pop(), nextSpawnLocation(20))
+    }
   })
 
   objects.forEach((object) => object.update({angle, x, y}))
