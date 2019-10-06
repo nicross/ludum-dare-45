@@ -2,14 +2,11 @@ const pickups = (function IIFE() {
   const pickupRadius = 2
 
   let hasPickup,
-    nextPickup = 0
+    nextPickup = 12.5
 
   return {
     activate: () => {
-      hasPickup = true
-      objects.push(
-        spawn(compass, {x: 0, y: 20}),
-      )
+      collectibles.unshift(compass)
     },
     update: ({a, d, x, y}) => {
       objects.filter((object) => {
@@ -23,7 +20,7 @@ const pickups = (function IIFE() {
       if (!hasPickup && d >= nextPickup && collectibles.length) {
         hasPickup = true
         objects.push(
-          spawn(collectibles.shift(), nextSpawnLocation(20, Math.PI / 2, -Math.PI / 4))
+          spawn(collectibles.shift(), nextSpawnLocation(25, Math.PI / 2, -Math.PI / 4))
         )
       }
 
