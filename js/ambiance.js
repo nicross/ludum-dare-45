@@ -1,5 +1,5 @@
 const ambiance = (function IIFE() {
-  const maxSpawns = 10
+  const maxSpawns = 12
   const spawned = {}
 
   function hasSpawned(x, y) {

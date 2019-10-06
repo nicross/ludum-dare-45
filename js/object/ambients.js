@@ -55,6 +55,48 @@ const ambients = [
     },
   }),
   inventObject({
+    id: 'Chirper',
+    onSpawn: function () {
+      const context = audio.context()
+
+      const gain = context.createGain()
+      gain.connect(this.masterGain)
+
+      const oscillator = context.createOscillator()
+      oscillator.frequency.value = midiToFrequency(chord.getRandomNote(this.x, this.y)) * 3
+      oscillator.type = 'triangle'
+      oscillator.connect(gain)
+      oscillator.start()
+
+      const size = 0.125 + (Math.random() * 0.5)
+
+      function chirp() {
+        const times = Math.floor(Math.random() * 6)
+        let duration = 0
+
+        gain.gain.setValueAtTime(0.00001, audio.time())
+
+        for (let i = 0; i <= times; i++) {
+          const detune = (Math.random() > 0.5 ? 1 : -1) * Math.random() * 33.333,
+            start = 0.125 + (Math.random() * 0.125),
+            stop = 0.25 + (Math.random() * 0.5)
+
+          oscillator.detune.setValueAtTime(detune, audio.time(duration + start))
+          gain.gain.exponentialRampToValueAtTime(size * Math.random(), audio.time(duration + start))
+          gain.gain.exponentialRampToValueAtTime(0.00001, audio.time(duration + start + stop))
+
+          duration += start + stop
+        }
+
+        duration += Math.random() * 8
+        setTimeout(chirp, duration * 1000)
+      }
+
+      chirp()
+    },
+    onUpdate: function () {},
+  }),
+  inventObject({
     id: 'Creature',
     onSpawn: function () {
       const context = audio.context()
