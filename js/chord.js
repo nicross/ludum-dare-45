@@ -46,7 +46,7 @@ const chord = (function IIFE() {
   let currentChord
 
   function generateChord(x, y) {
-    index = (x + y) % chords.length
+    let index = (x + y) % chords.length
 
     // XXX: Should never happen?
     if (!chords[index]) {
@@ -70,6 +70,14 @@ const chord = (function IIFE() {
     return grid[x][y]
   }
 
+  function getRandomNote(x, y) {
+    let index = Math.abs(Math.round(x + y)) % chords.length
+
+    return randomValue(
+      randomValue(chords[index])
+    )
+  }
+
   function normalize(v) {
     return Math.floor(v / 50)
   }
@@ -78,6 +86,7 @@ const chord = (function IIFE() {
     get: () => currentChord,
     getChord: (x, y) => getChord(normalize(x), normalize(y)),
     getNote: (index) => currentChord[index % currentChord.length],
+    getRandomNote: (x, y) => getRandomNote(x, y),
     update: function ({x, y}) {
       currentChord = getChord(x, y)
       return this
