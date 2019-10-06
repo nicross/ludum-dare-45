@@ -48,6 +48,11 @@ const chord = (function IIFE() {
   function generateChord(x, y) {
     index = (x + y) % chords.length
 
+    // XXX: Should never happen?
+    if (!chords[index]) {
+      index = 0
+    }
+
     return chords[index].map(
       notes => randomValue(notes)
     ).sort()
@@ -66,7 +71,7 @@ const chord = (function IIFE() {
   }
 
   function normalize(v) {
-    return Math.round(v / 50)
+    return Math.floor(v / 50)
   }
 
   return {

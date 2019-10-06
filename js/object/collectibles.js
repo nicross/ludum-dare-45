@@ -4,7 +4,7 @@ const collectibles = shuffle([
     id: 'Root',
     onPickup: function () {
       this.gain.gain.setValueAtTime(1, audio.time())
-      this.gain.gain.exponentialRampToValueAtTime(0.125, audio.time(1))
+      this.gain.gain.exponentialRampToValueAtTime(0.03125, audio.time(1))
     },
     onSpawn: function () {
       const context = audio.context()
@@ -34,7 +34,7 @@ const collectibles = shuffle([
     id: 'Third',
     onPickup: function () {
       this.gain.gain.setValueAtTime(1, audio.time(0))
-      this.gain.gain.exponentialRampToValueAtTime(0.125, audio.time(1))
+      this.gain.gain.exponentialRampToValueAtTime(0.03125, audio.time(1))
 
       this.rampMasterPan(angleToPan(position.angleTowardDirection(0)), 1)
     },
@@ -72,7 +72,7 @@ const collectibles = shuffle([
     id: 'Fifth',
     onPickup: function () {
       this.gain.gain.setValueAtTime(1, audio.time())
-      this.gain.gain.exponentialRampToValueAtTime(0.125, audio.time(1))
+      this.gain.gain.exponentialRampToValueAtTime(0.03125, audio.time(1))
 
       this.rampMasterPan(angleToPan(position.angleTowardDirection(Math.PI)), 1)
     },
