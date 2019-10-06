@@ -2,7 +2,7 @@ const chord = (function IIFE() {
   const grid = {}
   const transpose = Math.floor(Math.random() * 24) - 12
 
-  // TODO: Inversions and melodies
+  // TODO: Odd notes
   const chords = shuffle([
     // Cm
     [
@@ -31,8 +31,16 @@ const chord = (function IIFE() {
   ]).map(
     chord => chord.map(
       notes => shuffle(
-        notes.map(
-          note => midiToFrequency(note + transpose)
+        notes.reduce(
+          (notes, note) => {
+            for (let i = -1; i <= 1; i++) {
+              notes.push(
+                midiToFrequency((note + (i * 12)) + transpose)
+              )
+            }
+            return notes
+          },
+          []
         )
       )
     )
@@ -42,8 +50,11 @@ const chord = (function IIFE() {
 
   function generateChord(x, y) {
     index = (x + y) % chords.length
-    return chords[index].map(
-      notes => randomValue(notes)
+    
+    return shuffle(
+      chords[index].map(
+        notes => randomValue(notes)
+      )
     )
   }
 
