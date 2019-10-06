@@ -20,6 +20,7 @@ const collectibles = shuffle([
       this.oscillator = audio.context().createOscillator()
       this.oscillator.connect(this.masterGain)
       this.oscillator.frequency.value = chord.getChord(this.x, this.y)[0]
+      this.oscillator.start()
     },
     onUpdate: function () {
       if (this.inventory) {
@@ -35,6 +36,7 @@ const collectibles = shuffle([
       this.oscillator = audio.context().createOscillator()
       this.oscillator.connect(this.masterGain)
       this.oscillator.frequency.value = chord.getChord(this.x, this.y)[1]
+      this.oscillator.start()
     },
     onUpdate: function () {
       if (this.inventory) {
@@ -51,6 +53,7 @@ const collectibles = shuffle([
       this.oscillator = audio.context().createOscillator()
       this.oscillator.connect(this.masterGain)
       this.oscillator.frequency.value = chord.getChord(this.x, this.y)[2]
+      this.oscillator.start()
     },
     onUpdate: function () {
       if (this.inventory) {
