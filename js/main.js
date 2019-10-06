@@ -5,8 +5,7 @@ function activate() {
   controls.activate()
 
   objects.push(
-    // Compass
-    spawn(items[1], {x: 0, y: 20}),
+    spawn(compass, {x: 0, y: 20}),
   )
 
   window.requestAnimationFrame(main)
