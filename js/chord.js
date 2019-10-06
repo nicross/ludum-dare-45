@@ -32,7 +32,7 @@ const chord = (function IIFE() {
       notes => shuffle(
         notes.reduce(
           (notes, note) => {
-            for (let i = -1; i <= 1; i++) {
+            for (let i = -2; i <= 0; i++) {
               notes.push(note + (i * 12) + transpose)
             }
             return notes
