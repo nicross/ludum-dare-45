@@ -14,11 +14,11 @@ function createDinger() {
   osc.start()
 
   function ding() {
-    gain.gain.setValueAtTime(gain.gain.minValue, audio.time())
-    gain.gain.exponentialRampToValueAtTime(0.0625, audio.time(0.125))
-    gain.gain.exponentialRampToValueAtTime(gain.gain.minValue, audio.time(0.75))
-    gain.gain.exponentialRampToValueAtTime(0.0625, audio.time(1))
-    gain.gain.exponentialRampToValueAtTime(gain.gain.minValue, audio.time(1.75))
+    gain.gain.setValueAtTime(0.00001, audio.time())
+    gain.gain.exponentialRampToValueAtTime(0.625, audio.time(0.125))
+    gain.gain.exponentialRampToValueAtTime(0.00001, audio.time(0.75))
+    gain.gain.exponentialRampToValueAtTime(0.625, audio.time(1))
+    gain.gain.exponentialRampToValueAtTime(0.00001, audio.time(1.75))
     dingTimeout = setTimeout(ding, 3000)
   }
   ding()

@@ -2,27 +2,22 @@ const footsteps = inventObject({
   collectible: true,
   id: 'Footsteps',
   onPickup: function () {
-    this.gain.gain.setValueAtTime(1, audio.time(0))
-    this.gain.gain.exponentialRampToValueAtTime(0.0625, audio.time(0.0625))
-    this.noise.filter.frequency.exponentialRampToValueAtTime(20, audio.time(0.0625))
-
-    /*
-    this.dinger.destroy()
-    delete this.dinger
-    */
-  },
-  onSpawn: function () {
     this.gain = audio.context().createGain()
     this.gain.connect(this.masterGain)
 
     this.noise = createNoiseMachine()
     this.noise.output.connect(this.gain)
 
-    // BUG: Dinger dangerously loud, disabled
-    /*
+    this.gain.gain.setValueAtTime(1, audio.time(0))
+    this.gain.gain.exponentialRampToValueAtTime(0.0625, audio.time(0.0625))
+    this.noise.filter.frequency.exponentialRampToValueAtTime(20, audio.time(0.0625))
+
+    this.dinger.destroy()
+    delete this.dinger
+  },
+  onSpawn: function () {
     this.dinger = createDinger()
     this.dinger.output.connect(this.masterGain)
-    */
   },
   onStep: function () {
     if (!this.inventory || this.isStepping) {

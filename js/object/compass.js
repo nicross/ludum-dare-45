@@ -2,6 +2,9 @@ const compass = inventObject({
   collectible: true,
   id: 'Compass',
   onPickup: function () {
+    this.noise = createNoiseMachine()
+    this.noise.output.connect(this.masterGain)
+
     this.rampMasterGain(0.125, 1)
     this.rampMasterPan(0, 1)
 
@@ -12,20 +15,12 @@ const compass = inventObject({
     this.noise.output.gain.linearRampToValueAtTime(0.0625, audio.time(1))
     setTimeout(() => this.isRampingNoiseGain = false, 1000)
 
-    /*
     this.dinger.destroy()
     delete this.dinger
-    */
   },
   onSpawn: function () {
-    this.noise = createNoiseMachine()
-    this.noise.output.connect(this.masterGain)
-
-    // BUG: Dinger dangerously loud, disabled
-    /*
     this.dinger = createDinger()
     this.dinger.output.connect(this.masterGain)
-    */
   },
   onUpdate: function () {
     if (this.inventory) {
