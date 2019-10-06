@@ -1,6 +1,7 @@
 const items = [
-  inventObject('Foobar', {
+  inventObject({
     collectible: true,
+    id: 'Foobar',
     onPickup: function () {
       this.oscillator.type = 'triangle'
     },
@@ -10,8 +11,9 @@ const items = [
       this.oscillator.start()
     },
   }),
-  inventObject('Compass', {
+  inventObject({
     collectible: true,
+    id: 'Compass',
     onPickup: function () {
 
     },
@@ -36,8 +38,9 @@ const items = [
       }
     },
   }),
-  inventObject('Root', {
+  inventObject({
     collectible: true,
+    id: 'Root',
     onSpawn: function () {
       this.oscillator = audio.context.createOscillator()
       this.oscillator.connect(this.masterGain)
@@ -50,8 +53,9 @@ const items = [
       }
     },
   }),
-  inventObject('Third', {
+  inventObject({
     collectible: true,
+    id: 'Third',
     onSpawn: function () {
       this.oscillator = audio.context.createOscillator()
       this.oscillator.connect(this.masterGain)
@@ -65,8 +69,9 @@ const items = [
       }
     },
   }),
-  inventObject('Fifth', {
+  inventObject({
     collectible: true,
+    id: 'Fifth',
     onSpawn: function () {
       this.oscillator = audio.context.createOscillator()
       this.oscillator.connect(this.masterGain)
