@@ -57,6 +57,7 @@ const chord = (function IIFE() {
 
   return {
     get: () => chord,
+    getChord: (x, y) => getChord(x, y),
     getNote: (index) => current[index % current.length],
     update: function ({x, y}) {
       x = Math.round(x / 100)
