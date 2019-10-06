@@ -61,13 +61,10 @@ function solveAngle(ax, ay, bx, by, cx, cy) {
   return A
 }
 
-function spawnItem(index, options) {
-  const type = items[index]
-  return Object.create(type).spawn(options)
+function spawn(prototype, options) {
+  return Object.create(prototype).spawn(options)
 }
 
-function spawnRandomItem(options) {
-  const index = Math.floor(Math.random() * items.length)
-  // TODO: Constraints
-  return spawnItem(index, options)
+function spawnFrom(prototypes, options) {
+  return spawn(randomValue(prototypes), options)
 }

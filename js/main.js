@@ -4,7 +4,7 @@ function activate() {
 
   pickups.push(
     // Compass
-    spawnItem(1, {x: 0, y: 20}),
+    spawn(items[1], {x: 0, y: 20}),
   )
 
   window.requestAnimationFrame(main)
