@@ -38,7 +38,7 @@ const chord = (function IIFE() {
   function generateChord(x, y) {
     index = (x + y) % chords.length
     chord = chords[index].map(
-      notes => notes[Math.floor(Math.random() * notes.length)]
+      notes => randomValue(notes)
     )
     return chord
   }

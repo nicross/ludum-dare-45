@@ -43,6 +43,12 @@ function midiToFrequency(note) {
   return 440 * Math.pow(2, (note - 69) / 12)
 }
 
+function randomValue(array) {
+  return array[
+    Math.floor(Math.random() * array.length)
+  ]
+}
+
 function solveAngle(ax, ay, bx, by, cx, cy) {
   const a = distance(bx, by, cx, cy),
     b = distance(ax, ay, cx, cy),
