@@ -37,10 +37,9 @@ const chord = (function IIFE() {
 
   function generateChord(x, y) {
     index = (x + y) % chords.length
-    chord = chords[index].map(
+    return chords[index].map(
       notes => randomValue(notes)
     )
-    return chord
   }
 
   function getChord(x, y) {
@@ -55,14 +54,19 @@ const chord = (function IIFE() {
     return grid[x][y]
   }
 
+  function normalize(v) {
+    return Math.round(v / 100)
+  }
+
   return {
     get: () => chord,
-    getChord: (x, y) => getChord(x, y),
+    getChord: (x, y) => getChord(normalize(x), normalize(y)),
     getNote: (index) => current[index % current.length],
     update: function ({x, y}) {
-      x = Math.round(x / 100)
-      y = Math.round(y / 100)
-      chord = getChord(x, y)
+      chord = getChord(
+        normalize(x),
+        normalize(y)
+      )
       return this
     },
   }
