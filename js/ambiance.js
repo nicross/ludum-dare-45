@@ -17,6 +17,13 @@ const ambiance = (function IIFE() {
   return {
     activate: function () {
       spawned[0] = {0: true}
+
+      const count = Math.ceil(Math.random() * maxSpawns / 4)
+
+      for (let i = 0; i < count; i++) {
+        spawnFrom(ambients, nextSpawnLocation(12.5, 2 * Math.PI, 0))
+      }
+
       return this
     },
     update: ({x, y}) => {
