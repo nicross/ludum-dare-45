@@ -25,6 +25,12 @@ const position = (function IIFE() {
   }
 
   return {
+    angleTowardDirection: (radians) => {
+      return radians - position.angle
+    },
+    angleTowardPoint: (x, y) => {
+      return Math.atan(y / x) - position.angle
+    },
     get: () => ({
       angle: position.angle,
       x: position.x,
