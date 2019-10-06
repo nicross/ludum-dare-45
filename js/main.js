@@ -1,8 +1,10 @@
+const objects = []
+
 function activate() {
   audio.activate()
   controls.activate()
 
-  pickups.push(
+  objects.push(
     // Compass
     spawn(items[1], {x: 0, y: 20}),
   )
@@ -22,13 +24,14 @@ function main() {
   const {angle, x, y} = position.get(),
     pickupDistance = 2
 
-  pickups.filter((item) => {
-    return !item.inventory && item.collectible && distance(x, y, item.x, item.y) <= pickupDistance
-  }).forEach((item) => {
-    item.pickup()
+  objects.filter((object) => {
+    return !object.inventory && object.collectible && distance(x, y, object.x, object.y) <= pickupDistance
+  }).forEach((object) => {
+    object.pickup()
+    // TODO: Spawn another
   })
 
-  pickups.forEach((pickup) => pickup.update({angle, x, y}))
+  objects.forEach((object) => object.update({angle, x, y}))
 
   window.requestAnimationFrame(main)
 }
