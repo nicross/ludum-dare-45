@@ -5,6 +5,11 @@ const footsteps = inventObject({
     this.gain.gain.setValueAtTime(1, audio.time(0))
     this.gain.gain.exponentialRampToValueAtTime(0.0625, audio.time(0.0625))
     this.noise.filter.frequency.exponentialRampToValueAtTime(20, audio.time(0.0625))
+
+    /*
+    this.dinger.destroy()
+    delete this.dinger
+    */
   },
   onSpawn: function () {
     this.gain = audio.context().createGain()
@@ -12,6 +17,12 @@ const footsteps = inventObject({
 
     this.noise = createNoiseMachine()
     this.noise.output.connect(this.gain)
+
+    // BUG: Dinger dangerously loud, disabled
+    /*
+    this.dinger = createDinger()
+    this.dinger.output.connect(this.masterGain)
+    */
   },
   onStep: function () {
     if (!this.inventory || this.isStepping) {

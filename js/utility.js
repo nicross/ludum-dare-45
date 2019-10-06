@@ -2,6 +2,39 @@ function angleToPan(radians) {
   return scale(flattenAngle(radians), -Math.PI / 2, Math.PI / 2, -1, 1)
 }
 
+function createDinger() {
+  const context = audio.context()
+
+  const gain = context.createGain()
+  gain.gain.value = 0
+
+  const osc = context.createOscillator()
+  osc.type = 'square'
+  osc.frequency.value = 220
+  osc.start()
+
+  function ding() {
+    gain.gain.setValueAtTime(gain.gain.minValue, audio.time())
+    gain.gain.exponentialRampToValueAtTime(0.0625, audio.time(0.125))
+    gain.gain.exponentialRampToValueAtTime(gain.gain.minValue, audio.time(0.75))
+    gain.gain.exponentialRampToValueAtTime(0.0625, audio.time(1))
+    gain.gain.exponentialRampToValueAtTime(gain.gain.minValue, audio.time(1.75))
+    dingTimeout = setTimeout(ding, 3000)
+  }
+  ding()
+
+  osc.connect(gain)
+
+  return {
+    destroy: function () {
+      osc.stop()
+      clearTimeout(dingTimeout)
+      gain.disconnect()
+    },
+    output: gain,
+  }
+}
+
 function createNoiseMachine() {
   const context = audio.context(),
     source = context.createBufferSource()
