@@ -15,6 +15,10 @@ function main() {
     controls.get()
   )
 
+  chord.update(
+    position.get()
+  )
+
   const {angle, x, y} = position.get(),
     pickupDistance = 2
 
