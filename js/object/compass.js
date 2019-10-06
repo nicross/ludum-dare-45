@@ -21,7 +21,7 @@ const compass = inventObject({
       const north = position.angleTowardDirection(Math.PI / 2),
         strength = 1 - (Math.abs(north) / Math.PI)
 
-      let frequency = audio.context().sampleRate / 2
+      let frequency = audio.sampleRate() / 2
       frequency *= strength ** 2
       frequency /= 8
 
