@@ -49,7 +49,7 @@ const objectBase = {
     this.masterPan.connect(context.destination)
 
     this.masterGain.gain.value = 1 / 10 ** 10
-    this.rampMasterGain(1 / (this.getDistance(x, y) ** 2), 2)
+    this.rampMasterGain(distanceToGain(this.getDistance(x, y)), 2)
 
     this.onSpawn()
 
@@ -60,7 +60,7 @@ const objectBase = {
 
     if (!this.inventory) {
       if (!this.isRampingMasterGain) {
-        this.masterGain.gain.value = 1 / (this.getDistance(x, y) ** 2)
+        this.masterGain.gain.value = distanceToGain(this.getDistance(x, y))
       }
 
       this.masterPan.pan.value = angleToPan(

@@ -40,6 +40,11 @@ function distance(x1, y1, x2, y2) {
   return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
 }
 
+function distanceToGain(d) {
+  const gain = 1 / (1 + d ** 2)
+  return Math.min(1, gain)
+}
+
 function flattenAngle(angle) {
   const wrap = Math.PI / 2
 
