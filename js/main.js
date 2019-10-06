@@ -1,3 +1,4 @@
+const debug = true
 const objects = []
 
 function activate() {

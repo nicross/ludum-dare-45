@@ -49,7 +49,11 @@ function midiToFrequency(note) {
 function nextSpawnLocation(baseDistance) {
   const {angle: currentAngle, x, y} = position.get()
 
-  const angle = currentAngle + (Math.random() * Math.PI / 2) - (Math.PI / 4),
+  const randomAngle = debug
+    ? 0
+    : (Math.random() * Math.PI / 2) - (Math.PI / 4)
+
+  const angle = currentAngle + randomAngle,
     distance = (baseDistance * 0.5) + (Math.random() * baseDistance * 0.5)
 
   return {
@@ -65,6 +69,10 @@ function randomValue(array) {
 }
 
 function shuffle(array) {
+  if (debug) {
+    return array.slice()
+  }
+
   array = array.slice()
 
   for (let i = array.length - 1; i > 0; i--) {
