@@ -11,6 +11,7 @@ const objectBase = {
   onUpdate: function ({angle, x, y}) {},
   pickup: function () {
     this.inventory = true
+    this.onPickup()
     return this
   },
   spawn: function (options) {
