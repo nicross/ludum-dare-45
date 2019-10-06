@@ -1,5 +1,5 @@
 # Soundsearcher
-An auditory exploration game created for [Ludum Dare 45](https://ldjam.com/events/ludum-dare/45).
+A minimalist auditory exploration game created for [Ludum Dare 45](https://ldjam.com/events/ludum-dare/45).
 
 ## Getting started
 Open [the index file](https://nicross.github.io/ludum-dare-45/) in your favorite evergreen browser.
