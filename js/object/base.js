@@ -8,6 +8,7 @@ const objectBase = {
   },
   onPickup: function () {},
   onSpawn: function () {},
+  onStep: function () {},
   onUpdate: function () {},
   pickup: function () {
     this.inventory = true

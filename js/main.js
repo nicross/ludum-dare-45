@@ -1,6 +1,9 @@
 const debug = false
 const objects = []
 
+let stepX = 0,
+  stepY = 0
+
 function activate() {
   audio.activate()
   controls.activate()
@@ -24,7 +27,19 @@ function main() {
   chord.update(grid)
   pickups.update(pos)
 
-  objects.forEach((object) => object.update(pos))
+  const stepped = step.x != stepX || step.y != stepY
+  if (stepped) {
+    stepX = step.x
+    stepY = step.y
+  }
+
+  objects.forEach((object) => {
+    object.update(pos)
+
+    if (stepped) {
+      object.onStep()
+    }
+  })
 
   window.requestAnimationFrame(main)
 }
