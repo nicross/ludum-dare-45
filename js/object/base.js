@@ -30,7 +30,7 @@ const objectBase = {
   rampMasterPan: function (value, duration) {
     this.isRampingMasterPan = true
     this.masterPan.pan.setValueAtTime(this.masterPan.pan.value, audio.time())
-    this.masterPan.pan.exponentialRampToValueAtTime(value, audio.time(duration))
+    this.masterPan.pan.linearRampToValueAtTime(value, audio.time(duration))
 
     setTimeout(() => this.isRampingMasterPan = false, duration * 1000)
 
