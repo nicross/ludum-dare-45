@@ -1,4 +1,5 @@
-const items = [
+const collectibles = shuffle([
+  /*
   inventObject({
     collectible: true,
     id: 'Foobar',
@@ -11,33 +12,7 @@ const items = [
       this.oscillator.start()
     },
   }),
-  inventObject({
-    collectible: true,
-    id: 'Compass',
-    onPickup: function () {
-
-    },
-    onSpawn: function () {
-      this.noise = createNoiseMachine()
-      this.noise.output.connect(this.masterGain)
-    },
-    onUpdate: function ({angle, x, y}) {
-      if (this.inventory) {
-        const north = 4 * solveAngle(x, y + 1, x, y, x + Math.cos(angle), y + Math.sin(angle)),
-          strength = north / (2 * Math.PI)
-
-        let frequency = audio.context().sampleRate / 2
-        frequency *= strength ** 2
-        frequency /= 8
-
-        let gain = (1 - strength) ** 2
-        gain = 0.125 + (gain * 0.5)
-
-        this.noise.filter.frequency.value = frequency
-        this.noise.output.gain.value = gain
-      }
-    },
-  }),
+  */
   inventObject({
     collectible: true,
     id: 'Root',
@@ -88,5 +63,4 @@ const items = [
   // TODO: Kick - Footstep sounds, increases power via inventory size?
   // TODO: Seashell - You can hear the ocean
   // TODO: Snare - Every other footstep
-  // TODO: Non-collectible ambient sounds
-]
+])
