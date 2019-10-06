@@ -1,5 +1,6 @@
 const chord = (function IIFE() {
   const grid = {}
+  const transpose = Math.floor(Math.random() * 24) - 12
 
   // TODO: Inversions and melodies
   const chords = shuffle([
@@ -29,7 +30,11 @@ const chord = (function IIFE() {
     ],
   ]).map(
     chord => chord.map(
-      notes => shuffle(notes.map(midiToFrequency))
+      notes => shuffle(
+        notes.map(
+          note => midiToFrequency(note + transpose)
+        )
+      )
     )
   )
 
