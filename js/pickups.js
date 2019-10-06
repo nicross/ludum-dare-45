@@ -1,24 +1,33 @@
 const pickups = (function IIFE() {
-  const pickupRadius = 2
+  const pickupRadius = 2,
+    pickupRelocate = 100
 
-  let hasPickup,
-    nextPickup = 12.5
+  let nextPickup = 12.5,
+    pickupSpawned = false
 
   return {
     activate: () => {
       collectibles.unshift(compass)
     },
-    update: ({a, d, x, y}) => {
+    update: ({d, x, y}) => {
       objects.filter((object) => {
-        return !object.inventory && object.collectible && distance(x, y, object.x, object.y) <= pickupRadius
+        return !object.inventory && object.collectible
       }).forEach((object) => {
-        object.pickup()
-        hasPickup = false
-        nextPickup += Math.min(d, 100)
+        const dTo = distance(x, y, object.x, object.y)
+
+        if (dTo <= pickupRadius) {
+          object.pickup()
+          pickupSpawned = false
+          nextPickup += Math.min(d, 100)
+        } else if (dTo >= pickupRelocate) {
+          const moveTo = nextSpawnLocation(25, Math.PI / 2, -Math.PI / 4)
+          object.x = moveTo.x
+          object.y = moveTo.y
+        }
       })
 
-      if (!hasPickup && d >= nextPickup && collectibles.length) {
-        hasPickup = true
+      if (!pickupSpawned && d >= nextPickup && collectibles.length) {
+        pickupSpawned = true
         spawn(collectibles.shift(), nextSpawnLocation(25, Math.PI / 2, -Math.PI / 4))
       }
 
