@@ -95,9 +95,51 @@ const items = [
       }
     },
   }),
-  // TODO: Compass - White noise with filter that's brightest when facing north
+  inventItem('Root', {
+    collectible: true,
+    onSpawn: function () {
+      this.oscillator = audio.context.createOscillator()
+      this.oscillator.connect(this.masterGain)
+      this.oscillator.frequency.value = chord.getChord(x, y)[0]
+    },
+    onUpdate: function () {
+      if (this.inventory) {
+        // TODO: Glide frequency if it differs
+        this.oscillator.frequency.value = chord.getNote(0)
+      }
+    },
+  }),
+  inventItem('Third', {
+    collectible: true,
+    onSpawn: function () {
+      this.oscillator = audio.context.createOscillator()
+      this.oscillator.connect(this.masterGain)
+      this.oscillator.frequency.value = chord.getChord(x, y)[1]
+    },
+    onUpdate: function () {
+      if (this.inventory) {
+        this.oscillator.frequency.value = chord.getNote(1)
+        // TODO: Glide frequency if it differs
+        // TODO: Pan due east
+      }
+    },
+  }),
+  inventItem('Fifth', {
+    collectible: true,
+    onSpawn: function () {
+      this.oscillator = audio.context.createOscillator()
+      this.oscillator.connect(this.masterGain)
+      this.oscillator.frequency.value = chord.getChord(x, y)[2]
+    },
+    onUpdate: function () {
+      if (this.inventory) {
+        this.oscillator.frequency.value = chord.getNote(2)
+        // TODO: Glide frequency if it differs
+        // TODO: Pan due west
+      }
+    },
+  }),
   // TODO: Kick - Footstep sounds, increases power via inventory size?
-  // TODO: 1+3+5 - Subtle notes that change chords based on x/y position, (a randomly generated, infinitely expanding map, of 3 voices per cell--each of the 3 items has a slightly different timbre and glide speed between notes)
   // TODO: Seashell - You can hear the ocean
   // TODO: Snare - Every other footstep
   // TODO: Non-collectible ambient sounds
