@@ -50,7 +50,7 @@ const objectBase = {
     this.masterPan.connect(context.destination)
 
     this.masterGain.gain.value = 1 / 10 ** 10
-    this.rampMasterGain(distanceToGain(this.getDistance(x, y)), 2)
+    this.rampMasterGain(distanceToGain(this.getDistance(x, y)), 1)
 
     this.onSpawn()
 

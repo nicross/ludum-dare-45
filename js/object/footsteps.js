@@ -9,7 +9,7 @@ const footsteps = inventObject({
     this.noise.output.connect(this.gain)
 
     this.gain.gain.setValueAtTime(1, audio.time(0))
-    this.gain.gain.exponentialRampToValueAtTime(0.0625, audio.time(0.0625))
+    this.gain.gain.exponentialRampToValueAtTime(0.075, audio.time(0.0625))
     this.noise.filter.frequency.exponentialRampToValueAtTime(20, audio.time(0.0625))
 
     this.dinger.destroy()

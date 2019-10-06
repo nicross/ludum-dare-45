@@ -70,7 +70,7 @@ function distance(x1, y1, x2, y2) {
 }
 
 function distanceToGain(d) {
-  const gain = 1 / (1 + d ** 2)
+  const gain = 1 / (d ** 2)
   return Math.min(1, gain)
 }
 
