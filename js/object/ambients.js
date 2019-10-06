@@ -5,8 +5,53 @@ const ambients = [
       this.noise = createNoiseMachine()
       this.noise.output.connect(this.masterGain)
 
-      this.noise.filter.frequency.value = Math.random() * audio.sampleRate() / 8
+      this.noise.filter.frequency.value = Math.random() * audio.sampleRate() / 12
       this.noise.output.gain.value = 0.25 + (Math.random() * 0.75)
+    },
+  }),
+  inventObject({
+    id: 'Wind',
+    onSpawn: function () {
+      this.noise = createNoiseMachine()
+      this.noise.filter.frequency.value = Math.random() * audio.sampleRate() / 8
+      this.noise.output.gain.value = 0.125
+      this.noise.output.connect(this.masterGain)
+    },
+    onUpdate: function () {
+      if (!this.isRampingNoiseFilterFrequency) {
+        this.rampNoiseFilterFrequency(Math.random() * audio.sampleRate() / 8, Math.random() * 8)
+      }
+      if (!this.isRampingNoiseOutputGain) {
+        this.rampNoiseOutputGain(0.125 + (Math.random() * 0.25), 4 + (Math.random() * 8))
+      }
+    },
+    rampNoiseFilterFrequency: function (value, duration) {
+      this.isRampingNoiseFilterFrequency = true
+
+      const original = this.noise.filter.frequency.value,
+        strength = duration * (0.25 + (Math.random() * 0.75))
+
+      this.noise.filter.frequency.setValueAtTime(original, audio.time())
+      this.noise.filter.frequency.exponentialRampToValueAtTime(value, audio.time(duration))
+      this.noise.filter.frequency.exponentialRampToValueAtTime(original, audio.time(duration + strength))
+
+      setTimeout(() => this.isRampingNoiseFilterFrequency = false, (duration + strength) * 1000)
+
+      return this
+    },
+    rampNoiseOutputGain: function (value, duration) {
+      this.isRampingNoiseOutputGain = true
+
+      const original = this.noise.output.gain.value,
+        strength = duration * (0.25 + (Math.random() * 0.75))
+
+      this.noise.output.gain.setValueAtTime(original, audio.time())
+      this.noise.output.gain.exponentialRampToValueAtTime(value, audio.time(duration))
+      this.noise.output.gain.exponentialRampToValueAtTime(original, audio.time(duration + strength))
+
+      setTimeout(() => this.isRampingNoiseOutputGain = false, (duration + strength) * 1000)
+
+      return this
     },
   }),
   inventObject({
