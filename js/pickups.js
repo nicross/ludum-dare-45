@@ -19,9 +19,7 @@ const pickups = (function IIFE() {
 
       if (!hasPickup && d >= nextPickup && collectibles.length) {
         hasPickup = true
-        objects.push(
-          spawn(collectibles.shift(), nextSpawnLocation(25, Math.PI / 2, -Math.PI / 4))
-        )
+        spawn(collectibles.shift(), nextSpawnLocation(25, Math.PI / 2, -Math.PI / 4))
       }
 
       return this

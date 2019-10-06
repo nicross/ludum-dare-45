@@ -132,7 +132,9 @@ function solveAngle(ax, ay, bx, by, cx, cy) {
 }
 
 function spawn(prototype, options) {
-  return Object.create(prototype).spawn(options)
+  const instance = Object.create(prototype).spawn(options)
+  objects.push(instance)
+  return instance
 }
 
 function spawnFrom(prototypes, options) {
