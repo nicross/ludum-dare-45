@@ -1,65 +1,93 @@
 const collectibles = shuffle([
-  /*
-  inventObject({
-    collectible: true,
-    id: 'Foobar',
-    onPickup: function () {
-      this.oscillator.type = 'triangle'
-    },
-    onSpawn: function () {
-      this.oscillator = new OscillatorNode(audio.context())
-      this.oscillator.connect(this.masterGain)
-      this.oscillator.start()
-    },
-  }),
-  */
   inventObject({
     collectible: true,
     id: 'Root',
+    onPickup: function () {
+      this.gain.gain.linearRampToValueAtTime(0.125, time(1))
+    },
     onSpawn: function () {
-      this.oscillator = audio.context().createOscillator()
-      this.oscillator.connect(this.masterGain)
+      const context = audio.context()
+
+      this.gain = context.createGain({gain: 1})
+      this.gain.connect(this.masterGain)
+
+      this.oscillator = context.createOscillator()
+      this.oscillator.connect(this.gain)
       this.oscillator.frequency.value = chord.getChord(this.x, this.y)[0]
       this.oscillator.start()
     },
     onUpdate: function () {
       if (this.inventory) {
-        // TODO: Glide frequency if it differs
-        this.oscillator.frequency.value = chord.getNote(0)
+        const frequency = chord.getNote(0)
+        if (this.oscillator.frequency.value != frequency) {
+          this.oscillator.frequency.linearRampToValueAtTime(frequency, time(1))
+        }
       }
     },
   }),
   inventObject({
     collectible: true,
     id: 'Third',
+    onPickup: function () {
+      this.gain.gain.linearRampToValueAtTime(0.125, time(1))
+
+      this.isRampingMasterPan = true
+      this.masterPan.pan.linearRampToValueAtTime(angleToPan(position.angleTowardDirection(0)), time(1))
+      setTimeout(() => this.isRampingMasterPan = false, 1000)
+    },
     onSpawn: function () {
-      this.oscillator = audio.context().createOscillator()
-      this.oscillator.connect(this.masterGain)
+      const context = audio.context()
+
+      this.gain = context.createGain({gain: 1})
+      this.gain.connect(this.masterGain)
+
+      this.oscillator = context.createOscillator()
+      this.oscillator.connect(this.gain)
       this.oscillator.frequency.value = chord.getChord(this.x, this.y)[1]
       this.oscillator.start()
     },
     onUpdate: function () {
       if (this.inventory) {
-        this.oscillator.frequency.value = chord.getNote(1)
-        // TODO: Glide frequency if it differs
-        // TODO: Pan due east
+        const frequency = chord.getNote(1)
+        if (this.oscillator.frequency.value != frequency) {
+          this.oscillator.frequency.linearRampToValueAtTime(frequency, time(2))
+        }
+        if (!this.isRampingMasterPan) {
+          this.masterPan.pan.value = angleToPan(position.angleTowardDirection(0))
+        }
       }
     },
   }),
   inventObject({
     collectible: true,
     id: 'Fifth',
+    onPickup: function () {
+      this.gain.gain.linearRampToValueAtTime(0.125, time(1))
+
+      this.isRampingMasterPan = true
+      this.masterPan.pan.linearRampToValueAtTime(angleToPan(position.angleTowardDirection(Math.PI)), time(1))
+      setTimeout(() => this.isRampingMasterPan = false, 1000)
+    },
     onSpawn: function () {
-      this.oscillator = audio.context().createOscillator()
-      this.oscillator.connect(this.masterGain)
+      const context = audio.context()
+
+      this.gain = context.createGain({gain: 1})
+      this.gain.connect(this.masterGain)
+
+      this.oscillator = context.createOscillator()
+      this.oscillator.connect(this.gain)
       this.oscillator.frequency.value = chord.getChord(this.x, this.y)[2]
       this.oscillator.start()
     },
     onUpdate: function () {
       if (this.inventory) {
-        this.oscillator.frequency.value = chord.getNote(2)
-        // TODO: Glide frequency if it differs
-        // TODO: Pan due west
+        const frequency = chord.getNote(2)
+        if (this.oscillator.frequency.value != frequency) {
+          this.oscillator.frequency.linearRampToValueAtTime(frequency, time(3))
+        }
+        if (!this.isRampingMasterPan) {
+          this.masterPan.pan.value = angleToPan(position.angleTowardDirection(Math.PI))
+        }
       }
     },
   }),
