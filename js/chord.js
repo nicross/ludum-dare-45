@@ -33,7 +33,7 @@ const chord = (function IIFE() {
     )
   )
 
-  let chord
+  let currentChord
 
   function generateChord(x, y) {
     index = (x + y) % chords.length
@@ -59,11 +59,11 @@ const chord = (function IIFE() {
   }
 
   return {
-    get: () => chord,
+    get: () => currentChord,
     getChord: (x, y) => getChord(normalize(x), normalize(y)),
-    getNote: (index) => current[index % current.length],
+    getNote: (index) => currentChord[index % currentChord.length],
     update: function ({x, y}) {
-      chord = getChord(
+      currentChord = getChord(
         normalize(x),
         normalize(y)
       )
