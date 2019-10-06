@@ -2,7 +2,12 @@ const compass = inventObject({
   collectible: true,
   id: 'Compass',
   onPickup: function () {
+    this.masterGain.gain.linearRampToValueAtTime(0.125, time(1))
+    this.masterPan.pan.linearRampToValueAtTime(0, time(1))
 
+    this.isRampingNoiseGain = true
+    this.noise.output.gain.linearRampToValueAtTime(0.125, time(1))
+    setTimeout(() => this.isRampingNoiseGain = false, 1000)
   },
   onSpawn: function () {
     this.noise = createNoiseMachine()
@@ -17,11 +22,13 @@ const compass = inventObject({
       frequency *= strength ** 2
       frequency /= 8
 
-      let gain = (1 - strength) ** 4
-      gain = 0.0125 + (gain * 0.25)
-
       this.noise.filter.frequency.value = frequency
-      this.noise.output.gain.value = gain
+
+      if (!this.isRampingNoiseGain) {
+        let gain = (1 - strength) ** 4
+        gain = 0.125 + (gain * 0.25)
+        this.noise.output.gain.value = gain
+      }
     }
   },
 })
