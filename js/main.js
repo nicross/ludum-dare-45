@@ -4,8 +4,9 @@ const objects = []
 function activate() {
   audio.activate()
   controls.activate()
+  ambiance.activate()
   pickups.activate()
-  
+
   window.requestAnimationFrame(main)
 }
 
@@ -14,10 +15,13 @@ function main() {
     controls.get()
   )
 
-  const pos = position.get(),
+  const grid = position.grid()
+    pos = position.get(),
+    step = position.step(),
     {a, d, x, y} = pos
 
-  chord.update(position.grid())
+  ambiance.update(grid)
+  chord.update(grid)
   pickups.update(pos)
 
   objects.forEach((object) => object.update(pos))
