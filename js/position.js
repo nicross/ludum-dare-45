@@ -26,10 +26,10 @@ const position = (function IIFE() {
 
   return {
     angleTowardDirection: (radians) => {
-      return radians - position.angle
+      return normalizeAngle(radians - position.angle)
     },
     angleTowardPoint: (x, y) => {
-      return Math.atan(y / x) - position.angle
+      return normalizeAngle(Math.atan2(y - position.y, x - position.x) - position.angle)
     },
     get: () => ({
       angle: position.angle,

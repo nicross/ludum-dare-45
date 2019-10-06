@@ -13,7 +13,7 @@ const objectBase = {
     this.inventory = true
     this.masterGain.gain.value = 1
     this.masterPan.pan.value = 0
-    
+
     this.onPickup()
 
     return this
@@ -39,7 +39,7 @@ const objectBase = {
     if (!this.inventory) {
       this.masterGain.gain.value = 1 / (this.getDistance(x, y) ** 2)
       this.masterPan.pan.value = angleToPan(
-        solveAngle(x, y, this.x, this.y, x + Math.sin(angle), y + Math.cos(angle))
+        -position.angleTowardPoint(this.x, this.y)
       )
     }
 

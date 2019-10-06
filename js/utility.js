@@ -1,16 +1,5 @@
-function angleToDirection(radians) {
-  const {angle: heading, x: ax, y: ay} = position.get()
-
-  const bx = ax + Math.cos(radians),
-    by = ay + Math.sin(radians),
-    cx = ax + Math.cos(heading),
-    cy = ay + Math.sin(heading)
-
-  return 4 * solveAngle(ax, ay, bx, by, cx, cy)
-}
-
 function angleToPan(radians) {
-  return (2 * radians / Math.PI) - 1
+  return scale(flattenAngle(radians), -Math.PI / 2, Math.PI / 2, -1, 1)
 }
 
 function createCollectibleSound() {
@@ -43,8 +32,26 @@ function createNoiseMachine() {
   }
 }
 
+function degreesToRadians(degrees) {
+  return degrees * Math.PI / 180
+}
+
 function distance(x1, y1, x2, y2) {
   return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+}
+
+function flattenAngle(angle) {
+  const wrap = Math.PI / 2
+
+  if (angle > wrap) {
+    angle = wrap - (angle - wrap)
+  }
+
+  if (angle < -wrap) {
+    angle = (-angle - wrap) - wrap
+  }
+
+  return angle
 }
 
 function inventObject(definition, prototype) {
@@ -73,10 +80,28 @@ function nextSpawnLocation(baseDistance) {
   }
 }
 
+function normalizeAngle(angle) {
+  angle %= 2 * Math.PI
+
+  if (angle > Math.PI) {
+    angle -= 2 * Math.PI
+  }
+
+  if (angle < -Math.PI) {
+    angle += 2 * Math.PI
+  }
+
+  return angle
+}
+
 function randomValue(array) {
   return array[
     Math.floor(Math.random() * array.length)
   ]
+}
+
+function scale(value, min, max, a, b) {
+  return ((b - a) * (value - min) / (max - min)) + a
 }
 
 function shuffle(array) {

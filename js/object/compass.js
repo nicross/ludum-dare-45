@@ -13,10 +13,10 @@ const compass = inventObject({
     this.noise = createNoiseMachine()
     this.noise.output.connect(this.masterGain)
   },
-  onUpdate: function ({angle, x, y}) {
+  onUpdate: function () {
     if (this.inventory) {
-      const north = angleToDirection(Math.PI / 2),
-        strength = north / (2 * Math.PI)
+      const north = position.angleTowardDirection(Math.PI / 2),
+        strength = 1 - (Math.abs(north) / Math.PI)
 
       let frequency = audio.context().sampleRate / 2
       frequency *= strength ** 2
