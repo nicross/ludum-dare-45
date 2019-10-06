@@ -47,9 +47,9 @@ function midiToFrequency(note) {
 }
 
 function nextSpawnLocation(baseDistance) {
-  const {x, y} = position.get()
+  const {angle: currentAngle, x, y} = position.get()
 
-  const angle = (Math.random() * Math.PI) - (Math.PI / 2),
+  const angle = currentAngle + (Math.random() * Math.PI / 2) - (Math.PI / 4),
     distance = (baseDistance * 0.5) + (Math.random() * baseDistance * 0.5)
 
   return {
