@@ -2,10 +2,6 @@ function angleToPan(radians) {
   return scale(flattenAngle(radians), -Math.PI / 2, Math.PI / 2, -1, 1)
 }
 
-function createCollectibleSound() {
-  const context = audio.context()
-}
-
 function createNoiseMachine() {
   const context = audio.context(),
     source = context.createBufferSource()
