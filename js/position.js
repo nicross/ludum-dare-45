@@ -31,6 +31,7 @@ const position = (function IIFE() {
     angleTowardPoint: (x, y) => {
       return normalizeAngle(Math.atan2(y - position.y, x - position.x) - position.angle)
     },
+    distance: () => distance(0, 0, position.x, position.y),
     get: () => ({
       angle: position.angle,
       x: position.x,
