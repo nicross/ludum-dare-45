@@ -50,7 +50,7 @@ function nextSpawnLocation(baseDistance) {
   const {x, y} = position.get()
 
   const angle = (Math.random() * Math.PI) - (Math.PI / 2),
-    distance = (baseDistance * 0.5) + (Math.random() * baseDistance)
+    distance = (baseDistance * 0.5) + (Math.random() * baseDistance * 0.5)
 
   return {
     x: x + (Math.cos(angle) * distance),

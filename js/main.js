@@ -29,7 +29,9 @@ function main() {
     object.pickup()
 
     if (collectibles.length) {
-      spawn(collectibles.pop(), nextSpawnLocation(20))
+      objects.push(
+        spawn(collectibles.pop(), nextSpawnLocation(20))
+      )
     }
   })
 
