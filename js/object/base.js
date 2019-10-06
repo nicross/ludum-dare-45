@@ -1,20 +1,4 @@
 const objectBase = {
-  calculateGain: function ({x, y}) {
-    if (this.inventory) {
-      return 1
-    }
-
-    return 1 / this.getDistance(x, y) ** 2
-  },
-  calculatePan: function ({angle, x, y}) {
-    if (this.inventory) {
-      return 0
-    }
-
-    return angleToPan(
-      solveAngle(x, y, this.x, this.y, x + Math.sin(angle), y + Math.cos(angle))
-    )
-  },
   destroy: function () {
     this.masterPan.disconnect(context.destination)
     return this
@@ -27,7 +11,6 @@ const objectBase = {
   onUpdate: function ({angle, x, y}) {},
   pickup: function () {
     this.inventory = true
-    this.onPickup()
     return this
   },
   spawn: function (options) {
@@ -48,8 +31,12 @@ const objectBase = {
   update: function ({angle, x, y}) {
     const context = audio.context()
 
-    this.masterGain.gain.value = this.calculateGain({x, y})
-    this.masterPan.pan.value = this.calculatePan({angle, x, y})
+    if (!this.inventory) {
+      this.masterGain.gain.value = 1 / (this.getDistance(x, y) ** 2)
+      this.masterPan.pan.value = angleToPan(
+        solveAngle(x, y, this.x, this.y, x + Math.sin(angle), y + Math.cos(angle))
+      )
+    }
 
     this.onUpdate({angle, x, y})
 
