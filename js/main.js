@@ -31,7 +31,7 @@ function main() {
 
     if (collectibles.length) {
       objects.push(
-        spawn(collectibles.pop(), nextSpawnLocation(20))
+        spawn(collectibles.shift(), nextSpawnLocation(20))
       )
     }
   })
