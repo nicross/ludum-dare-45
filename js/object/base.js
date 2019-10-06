@@ -11,7 +11,11 @@ const objectBase = {
   onUpdate: function ({angle, x, y}) {},
   pickup: function () {
     this.inventory = true
+    this.masterGain.gain.value = 1
+    this.masterPan.pan.value = 0
+    
     this.onPickup()
+
     return this
   },
   spawn: function (options) {
