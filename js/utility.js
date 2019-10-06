@@ -2,6 +2,10 @@ function angleToPan(radians) {
   return (2 * radians / Math.PI) - 1
 }
 
+function createCollectibleSound() {
+  const context = audio.context()
+}
+
 function createNoiseMachine() {
   const context = audio.context(),
     source = context.createBufferSource()
@@ -32,11 +36,11 @@ function distance(x1, y1, x2, y2) {
   return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
 }
 
-function inventItem(id, definition) {
+function inventObject(id, definition, prototype) {
   return Object.setPrototypeOf({
     ...definition,
     id,
-  }, itemBase)
+  }, objectBase.isPrototypeOf(prototype) ? prototype : objectBase)
 }
 
 function midiToFrequency(note) {
