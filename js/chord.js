@@ -55,7 +55,7 @@ const chord = (function IIFE() {
   }
 
   function normalize(v) {
-    return Math.round(v / 100)
+    return Math.round(v / 50)
   }
 
   return {
