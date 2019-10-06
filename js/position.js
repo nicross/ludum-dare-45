@@ -4,7 +4,8 @@ const position = (function IIFE() {
     tau = 2 * Math.PI
 
   const position = {
-    angle: Math.PI / 2,
+    a: Math.PI / 2,
+    d: 0,
     x: 0,
     y: 0,
   }
@@ -26,17 +27,13 @@ const position = (function IIFE() {
 
   return {
     angleTowardDirection: (radians) => {
-      return normalizeAngle(radians - position.angle)
+      return normalizeAngle(radians - position.a)
     },
     angleTowardPoint: (x, y) => {
-      return normalizeAngle(Math.atan2(y - position.y, x - position.x) - position.angle)
+      return normalizeAngle(Math.atan2(y - position.y, x - position.x) - position.a)
     },
-    distance: () => distance(0, 0, position.x, position.y),
-    get: () => ({
-      angle: position.angle,
-      x: position.x,
-      y: position.y,
-    }),
+    distance: () => getDistance(),
+    get: () => Object.assign(position),
     getVector: () => ({
       rotation: vector.rotation,
       velocity: vector.velocity,
@@ -98,14 +95,15 @@ const position = (function IIFE() {
         vector.rotation = 0
       }
 
-      position.angle = (position.angle + vector.rotation) % tau
+      position.a = (position.a + vector.rotation) % tau
 
-      if (position.angle < 0) {
-        position.angle += tau
+      if (position.a < 0) {
+        position.a += tau
       }
 
-      position.x += vector.velocity * Math.cos(position.angle)
-      position.y += vector.velocity * Math.sin(position.angle)
+      position.x += vector.velocity * Math.cos(position.a)
+      position.y += vector.velocity * Math.sin(position.a)
+      position.d = distance(0, 0, position.x, position.y)
 
       return this
     },
