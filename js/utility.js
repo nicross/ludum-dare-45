@@ -1,3 +1,14 @@
+function angleToDirection(radians) {
+  const {angle: heading, x: ax, y: ay} = position.get()
+
+  const bx = ax + Math.cos(radians),
+    by = ay + Math.sin(radians),
+    cx = ax + Math.cos(heading),
+    cy = ay + Math.sin(heading)
+
+  return 4 * solveAngle(ax, ay, bx, by, cx, cy)
+}
+
 function angleToPan(radians) {
   return (2 * radians / Math.PI) - 1
 }

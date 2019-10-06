@@ -15,7 +15,7 @@ const compass = inventObject({
   },
   onUpdate: function ({angle, x, y}) {
     if (this.inventory) {
-      const north = 4 * solveAngle(x, y + 1, x, y, x + Math.cos(angle), y + Math.sin(angle)),
+      const north = angleToDirection(Math.PI / 2),
         strength = north / (2 * Math.PI)
 
       let frequency = audio.context().sampleRate / 2
