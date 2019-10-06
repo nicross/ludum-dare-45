@@ -1,5 +1,5 @@
 const ambiance = (function IIFE() {
-  const maxSpawns = 8
+  const maxSpawns = 10
   const spawned = {}
 
   function hasSpawned(x, y) {
@@ -7,7 +7,7 @@ const ambiance = (function IIFE() {
   }
 
   function spawnAmbiance() {
-    const count = Math.floor(Math.random() * maxSpawns)
+    const count = Math.round(Math.random() * maxSpawns)
 
     for (let i = 0; i < count; i++) {
       spawnFrom(ambients, nextSpawnLocation(50, Math.PI, -Math.PI / 2))
