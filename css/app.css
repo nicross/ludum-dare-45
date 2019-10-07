@@ -44,7 +44,7 @@
     transition: opacity 0.5s ease;
     z-index: 1;
   }
-  .o-app--control:hover {
+  .o-app--control:active {
     opacity: 1;
   }
   .o-app--backward {
@@ -95,6 +95,12 @@
     top: 0;
     width: 33.33%;
   }
+
+@media (hover: hover) {
+  .o-app--control:hover {
+    opacity: 1;
+  }
+}
 
 .o-app-inactive .o-app--activate {
   opacity: 1;
