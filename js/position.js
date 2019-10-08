@@ -1,3 +1,5 @@
+'use strict'
+
 const position = (function IIFE() {
   const fps = 60,
     ifps = 1 / fps,

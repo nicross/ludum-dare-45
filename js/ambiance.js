@@ -1,3 +1,5 @@
+'use strict'
+
 const ambiance = (function IIFE() {
   const maxSpawns = 12
   const spawned = {}

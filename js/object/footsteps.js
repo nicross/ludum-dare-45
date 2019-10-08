@@ -1,3 +1,5 @@
+'use strict'
+
 const footsteps = inventObject({
   collectible: true,
   id: 'Footsteps',

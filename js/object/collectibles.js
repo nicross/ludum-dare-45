@@ -1,3 +1,5 @@
+'use strict'
+
 const collectibles = shuffle([
   inventObject({
     collectible: true,

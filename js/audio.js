@@ -1,3 +1,5 @@
+'use strict'
+
 const audio = (function IIFE() {
   const context = new AudioContext()
 

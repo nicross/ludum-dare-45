@@ -1,3 +1,5 @@
+'use strict'
+
 const chord = (function IIFE() {
   const grid = {}
   const transpose = Math.floor(Math.random() * 12) - 6

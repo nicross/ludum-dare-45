@@ -1,3 +1,5 @@
+'use strict'
+
 const pickups = (function IIFE() {
   const pickupRadius = 2,
     pickupRelocate = 50

@@ -1,5 +1,6 @@
-const controls = (function IIFE() {
+'use strict'
 
+const controls = (function IIFE() {
   const backward = document.querySelector('.o-app--backward'),
     forward = document.querySelector('.o-app--forward'),
     left = document.querySelector('.o-app--left'),

@@ -1,3 +1,5 @@
+'use strict'
+
 function angleToPan(radians) {
   return scale(flattenAngle(radians), -Math.PI / 2, Math.PI / 2, -1, 1)
 }

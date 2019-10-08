@@ -1,3 +1,5 @@
+'use strict'
+
 const objectBase = {
   destroy: function () {
     this.masterPan.disconnect(context.destination)

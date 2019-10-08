@@ -1,3 +1,5 @@
+'use strict'
+
 const compass = inventObject({
   collectible: true,
   id: 'Compass',

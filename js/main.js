@@ -1,3 +1,5 @@
+'use strict'
+
 const debug = false
 const objects = []
 

@@ -1,3 +1,5 @@
+'use strict'
+
 const ambients = [
   inventObject({
     id: 'Waterfall',
