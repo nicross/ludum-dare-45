@@ -125,11 +125,17 @@ const ambients = [
       this.y += Math.sin(this.vector) * this.speed
       this.oscillator.detune.value = Math.sin(this.vector) * 10
 
-      const note = chord.getRandomNote(x, y)
-      if (this.note != note) {
-        this.oscillator.frequency.exponentialRampToValueAtTime(midiToFrequency(note), audio.time(8))
-        this.note = note
+      if (!this.isRampingOscilatorFrequency) {
+        this.rampOscilatorFrequency(
+          midiToFrequency(chord.getRandomNote(x, y)),
+          Math.random() * 8
+        )
       }
+    },
+    rampOscilatorFrequency: function (value, duration) {
+      this.isRampingOscilatorFrequency = true
+      this.oscillator.frequency.exponentialRampToValueAtTime(value, audio.time(duration))
+      setTimeout(() => this.isRampingOscilatorFrequency = false, duration * 1000)
     },
   }),
 ]
