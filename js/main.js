@@ -18,7 +18,7 @@ function main() {
     controls.get()
   )
 
-  const grid = position.grid()
+  const grid = position.grid(),
     pos = position.get(),
     step = position.step(),
     {a, d, x, y} = pos
