@@ -15,6 +15,8 @@ function createDinger() {
   osc.frequency.value = 220
   osc.start()
 
+  let dingTimeout;
+
   function ding() {
     gain.gain.setValueAtTime(0.00001, audio.time())
     gain.gain.exponentialRampToValueAtTime(1, audio.time(0.125))
