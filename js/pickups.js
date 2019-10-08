@@ -4,7 +4,7 @@ const pickups = (function IIFE() {
   const pickupRadius = 2,
     pickupRelocate = 50
 
-  let nextPickup = 1,
+  let nextPickup = 12.5,
     pickupSpawned = false
 
   return {
@@ -20,9 +20,9 @@ const pickups = (function IIFE() {
         if (dTo <= pickupRadius) {
           object.pickup()
           pickupSpawned = false
-          nextPickup += Math.min(d, 100)
+          nextPickup += 25 + (Math.random() * 50)
         } else if (dTo >= pickupRelocate) {
-          const moveTo = nextSpawnLocation(25, Math.PI / 2, -Math.PI / 4)
+          const moveTo = nextSpawnLocation(50, Math.PI / 2, -Math.PI / 4)
           object.x = moveTo.x
           object.y = moveTo.y
         }
@@ -30,7 +30,7 @@ const pickups = (function IIFE() {
 
       if (!pickupSpawned && d >= nextPickup && collectibles.length) {
         pickupSpawned = true
-        spawn(collectibles.shift(), nextSpawnLocation(25, Math.PI / 2, -Math.PI / 4))
+        spawn(collectibles.shift(), nextSpawnLocation(50, Math.PI / 2, -Math.PI / 4))
       }
 
       return this
