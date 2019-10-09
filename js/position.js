@@ -122,8 +122,8 @@ const position = (function IIFE() {
 
       if (gridX != position.grid.x || gridY != position.grid.y) {
         position.isGrid = true
-        position.step.x = gridX
-        position.step.y = gridY
+        position.grid.x = gridX
+        position.grid.y = gridY
       } else if (position.isGrid) {
         position.isGrid = false
       }
