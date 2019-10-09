@@ -64,51 +64,54 @@ const ambients = [
   }),
   inventObject({
     id: 'Chirper',
+    chirp: function () {
+      this.isChirping = true
+
+      const times = Math.floor(Math.random() * 6)
+      let duration = 0
+
+      this.gain.gain.setValueAtTime(0.00001, audio.time())
+
+      for (let i = 0; i <= times; i++) {
+        const detune = (Math.random() > 0.5 ? 1 : -1) * Math.random() * 33.333,
+          frequency = midiToFrequency(chord.getRandomNote(this.x, this.y)) * 2,
+          start = 0.125 + (Math.random() * 0.125),
+          stop = 0.25 + (Math.random() * 0.5)
+
+        this.oscillator.detune.setValueAtTime(detune, audio.time(duration))
+        this.oscillator.frequency.setValueAtTime(frequency, audio.time(duration))
+        this.gain.gain.exponentialRampToValueAtTime(this.size * Math.random(), audio.time(duration + start))
+        this.gain.gain.exponentialRampToValueAtTime(0.00001, audio.time(duration + start + stop))
+
+        duration += start + stop
+      }
+
+      duration += Math.random() * 8
+
+      setTimeout(() => {this.isChirping = false}, duration * 1000)
+    },
     onCull: function () {
       // TODO: Destroy or create nodes
     },
     onSpawn: function () {
       const context = audio.context()
 
-      const gain = context.createGain()
-      gain.connect(this.masterGain)
+      this.size = 0.125 + (Math.random() * 0.5)
 
-      const oscillator = context.createOscillator()
-      oscillator.frequency.value = midiToFrequency(chord.getRandomNote(this.x, this.y)) * 3
-      oscillator.type = 'triangle'
-      oscillator.connect(gain)
-      oscillator.start()
+      this.gain = context.createGain()
+      this.gain.connect(this.masterGain)
+      this.gain.gain.value = 0.00001
 
-      const size = 0.125 + (Math.random() * 0.5)
-
-      function chirp() {
-        const times = Math.floor(Math.random() * 6)
-        let duration = 0
-
-        gain.gain.setValueAtTime(0.00001, audio.time())
-
-        for (let i = 0; i <= times; i++) {
-          const detune = (Math.random() > 0.5 ? 1 : -1) * Math.random() * 33.333,
-            start = 0.125 + (Math.random() * 0.125),
-            stop = 0.25 + (Math.random() * 0.5)
-
-          oscillator.detune.setValueAtTime(detune, audio.time(duration + start))
-          gain.gain.exponentialRampToValueAtTime(size * Math.random(), audio.time(duration + start))
-          gain.gain.exponentialRampToValueAtTime(0.00001, audio.time(duration + start + stop))
-
-          duration += start + stop
-        }
-
-        duration += Math.random() * 8
-        setTimeout(chirp, duration * 1000)
-      }
-
-      this.gain = gain
-      this.oscillator = oscillator
-
-      chirp()
+      this.oscillator = context.createOscillator()
+      this.oscillator.type = 'triangle'
+      this.oscillator.connect(this.gain)
+      this.oscillator.start()
     },
-    onUpdate: function () {},
+    onUpdate: function () {
+      if (!this.isChirping) {
+        this.chirp()
+      }
+    },
   }),
   inventObject({
     id: 'Creature',
