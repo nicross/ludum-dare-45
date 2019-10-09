@@ -27,7 +27,7 @@ function main() {
 
   pickups.update({d, x, y})
 
-  objects.forEach((object) => {
+  for (let object of objects) {
     if (!object.collectible) {
       const d = object.getDistance(x, y)
 
@@ -43,7 +43,7 @@ function main() {
     if (isStep) {
       object.onStep()
     }
-  })
+  }
 
   window.requestAnimationFrame(main)
 }
