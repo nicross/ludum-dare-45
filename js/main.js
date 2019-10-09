@@ -18,14 +18,14 @@ function main() {
     controls.get()
   )
 
-  const {grid, isGrid, isStep, x, y} = position.get()
+  const {d, grid, isGrid, isStep, x, y} = position.get()
 
   if (isGrid) {
     ambiance.update(grid)
     chord.update(grid)
   }
 
-  pickups.update({x, y})
+  pickups.update({d, x, y})
 
   objects.forEach((object) => {
     if (!object.collectible) {
