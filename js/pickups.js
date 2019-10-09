@@ -1,15 +1,21 @@
 'use strict'
 
 const pickups = (function IIFE() {
+  const things = [
+    compass,
+    shuffle(...collectibles),
+  ]
+
   const pickupRadius = 2,
     pickupRelocate = 50
 
-  let nextPickup = 12.5,
+  let nextPickup = 0,
     pickupSpawned = false
 
   return {
     activate: () => {
-      collectibles.unshift(footsteps, compass)
+      pickupSpawned = true
+      spawn(footsteps, nextSpawnLocation(25, Math.PI / 2, -Math.PI / 4))
     },
     update: ({d, x, y}) => {
       objects.filter((object) => {
@@ -30,7 +36,7 @@ const pickups = (function IIFE() {
 
       if (!pickupSpawned && d >= nextPickup && collectibles.length) {
         pickupSpawned = true
-        spawn(collectibles.shift(), nextSpawnLocation(50, Math.PI / 2, -Math.PI / 4))
+        spawn(things.shift(), nextSpawnLocation(50, Math.PI / 2, -Math.PI / 4))
       }
 
       return this
