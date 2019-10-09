@@ -42,7 +42,7 @@ const compass = inventObject({
       }
 
       if (!this.isRampingMasterPan) {
-        this.masterPan.pan.value = angleToPan(north)
+        this.masterPan.pan.value = -angleToPan(north)
       }
     }
   },
