@@ -2,12 +2,24 @@
 
 const position = (function IIFE() {
   const fps = 60,
+    gridLength = 50,
     ifps = 1 / fps,
+    stepLength = 1,
     tau = 2 * Math.PI
 
   const position = {
     a: -Math.PI / 2,
     d: 0,
+    grid: {
+      x: 0,
+      y: 0,
+    },
+    isStep: false,
+    isGrid: false,
+    step: {
+      x: 0,
+      y: 0,
+    },
     x: 0,
     y: 0,
   }
@@ -35,14 +47,6 @@ const position = (function IIFE() {
       return normalizeAngle(Math.atan2(y - position.y, x - position.x) - position.a)
     },
     get: () => Object.assign(position),
-    grid: () => ({
-      x: Math.round(position.x / 50),
-      y: Math.round(position.y / 50),
-    }),
-    step: () => ({
-      x: Math.floor(position.x),
-      y: Math.floor(position.y),
-    }),
     update: (state) => {
       if (state.movingForward) {
         if (vector.velocity < 0) {
@@ -101,6 +105,28 @@ const position = (function IIFE() {
       position.x += vector.velocity * Math.cos(position.a)
       position.y += vector.velocity * Math.sin(position.a)
       position.d = distance(0, 0, position.x, position.y)
+
+      const stepX = Math.round(position.x / stepLength),
+        stepY = Math.round(position.y / stepLength)
+
+      if (stepX != position.step.x || stepY != position.step.y) {
+        position.isStep = true
+        position.step.x = stepX
+        position.step.y = stepY
+      } else if (position.isStep) {
+        position.isStep = false
+      }
+
+      const gridX = Math.round(position.x / gridLength),
+        gridY = Math.round(position.y / gridLength)
+
+      if (gridX != position.grid.x || gridY != position.grid.y) {
+        position.isGrid = true
+        position.step.x = gridX
+        position.step.y = gridY
+      } else if (position.isGrid) {
+        position.isGrid = false
+      }
 
       return this
     },

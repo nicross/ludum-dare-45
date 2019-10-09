@@ -4,9 +4,6 @@ const cullingDistance = 100,
   debug = false,
   objects = []
 
-let stepX = 0,
-  stepY = 0
-
 function activate() {
   audio.activate()
   controls.activate()
@@ -21,24 +18,18 @@ function main() {
     controls.get()
   )
 
-  const grid = position.grid(),
-    pos = position.get(),
-    step = position.step(),
-    {a, d, x, y} = pos
+  const {grid, isGrid, isStep, x, y} = position.get()
 
-  ambiance.update(grid)
-  chord.update(grid)
-  pickups.update(pos)
-
-  const stepped = step.x != stepX || step.y != stepY
-  if (stepped) {
-    stepX = step.x
-    stepY = step.y
+  if (isGrid) {
+    ambiance.update(grid)
+    chord.update(grid)
   }
+
+  pickups.update({x, y})
 
   objects.forEach((object) => {
     if (!object.collectible) {
-      const d = object.getDistance(pos.x, pos.y)
+      const d = object.getDistance(x, y)
 
       if (!object.isCulled && d > cullingDistance) {
         object.cull(true)
@@ -47,9 +38,9 @@ function main() {
       }
     }
 
-    object.update(pos)
+    object.update({x, y})
 
-    if (stepped) {
+    if (isStep) {
       object.onStep()
     }
   })
