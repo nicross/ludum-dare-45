@@ -4,11 +4,7 @@ const ambients = [
   inventObject({
     id: 'Waterfall',
     onCull: function () {
-      if (this.isCulled) {
-        this.noise.source.stop()
-      } else {
-        this.noise.source.start()
-      }
+      // TODO: Destroy or create nodes
     },
     onSpawn: function () {
       this.noise = createNoiseMachine()
@@ -21,11 +17,7 @@ const ambients = [
   inventObject({
     id: 'Wind',
     onCull: function () {
-      if (this.isCulled) {
-        this.noise.source.stop()
-      } else {
-        this.noise.source.start()
-      }
+      // TODO: Destroy or create nodes
     },
     onSpawn: function () {
       this.noise = createNoiseMachine()
@@ -73,11 +65,7 @@ const ambients = [
   inventObject({
     id: 'Chirper',
     onCull: function () {
-      if (this.isCulled) {
-        this.oscillator.stop()
-      } else {
-        this.oscillator.start()
-      }
+      // TODO: Destroy or create nodes
     },
     onSpawn: function () {
       const context = audio.context()
@@ -115,7 +103,9 @@ const ambients = [
         setTimeout(chirp, duration * 1000)
       }
 
+      this.gain = gain
       this.oscillator = oscillator
+
       chirp()
     },
     onUpdate: function () {},
@@ -123,11 +113,7 @@ const ambients = [
   inventObject({
     id: 'Creature',
     onCull: function () {
-      if (this.isCulled) {
-        this.oscillator.stop()
-      } else {
-        this.oscillator.start()
-      }
+      // TODO: Destroy or create nodes
     },
     onSpawn: function () {
       const context = audio.context()
