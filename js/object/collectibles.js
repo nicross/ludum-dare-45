@@ -1,6 +1,7 @@
 'use strict'
 
 const collectibles = [
+  // TODO: Add a second sine oscillator and gain node, modulate gain of triangle based on player velocity
   inventObject({
     collectible: true,
     id: 'Root',
@@ -32,6 +33,7 @@ const collectibles = [
       }
     },
   }),
+  // TODO: Add a second sine oscillator and gain node, modulate gain of triangle based on player velocity
   inventObject({
     collectible: true,
     id: 'Third',
@@ -71,6 +73,7 @@ const collectibles = [
       }
     },
   }),
+  // TODO: Add a second sine oscillator and gain node, modulate gain of triangle based on player velocity
   inventObject({
     collectible: true,
     id: 'Fifth',
