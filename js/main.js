@@ -1,7 +1,8 @@
 'use strict'
 
-const debug = false
-const objects = []
+const cullingDistance = 100,
+  debug = false,
+  objects = []
 
 let stepX = 0,
   stepY = 0
@@ -36,6 +37,16 @@ function main() {
   }
 
   objects.forEach((object) => {
+    if (!object.collectible) {
+      const d = object.getDistance(pos.x, pos.y)
+
+      if (!object.isCulled && d > cullingDistance) {
+        object.cull(true)
+      } else if (object.isCulled && d < cullingDistance) {
+        object.cull(false)
+      }
+    }
+
     object.update(pos)
 
     if (stepped) {

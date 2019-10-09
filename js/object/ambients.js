@@ -3,6 +3,13 @@
 const ambients = [
   inventObject({
     id: 'Waterfall',
+    onCull: function () {
+      if (this.isCulled) {
+        this.noise.source.stop()
+      } else {
+        this.noise.source.start()
+      }
+    },
     onSpawn: function () {
       this.noise = createNoiseMachine()
       this.noise.output.connect(this.masterGain)
@@ -13,6 +20,13 @@ const ambients = [
   }),
   inventObject({
     id: 'Wind',
+    onCull: function () {
+      if (this.isCulled) {
+        this.noise.source.stop()
+      } else {
+        this.noise.source.start()
+      }
+    },
     onSpawn: function () {
       this.noise = createNoiseMachine()
       this.noise.filter.frequency.value = Math.random() * audio.sampleRate() / 8
@@ -58,6 +72,13 @@ const ambients = [
   }),
   inventObject({
     id: 'Chirper',
+    onCull: function () {
+      if (this.isCulled) {
+        this.oscillator.stop()
+      } else {
+        this.oscillator.start()
+      }
+    },
     onSpawn: function () {
       const context = audio.context()
 
@@ -94,12 +115,20 @@ const ambients = [
         setTimeout(chirp, duration * 1000)
       }
 
+      this.oscillator = oscillator
       chirp()
     },
     onUpdate: function () {},
   }),
   inventObject({
     id: 'Creature',
+    onCull: function () {
+      if (this.isCulled) {
+        this.oscillator.stop()
+      } else {
+        this.oscillator.start()
+      }
+    },
     onSpawn: function () {
       const context = audio.context()
 
