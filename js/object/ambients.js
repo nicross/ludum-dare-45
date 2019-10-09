@@ -114,6 +114,40 @@ const ambients = [
     },
   }),
   inventObject({
+    id: 'Subwoofer',
+    onSpawn: function () {
+      const context = audio.context()
+
+      this.gain = context.createGain()
+      this.gain.connect(this.masterGain)
+
+      this.oscillator = context.createOscillator()
+      this.oscillator.frequency.value = midiToFrequency(chord.getRootNote(this.x, this.y))
+      this.oscillator.type = 'sine'
+      this.oscillator.connect(this.gain)
+      this.oscillator.start()
+    },
+    onUpdate: function () {
+      if (!this.isWoofing) {
+        this.woof()
+      }
+    },
+    woof: function () {
+      this.isWoofing = true
+
+      const strength = Math.random()
+
+      const duration = strength * 8,
+        pause = Math.random()
+
+      this.gain.gain.setValueAtTime(0.00001, audio.time())
+      this.gain.gain.exponentialRampToValueAtTime(strength, audio.time(duration / 2))
+      this.gain.gain.exponentialRampToValueAtTime(0.00001, audio.time(duration))
+
+      setTimeout(() => {this.isWoofing = false}, (duration + pause) * 1000)
+    },
+  }),
+  inventObject({
     id: 'Creature',
     onCull: function () {
       // TODO: Destroy or create nodes
