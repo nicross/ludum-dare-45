@@ -20,7 +20,7 @@ const pickups = (function IIFE() {
         if (dTo <= pickupRadius) {
           object.pickup()
           pickupSpawned = false
-          nextPickup += 25 + (Math.random() * 50)
+          nextPickup = d + 25 + (Math.random() * 50)
         } else if (dTo >= pickupRelocate) {
           const moveTo = nextSpawnLocation(50, Math.PI / 2, -Math.PI / 4)
           object.x = moveTo.x
