@@ -67,8 +67,14 @@ const chord = (function IIFE() {
     return grid[x][y]
   }
 
+  // XXX: Assumes root is lowest note in chord
+  function getRootNote(x, y) {
+    const index = Math.abs(Math.round(x + y)) % chords.length
+    return chords[index].slice()[0].sort()[0]
+  }
+
   function getRandomNote(x, y) {
-    let index = Math.abs(Math.round(x + y)) % chords.length
+    const index = Math.abs(Math.round(x + y)) % chords.length
 
     return randomValue(
       randomValue(chords[index])
@@ -84,6 +90,7 @@ const chord = (function IIFE() {
     getChord: (x, y) => getChord(normalize(x), normalize(y)),
     getNote: (index) => currentChord[index % currentChord.length],
     getRandomNote: (x, y) => getRandomNote(x, y),
+    getRootNote: (x, y) => getRootNote(x, y),
     update: function ({x, y}) {
       currentChord = getChord(x, y)
       return this
