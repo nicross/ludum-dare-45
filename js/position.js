@@ -34,12 +34,7 @@ const position = (function IIFE() {
     angleTowardPoint: (x, y) => {
       return normalizeAngle(Math.atan2(y - position.y, x - position.x) - position.a)
     },
-    distance: () => getDistance(),
     get: () => Object.assign(position),
-    getVector: () => ({
-      rotation: vector.rotation,
-      velocity: vector.velocity,
-    }),
     grid: () => ({
       x: Math.round(position.x / 50),
       y: Math.round(position.y / 50),
@@ -109,5 +104,6 @@ const position = (function IIFE() {
 
       return this
     },
+    vector: () => Object.assign(vector),
   }
 })()
