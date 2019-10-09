@@ -40,6 +40,10 @@ const compass = inventObject({
         gain = 0.0625 + (gain * 0.125)
         this.noise.output.gain.value = gain
       }
+
+      if (!this.isRampingMasterPan) {
+        this.masterPan.pan.value = angleToPan(north)
+      }
     }
   },
 })
