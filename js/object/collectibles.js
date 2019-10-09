@@ -1,6 +1,6 @@
 'use strict'
 
-const collectibles = shuffle([
+const collectibles = [
   inventObject({
     collectible: true,
     id: 'Root',
@@ -110,4 +110,4 @@ const collectibles = shuffle([
       }
     },
   }),
-])
+]
