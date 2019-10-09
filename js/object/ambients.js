@@ -148,7 +148,7 @@ const ambients = [
     },
   }),
   inventObject({
-    id: 'Creature',
+    id: 'Insect',
     onCull: function () {
       // TODO: Destroy or create nodes
     },
@@ -190,4 +190,5 @@ const ambients = [
       setTimeout(() => this.isRampingOscilatorFrequency = false, duration * 1000)
     },
   }),
+  // TODO: Creature - Moves slower than Insect with a less erratic path, calls out like the subwoofer but with frequency modulation (and up an octave)
 ]
