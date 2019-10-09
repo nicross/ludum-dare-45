@@ -62,6 +62,8 @@ const objectBase = {
 
     Object.entries(options).forEach(([key, value]) => this[key] = value)
 
+    this.isCulled = false
+
     this.masterGain = context.createGain()
     this.masterPan = context.createStereoPanner()
 
