@@ -162,7 +162,3 @@ function spawn(prototype, options) {
   objects.push(instance)
   return instance
 }
-
-function spawnFrom(prototypes, options) {
-  return spawn(randomValue(prototypes), options)
-}

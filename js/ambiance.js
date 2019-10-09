@@ -12,7 +12,7 @@ const ambiance = (function IIFE() {
     const count = Math.round(Math.random() * maxSpawns)
 
     for (let i = 0; i < count; i++) {
-      spawnFrom(ambients, nextSpawnLocation(50, Math.PI, -Math.PI / 2))
+      spawn(randomValue(ambients), nextSpawnLocation(50, Math.PI, -Math.PI / 2))
     }
   }
 
