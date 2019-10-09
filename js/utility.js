@@ -157,18 +157,6 @@ function shuffle(array) {
   return array
 }
 
-function solveAngle(ax, ay, bx, by, cx, cy) {
-  const a = distance(bx, by, cx, cy),
-    b = distance(ax, ay, cx, cy),
-    c = distance(ax, ay, bx, by)
-
-  let A = (b ** 2 + c ** 2 - a ** 2) / (2 * b * c)
-  A = Math.max(-1, Math.min(A, 1))
-  A = Math.acos(A)
-
-  return A
-}
-
 function spawn(prototype, options) {
   const instance = Object.create(prototype).spawn(options)
   objects.push(instance)
