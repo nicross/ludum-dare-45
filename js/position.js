@@ -111,8 +111,10 @@ const position = (function IIFE() {
 
       if (stepX != position.step.x || stepY != position.step.y) {
         position.isStep = true
-        position.step.x = stepX
-        position.step.y = stepY
+        position.step = {
+          x: stepX,
+          y: stepY,
+        }
       } else if (position.isStep) {
         position.isStep = false
       }
@@ -122,8 +124,11 @@ const position = (function IIFE() {
 
       if (gridX != position.grid.x || gridY != position.grid.y) {
         position.isGrid = true
-        position.grid.x = gridX
-        position.grid.y = gridY
+        position.grid = {
+          d: distance(0, 0, gridX, gridY),
+          x: gridX,
+          y: gridY,
+        }
       } else if (position.isGrid) {
         position.isGrid = false
       }
