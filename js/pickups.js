@@ -42,7 +42,7 @@ const pickups = (function IIFE() {
 
       if (!pickupSpawned && !rewardSpawned && !things.length) {
         rewardSpawned = true
-        spawn(arpeggio, {x: 0, y: 0})
+        spawn(arpeggiator, {x: 0, y: 0})
       }
 
       return this
