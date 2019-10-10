@@ -1,8 +1,8 @@
 'use strict'
 
 const footsteps = inventObject({
-  collectible: true,
   id: 'Footsteps',
+  isCollectible: true,
   onPickup: function () {
     this.gain = audio.context().createGain()
     this.gain.connect(this.masterGain)

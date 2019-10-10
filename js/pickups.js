@@ -19,7 +19,7 @@ const pickups = (function IIFE() {
     },
     update: ({d, x, y}) => {
       objects.filter((object) => {
-        return !object.inventory && object.collectible
+        return !object.inventory && object.isCollectible
       }).forEach((object) => {
         const dTo = distance(x, y, object.x, object.y)
 

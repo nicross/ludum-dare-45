@@ -3,8 +3,8 @@
 const collectibles = [
   // TODO: Add a second sine oscillator and gain node, modulate gain of triangle based on player velocity
   inventObject({
-    collectible: true,
     id: 'Root',
+    isCollectible: true,
     onPickup: function () {
       this.gain.gain.setValueAtTime(1, audio.time())
       this.gain.gain.exponentialRampToValueAtTime(0.05, audio.time(1))
@@ -35,8 +35,8 @@ const collectibles = [
   }),
   // TODO: Add a second sine oscillator and gain node, modulate gain of triangle based on player velocity
   inventObject({
-    collectible: true,
     id: 'Third',
+    isCollectible: true,
     onPickup: function () {
       this.gain.gain.setValueAtTime(1, audio.time(0))
       this.gain.gain.exponentialRampToValueAtTime(0.05, audio.time(1))
@@ -75,8 +75,8 @@ const collectibles = [
   }),
   // TODO: Add a second sine oscillator and gain node, modulate gain of triangle based on player velocity
   inventObject({
-    collectible: true,
     id: 'Fifth',
+    isCollectible: true,
     onPickup: function () {
       this.gain.gain.setValueAtTime(1, audio.time())
       this.gain.gain.exponentialRampToValueAtTime(0.05, audio.time(1))

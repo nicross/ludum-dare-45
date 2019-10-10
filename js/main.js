@@ -28,7 +28,7 @@ function main() {
   pickups.update({d, x, y})
 
   for (let object of objects) {
-    if (!object.collectible) {
+    if (!object.isCollectible) {
       const d = object.getDistance(x, y)
 
       if (!object.isCulled && d > cullingDistance) {

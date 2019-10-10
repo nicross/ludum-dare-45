@@ -1,8 +1,8 @@
 'use strict'
 
 const compass = inventObject({
-  collectible: true,
   id: 'Compass',
+  isCollectible: true,
   onPickup: function () {
     this.noise = createNoiseMachine()
     this.noise.output.connect(this.masterGain)
