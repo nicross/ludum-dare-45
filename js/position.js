@@ -69,11 +69,9 @@ const position = (function IIFE() {
         }
       } else if (vector.velocity >= acceleration.velocity * 2) {
         vector.velocity -= acceleration.velocity * 2
-      } else if (vector.velocity > 0) {
-        vector.velocity = 0
       } else if (vector.velocity <= -(acceleration.velocity * 2)) {
         vector.velocity += acceleration.velocity * 2
-      } else if (vector.velocity < 0) {
+      } else if (vector.velocity != 0) {
         vector.velocity = 0
       }
 
@@ -93,11 +91,9 @@ const position = (function IIFE() {
         }
       } else if (vector.rotation >= acceleration.rotation * 2) {
         vector.rotation -= acceleration.rotation * 2
-      } else if (vector.rotation > 0) {
-        vector.rotation = 0
       } else if (vector.rotation <= -(acceleration.rotation * 2)) {
         vector.rotation += acceleration.rotation * 2
-      } else if (vector.rotation < 0) {
+      } else if (vector.rotation != 0) {
         vector.rotation = 0
       }
 
