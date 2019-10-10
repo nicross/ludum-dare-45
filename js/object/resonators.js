@@ -1,116 +1,83 @@
 'use strict'
 
+const resonatorBase = inventObject({
+  isCollectible: true,
+  onPickup: function () {
+    const context = audio.context()
+
+    this.triangleGain = context.createGain()
+    this.triangleGain.connect(this.gain)
+
+    this.triangle = context.createOscillator()
+    this.triangle.type = 'triangle'
+    this.triangle.connect(this.triangleGain)
+    this.triangle.frequency.value = midiToFrequency(this.note)
+    this.triangle.start()
+
+    this.gain.gain.setValueAtTime(1, audio.time(0))
+    this.gain.gain.exponentialRampToValueAtTime(0.025, audio.time(1))
+
+    if (this.cardinalDirection) {
+      this.rampMasterPan(angleToPan(position.angleTowardDirection(this.cardinalDirection)), 2)
+    }
+  },
+  onSpawn: function () {
+    const context = audio.context()
+
+    this.note = chord.getNote(this.chordNote)
+
+    this.gain = context.createGain()
+    this.gain.connect(this.masterGain)
+
+    this.sine = context.createOscillator()
+    this.sine.connect(this.gain)
+    this.sine.frequency.value = midiToFrequency(this.note)
+    this.sine.start()
+  },
+  onUpdate: function ({vector}) {
+    if (this.inventory) {
+      this.triangleGain.gain.value = vector.velocity / position.maxVector().velocity
+
+      if (!this.isRampingMasterPan && typeof this.cardinalDirection != 'undefined') {
+        this.masterPan.pan.value = angleToPan(position.angleTowardDirection(this.cardinalDirection))
+      }
+    }
+
+    const note = chord.getNote(this.chordNote)
+
+    if (note == this.note) {
+      return
+    }
+
+    const currentFrequency = midiToFrequency(this.note),
+      nextFrequency = midiToFrequency(note),
+      rampDuration = 1
+
+    this.sine.frequency.setValueAtTime(currentFrequency, audio.time())
+    this.sine.frequency.exponentialRampToValueAtTime(nextFrequency, audio.time(rampDuration))
+
+    if (this.inventory) {
+      this.triangle.frequency.setValueAtTime(currentFrequency, audio.time())
+      this.triangle.frequency.exponentialRampToValueAtTime(nextFrequency, audio.time(rampDuration))
+    }
+
+    this.note = note
+  },
+})
+
 const resonators = [
-  // TODO: Add a second sine oscillator and gain node, modulate gain of triangle based on player velocity
   inventObject({
     id: 'Root',
-    isCollectible: true,
-    onPickup: function () {
-      this.gain.gain.setValueAtTime(1, audio.time())
-      this.gain.gain.exponentialRampToValueAtTime(0.05, audio.time(1))
-      this.oscillator.type = 'triangle'
-    },
-    onSpawn: function () {
-      const context = audio.context()
-
-      this.note = chord.getNote(0)
-
-      this.gain = context.createGain({gain: 1})
-      this.gain.connect(this.masterGain)
-
-      this.oscillator = context.createOscillator()
-      this.oscillator.connect(this.gain)
-      this.oscillator.frequency.value = midiToFrequency(this.note)
-      this.oscillator.start()
-    },
-    onUpdate: function () {
-      const note = chord.getNote(0)
-
-      if (this.note != note) {
-        this.oscillator.frequency.setValueAtTime(midiToFrequency(this.note), audio.time())
-        this.oscillator.frequency.exponentialRampToValueAtTime(midiToFrequency(note), audio.time(1))
-        this.note = note
-      }
-    },
-  }),
-  // TODO: Add a second sine oscillator and gain node, modulate gain of triangle based on player velocity
+    chordNote: 0,
+  }, resonatorBase),
   inventObject({
     id: 'Third',
-    isCollectible: true,
-    onPickup: function () {
-      this.gain.gain.setValueAtTime(1, audio.time(0))
-      this.gain.gain.exponentialRampToValueAtTime(0.05, audio.time(1))
-      this.oscillator.type = 'triangle'
-
-      this.rampMasterPan(angleToPan(position.angleTowardDirection(0)), 2)
-    },
-    onSpawn: function () {
-      const context = audio.context()
-
-      this.note = chord.getNote(1)
-
-      this.gain = context.createGain({gain: 1})
-      this.gain.connect(this.masterGain)
-
-      this.oscillator = context.createOscillator()
-      this.oscillator.connect(this.gain)
-      this.oscillator.frequency.value = midiToFrequency(this.note)
-      this.oscillator.start()
-    },
-    onUpdate: function () {
-      if (this.inventory) {
-        if (!this.isRampingMasterPan) {
-          this.masterPan.pan.value = angleToPan(position.angleTowardDirection(0))
-        }
-      }
-
-      const note = chord.getNote(1)
-
-      if (this.note != note) {
-        this.oscillator.frequency.setValueAtTime(midiToFrequency(this.note), audio.time())
-        this.oscillator.frequency.exponentialRampToValueAtTime(midiToFrequency(note), audio.time(1))
-        this.note = note
-      }
-    },
-  }),
-  // TODO: Add a second sine oscillator and gain node, modulate gain of triangle based on player velocity
+    cardinalDirection: 0,
+    chordNote: 1,
+  }, resonatorBase),
   inventObject({
     id: 'Fifth',
-    isCollectible: true,
-    onPickup: function () {
-      this.gain.gain.setValueAtTime(1, audio.time())
-      this.gain.gain.exponentialRampToValueAtTime(0.05, audio.time(1))
-      this.oscillator.type = 'triangle'
-
-      this.rampMasterPan(angleToPan(position.angleTowardDirection(Math.PI)), 2)
-    },
-    onSpawn: function () {
-      const context = audio.context()
-
-      this.note = chord.getNote(2)
-
-      this.gain = context.createGain({gain: 1})
-      this.gain.connect(this.masterGain)
-
-      this.oscillator = context.createOscillator()
-      this.oscillator.connect(this.gain)
-      this.oscillator.frequency.value = midiToFrequency(this.note)
-      this.oscillator.start()
-    },
-    onUpdate: function () {
-      if (this.inventory) {
-        if (!this.isRampingMasterPan) {
-          this.masterPan.pan.value = angleToPan(position.angleTowardDirection(Math.PI))
-        }
-      }
-
-      const note = chord.getNote(2)
-
-      if (this.note != note) {
-        this.oscillator.frequency.setValueAtTime(midiToFrequency(this.note), audio.time())
-        this.oscillator.frequency.exponentialRampToValueAtTime(midiToFrequency(note), audio.time(1))
-        this.note = note
-      }
-    },
-  }),
+    cardinalDirection: Math.PI,
+    chordNote: 2,
+  }, resonatorBase),
 ]

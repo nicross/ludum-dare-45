@@ -21,7 +21,7 @@ function main() {
     controls.get()
   )
 
-  const {d, grid, isGrid, isStep, x, y} = position.get()
+  const {d, grid, isGrid, isStep, vector, x, y} = position.get()
 
   if (isGrid) {
     ambiance.update(grid)
@@ -41,7 +41,7 @@ function main() {
       }
     }
 
-    object.update({x, y})
+    object.update({vector, x, y})
 
     if (isStep) {
       object.onStep()
