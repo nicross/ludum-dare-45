@@ -103,13 +103,13 @@ function midiToFrequency(note) {
 }
 
 function nextSpawnLocation(baseDistance, theta, offset) {
-  const {a, x, y} = position.get()
+  const {a, vector, x, y} = position.get()
 
   const randomAngle = DEBUG
     ? 0
     : (Math.random() * theta) + offset
 
-  const angle = a + randomAngle,
+  const angle = (vector.velocity >= 0 ? 1 : -1) * (a + randomAngle),
     distance = (baseDistance * 0.75) + (Math.random() * baseDistance * 0.25)
 
   return {
