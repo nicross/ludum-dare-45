@@ -10,7 +10,8 @@ const pickups = (function IIFE() {
     pickupRelocate = 50
 
   let nextPickup = 0,
-    pickupSpawned = false
+    pickupSpawned = false,
+    rewardSpawned = false
 
   return {
     activate: () => {
@@ -34,9 +35,14 @@ const pickups = (function IIFE() {
         }
       })
 
-      if (!pickupSpawned && d >= nextPickup && collectibles.length) {
+      if (!pickupSpawned && d >= nextPickup && things.length) {
         pickupSpawned = true
         spawn(things.shift(), nextSpawnLocation(50, Math.PI / 2, -Math.PI / 4))
+      }
+
+      if (!pickupSpawned && !rewardSpawned && !things.length) {
+        rewardSpawned = true
+        spawn(arpeggio, {x: 0, y: 0})
       }
 
       return this
