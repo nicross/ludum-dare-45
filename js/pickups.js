@@ -26,6 +26,7 @@ const pickups = (function IIFE() {
 
         if (dTo <= pickupRadius) {
           object.pickup()
+          // TODO: Play pickup received sound
           pickupSpawned = false
           nextPickup = d + 25 + (Math.random() * 50)
         } else if (dTo >= pickupRelocate) {
