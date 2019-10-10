@@ -14,8 +14,8 @@ const position = (function IIFE() {
       x: 0,
       y: 0,
     },
-    isStep: false,
-    isGrid: false,
+    isStep: true,
+    isGrid: true,
     step: {
       x: 0,
       y: 0,
@@ -52,6 +52,7 @@ const position = (function IIFE() {
         ...vector,
       },
     }),
+    maxVector: () => Object.assign(maxVector),
     update: (state) => {
       if (state.movingForward) {
         if (vector.velocity < 0) {

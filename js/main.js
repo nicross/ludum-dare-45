@@ -4,6 +4,10 @@ const CULLING_DISTANCE = 100,
   DEBUG = false
 
 function activate() {
+  chord.update(
+    position.get().grid
+  )
+
   audio.activate()
   controls.activate()
   ambiance.activate()
