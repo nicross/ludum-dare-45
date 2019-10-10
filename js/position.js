@@ -46,7 +46,12 @@ const position = (function IIFE() {
     angleTowardPoint: (x, y) => {
       return normalizeAngle(Math.atan2(y - position.y, x - position.x) - position.a)
     },
-    get: () => Object.assign(position),
+    get: () => ({
+      ...position,
+      vector: {
+        ...vector,
+      },
+    }),
     update: (state) => {
       if (state.movingForward) {
         if (vector.velocity < 0) {
@@ -135,6 +140,5 @@ const position = (function IIFE() {
 
       return this
     },
-    vector: () => Object.assign(vector),
   }
 })()
