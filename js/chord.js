@@ -48,7 +48,11 @@ const chord = (function IIFE() {
   let currentChord
 
   function generateChord(x, y) {
-    const index = Math.abs((x + y) % chords.length)
+    let index = (x + y) % chords.length
+
+    if (index < 0) {
+      index += chords.length
+    }
 
     return chords[index].map(
       notes => randomValue(notes)
