@@ -1,6 +1,6 @@
 'use strict'
 
-const collectibles = [
+const resonators = [
   // TODO: Add a second sine oscillator and gain node, modulate gain of triangle based on player velocity
   inventObject({
     id: 'Root',
