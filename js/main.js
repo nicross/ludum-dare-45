@@ -3,8 +3,6 @@
 const CULLING_DISTANCE = 100,
   DEBUG = false
 
-const objects = []
-
 function activate() {
   audio.activate()
   controls.activate()
