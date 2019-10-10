@@ -3,7 +3,7 @@
 const pickups = (function IIFE() {
   const things = [
     compass,
-    shuffle(resonators),
+    ...shuffle(resonators),
   ]
 
   const pickupRadius = 2,
