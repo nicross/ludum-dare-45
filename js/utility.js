@@ -105,7 +105,7 @@ function midiToFrequency(note) {
 function nextSpawnLocation(baseDistance, theta, offset) {
   const {a, x, y} = position.get()
 
-  const randomAngle = debug
+  const randomAngle = DEBUG
     ? 0
     : (Math.random() * theta) + offset
 
@@ -143,7 +143,7 @@ function scale(value, min, max, a, b) {
 }
 
 function shuffle(array) {
-  if (debug) {
+  if (DEBUG) {
     return array.slice()
   }
 

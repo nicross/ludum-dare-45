@@ -1,8 +1,9 @@
 'use strict'
 
-const cullingDistance = 100,
-  debug = false,
-  objects = []
+const CULLING_DISTANCE = 100,
+  DEBUG = false
+
+const objects = []
 
 function activate() {
   audio.activate()
@@ -31,9 +32,9 @@ function main() {
     if (!object.isCollectible) {
       const d = object.getDistance(x, y)
 
-      if (!object.isCulled && d > cullingDistance) {
+      if (!object.isCulled && d > CULLING_DISTANCE) {
         object.cull(true)
-      } else if (object.isCulled && d < cullingDistance) {
+      } else if (object.isCulled && d < CULLING_DISTANCE) {
         object.cull(false)
       }
     }
