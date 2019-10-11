@@ -6,7 +6,7 @@ const pickups = (function IIFE() {
     ...shuffle(resonators),
   ]
 
-  const pickupRadius = 2,
+  const pickupRadius = 1,
     pickupRelocate = 100
 
   let nextPickup = 0,
