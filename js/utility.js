@@ -185,6 +185,10 @@ function normalizeAngle(angle) {
   return angle
 }
 
+function randomBetween(min, max) {
+  return min + (Math.random() * (max - min))
+}
+
 function randomValue(array) {
   return array[
     Math.floor(Math.random() * array.length)
