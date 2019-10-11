@@ -188,5 +188,4 @@ const ambients = [
     },
   }),
   // TODO: Creature - Moves slower than Insect with a less erratic path, calls out like the subwoofer but with frequency modulation (and up an octave)
-  // TODO: Spectre - Moves perpendicular to player and
 ]
