@@ -2,6 +2,11 @@
 
 const CULLING_DISTANCE = 100,
   DEBUG = false,
+  FPS = 60,
+  GRID_LENGTH = 50,
+  IFPS = 1 / FPS,
+  STEP_LENGTH = 1,
+  TAU = Math.PI * 2,
   ZERO_GAIN = 1 / 10 ** 6
 
 function activate() {

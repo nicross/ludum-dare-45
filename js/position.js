@@ -1,12 +1,6 @@
 'use strict'
 
 const position = (function IIFE() {
-  const fps = 60,
-    gridLength = 50,
-    ifps = 1 / fps,
-    stepLength = 1,
-    tau = 2 * Math.PI
-
   const position = {
     a: -Math.PI / 2,
     d: 0,
@@ -30,13 +24,13 @@ const position = (function IIFE() {
   }
 
   const maxVector = {
-    rotation: ifps * (tau / 8),
-    velocity: ifps * 2,
+    rotation: IFPS * (TAU / 8),
+    velocity: IFPS * 2,
   }
 
   const acceleration = {
-    rotation: ifps * maxVector.rotation,
-    velocity: ifps * maxVector.velocity / 4,
+    rotation: IFPS * maxVector.rotation,
+    velocity: IFPS * maxVector.velocity / 4,
   }
 
   return {
@@ -98,18 +92,18 @@ const position = (function IIFE() {
         vector.rotation = 0
       }
 
-      position.a = (position.a + vector.rotation) % tau
+      position.a = (position.a + vector.rotation) % TAU
 
       if (position.a < 0) {
-        position.a += tau
+        position.a += TAU
       }
 
       position.x += vector.velocity * Math.cos(position.a)
       position.y += vector.velocity * Math.sin(position.a)
       position.d = distance(0, 0, position.x, position.y)
 
-      const stepX = Math.round(position.x / stepLength),
-        stepY = Math.round(position.y / stepLength)
+      const stepX = Math.round(position.x / STEP_LENGTH),
+        stepY = Math.round(position.y / STEP_LENGTH)
 
       if (stepX != position.step.x || stepY != position.step.y) {
         position.isStep = true
@@ -121,8 +115,8 @@ const position = (function IIFE() {
         position.isStep = false
       }
 
-      const gridX = Math.round(position.x / gridLength),
-        gridY = Math.round(position.y / gridLength)
+      const gridX = Math.round(position.x / GRID_LENGTH),
+        gridY = Math.round(position.y / GRID_LENGTH)
 
       if (gridX != position.grid.x || gridY != position.grid.y) {
         position.isGrid = true
