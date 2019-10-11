@@ -35,7 +35,7 @@ const resonatorBase = inventObject({
     this.sine.start()
   },
   onUpdate: function ({vector}) {
-    if (this.inventory) {
+    if (this.isCollected) {
       this.triangleGain.gain.value = vector.velocity / position.maxVector().velocity
 
       if (!this.isRampingMasterPan && typeof this.cardinalDirection != 'undefined') {
@@ -56,7 +56,7 @@ const resonatorBase = inventObject({
     this.sine.frequency.setValueAtTime(currentFrequency, audio.time())
     this.sine.frequency.exponentialRampToValueAtTime(nextFrequency, audio.time(rampDuration))
 
-    if (this.inventory) {
+    if (this.isCollected) {
       this.triangle.frequency.setValueAtTime(currentFrequency, audio.time())
       this.triangle.frequency.exponentialRampToValueAtTime(nextFrequency, audio.time(rampDuration))
     }

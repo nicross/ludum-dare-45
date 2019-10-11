@@ -20,7 +20,7 @@ const footsteps = inventObject({
     this.dinger.output.connect(this.masterGain)
   },
   onStep: function () {
-    if (!this.inventory || this.isStepping) {
+    if (!this.isCollected || this.isStepping) {
       return
     }
 

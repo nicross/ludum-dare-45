@@ -24,7 +24,7 @@ const compass = inventObject({
     this.dinger.output.connect(this.masterGain)
   },
   onUpdate: function () {
-    if (this.inventory) {
+    if (this.isCollected) {
       const north = position.angleTowardDirection(Math.PI / 2),
         strength = 1 - (Math.abs(north) / Math.PI)
 

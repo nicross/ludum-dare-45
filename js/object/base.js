@@ -27,7 +27,7 @@ const objectBase = {
   onStep: function () {},
   onUpdate: function () {},
   pickup: function () {
-    this.inventory = true
+    this.isCollected = true
     delete this.x
     delete this.y
 
@@ -67,7 +67,7 @@ const objectBase = {
       return this
     }
 
-    if (!this.inventory) {
+    if (!this.isCollected) {
       if (!this.rampMasterGain.state) {
         this.masterGain.gain.value = distanceToGain(this.getDistance(x, y))
       }
