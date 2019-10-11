@@ -110,6 +110,8 @@ const ambients = [
       this.oscillator.type = 'triangle'
       this.oscillator.connect(this.gain)
       this.oscillator.start()
+
+      this.radius = 1.75 + (Math.random() * 0.25)
     },
     onUpdate: function () {
       if (!this.isChirping) {
