@@ -18,11 +18,11 @@ function createDinger() {
   let dingTimeout;
 
   function ding() {
-    gain.gain.setValueAtTime(0.00001, audio.time())
-    gain.gain.exponentialRampToValueAtTime(1, audio.time(0.125))
-    gain.gain.exponentialRampToValueAtTime(0.00001, audio.time(0.75))
-    gain.gain.exponentialRampToValueAtTime(1, audio.time(1))
+    gain.gain.setValueAtTime(0.00001, audio.time(1))
+    gain.gain.exponentialRampToValueAtTime(1, audio.time(1.125))
     gain.gain.exponentialRampToValueAtTime(0.00001, audio.time(1.75))
+    gain.gain.exponentialRampToValueAtTime(1, audio.time(2))
+    gain.gain.exponentialRampToValueAtTime(0.00001, audio.time(2.75))
     dingTimeout = setTimeout(ding, 3000)
   }
   ding()
