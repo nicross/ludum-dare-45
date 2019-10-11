@@ -106,8 +106,8 @@ function distance(x1, y1, x2, y2) {
   return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
 }
 
-function distanceToGain(d) {
-  const gain = 1 / (d ** 2)
+function distanceToGain(d, scale = 2) {
+  const gain = 1 / (d ** scale)
   return Math.min(1, gain)
 }
 

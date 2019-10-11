@@ -12,6 +12,8 @@ const ambients = [
 
       this.noise.filter.frequency.value = Math.random() * audio.sampleRate() / 12
       this.noise.output.gain.value = 0.25 + (Math.random() * 0.75)
+
+      this.radius = 1.5 + (Math.random() * 0.5)
     },
   }),
   inventObject({
@@ -24,6 +26,8 @@ const ambients = [
       this.noise.filter.frequency.value = Math.random() * audio.sampleRate() / 8
       this.noise.output.gain.value = 0.125
       this.noise.output.connect(this.masterGain)
+
+      this.radius = 1 + Math.random()
     },
     onUpdate: function () {
       if (!this.isRampingNoiseFilterFrequency) {
@@ -126,6 +130,8 @@ const ambients = [
       this.oscillator.type = 'sine'
       this.oscillator.connect(this.gain)
       this.oscillator.start()
+
+      this.radius = 1.5 + (Math.random() * 0.5)
     },
     onUpdate: function () {
       if (!this.isWoofing) {

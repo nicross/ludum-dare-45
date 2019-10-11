@@ -69,7 +69,7 @@ const objectBase = {
 
     if (!this.isCollected) {
       if (!this.rampMasterGain.state) {
-        this.masterGain.gain.value = distanceToGain(this.getDistance(x, y))
+        this.masterGain.gain.value = distanceToGain(this.getDistance(x, y), this.radius)
       }
       this.masterPan.pan.value = angleToPan(
         -position.angleTowardPoint(this.x, this.y)
