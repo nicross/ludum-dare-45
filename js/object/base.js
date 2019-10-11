@@ -38,24 +38,6 @@ const objectBase = {
 
     return this
   },
-  rampMasterGain: function (value, duration) {
-    this.isRampingMasterGain = true
-    this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, audio.time())
-    this.masterGain.gain.exponentialRampToValueAtTime(value, audio.time(duration))
-
-    setTimeout(() => this.isRampingMasterGain = false, duration * 1000)
-
-    return this
-  },
-  rampMasterPan: function (value, duration) {
-    this.isRampingMasterPan = true
-    this.masterPan.pan.setValueAtTime(this.masterPan.pan.value, audio.time())
-    this.masterPan.pan.linearRampToValueAtTime(value, audio.time(duration))
-
-    setTimeout(() => this.isRampingMasterPan = false, duration * 1000)
-
-    return this
-  },
   spawn: function (options) {
     const context = audio.context(),
       {x, y} = position.get()
@@ -70,8 +52,11 @@ const objectBase = {
     this.masterGain.connect(this.masterPan)
     this.masterPan.connect(context.destination)
 
-    this.masterGain.gain.value = 1 / 10 ** 10
-    this.rampMasterGain(distanceToGain(this.getDistance(x, y)), 1)
+    this.rampMasterGain = createRamper(this.masterGain.gain, exponentialRamp)
+    this.rampMasterPan = createRamper(this.masterPan.pan, linearRamp)
+
+    this.masterGain.gain.value = ZERO_GAIN
+    this.rampMasterGain(distanceToGain(this.getDistance(x, y)), 2)
 
     this.onSpawn()
 
@@ -83,7 +68,9 @@ const objectBase = {
     }
 
     if (!this.inventory) {
-      this.masterGain.gain.value = distanceToGain(this.getDistance(x, y))
+      if (!this.rampMasterGain.state) {
+        this.masterGain.gain.value = distanceToGain(this.getDistance(x, y))
+      }
       this.masterPan.pan.value = angleToPan(
         -position.angleTowardPoint(this.x, this.y)
       )
