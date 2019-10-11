@@ -65,6 +65,22 @@ function createNoiseMachine() {
   }
 }
 
+function createCancelableTimeout(duration) {
+  const container = {}
+
+  const timeout = new Promise((resolve, reject) => {
+    container.reject = () => reject()
+    container.timeout = setTimeout(resolve, duration)
+  })
+
+  timeout.cancel = () => {
+    container.reject()
+    clearTimeout(container.timeout)
+  }
+
+  return timeout
+}
+
 function degreesToRadians(degrees) {
   return degrees * Math.PI / 180
 }
