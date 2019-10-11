@@ -1,7 +1,9 @@
 'use strict'
 
 const ambiance = (function IIFE() {
-  const maxSpawns = 40
+  const maxSpawns = 40,
+    minSpawns = 4
+
   const spawned = {}
 
   function hasSpawned(x, y) {
@@ -9,7 +11,9 @@ const ambiance = (function IIFE() {
   }
 
   function spawnAmbiance(d) {
-    const count = Math.round(Math.random() * Math.min(4 * d, maxSpawns))
+    const count = Math.round(
+      randomBetween(Math.min(d, minSpawns), Math.min(4 * d, maxSpawns))
+    )
 
     for (let i = 0; i < count; i++) {
       spawn(randomValue(ambients), nextSpawnLocation(GRID_LENGTH, Math.PI, -Math.PI / 2))
