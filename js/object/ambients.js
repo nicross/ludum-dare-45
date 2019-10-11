@@ -10,10 +10,10 @@ const ambients = [
       this.noise = createNoiseMachine()
       this.noise.output.connect(this.masterGain)
 
-      this.noise.filter.frequency.value = Math.random() * audio.sampleRate() / 12
-      this.noise.output.gain.value = 0.25 + (Math.random() * 0.75)
+      this.noise.filter.frequency.value = randomBetween(20, 5500)
+      this.noise.output.gain.value = randomBetween(0.25, 1)
 
-      this.radius = 1.5 + (Math.random() * 0.5)
+      this.radius = randomBetween(1.5, 2)
     },
   }),
   inventObject({
@@ -23,31 +23,31 @@ const ambients = [
     },
     onSpawn: function () {
       this.noise = createNoiseMachine()
-      this.noise.filter.frequency.value = Math.random() * audio.sampleRate() / 8
+      this.noise.filter.frequency.value = randomBetween(20, 5500)
       this.noise.output.gain.value = 0.125
       this.noise.output.connect(this.masterGain)
 
-      this.radius = 1 + Math.random()
+      this.radius = randomBetween(1, 2)
     },
     onUpdate: function () {
       if (!this.isRampingNoiseFilterFrequency) {
-        this.rampNoiseFilterFrequency(Math.random() * audio.sampleRate() / 8, Math.random() * 8)
+        this.rampNoiseFilterFrequency(randomBetween(120, 5500), randomBetween(1, 8))
       }
       if (!this.isRampingNoiseOutputGain) {
-        this.rampNoiseOutputGain(0.125 + (Math.random() * 0.25), 4 + (Math.random() * 8))
+        this.rampNoiseOutputGain(randomBetween(0.167, 0.325), randomBetween(4, 12))
       }
     },
     rampNoiseFilterFrequency: function (value, duration) {
       this.isRampingNoiseFilterFrequency = true
 
       const original = this.noise.filter.frequency.value,
-        strength = duration * (0.25 + (Math.random() * 0.75))
+        totalDuration = randomBetween(duration * 1.25, duration * 2)
 
       this.noise.filter.frequency.setValueAtTime(original, audio.time())
       this.noise.filter.frequency.exponentialRampToValueAtTime(value, audio.time(duration))
-      this.noise.filter.frequency.exponentialRampToValueAtTime(original, audio.time(duration + strength))
+      this.noise.filter.frequency.exponentialRampToValueAtTime(original, audio.time(totalDuration))
 
-      setTimeout(() => this.isRampingNoiseFilterFrequency = false, (duration + strength) * 1000)
+      setTimeout(() => this.isRampingNoiseFilterFrequency = false, totalDuration * 1000)
 
       return this
     },
@@ -55,13 +55,13 @@ const ambients = [
       this.isRampingNoiseOutputGain = true
 
       const original = this.noise.output.gain.value,
-        strength = duration * (0.25 + (Math.random() * 0.75))
+        totalDuration = randomBetween(duration * 1.25, duration * 2)
 
       this.noise.output.gain.setValueAtTime(original, audio.time())
       this.noise.output.gain.exponentialRampToValueAtTime(value, audio.time(duration))
-      this.noise.output.gain.exponentialRampToValueAtTime(original, audio.time(duration + strength))
+      this.noise.output.gain.exponentialRampToValueAtTime(original, audio.time(totalDuration))
 
-      setTimeout(() => this.isRampingNoiseOutputGain = false, (duration + strength) * 1000)
+      setTimeout(() => this.isRampingNoiseOutputGain = false, totalDuration * 1000)
 
       return this
     },
@@ -71,26 +71,27 @@ const ambients = [
     chirp: function () {
       this.isChirping = true
 
-      const times = Math.floor(Math.random() * 6)
+      const times = Math.floor(randomBetween(0, 6))
       let duration = 0
 
       this.gain.gain.setValueAtTime(0.00001, audio.time())
 
       for (let i = 0; i <= times; i++) {
-        const detune = (Math.random() > 0.5 ? 1 : -1) * Math.random() * 33.333,
+        const detune = randomBetween(-33.333, 33.333),
           frequency = midiToFrequency(chord.getRandomNote(this.x, this.y)) * 2,
-          start = 0.125 + (Math.random() * 0.125),
-          stop = 0.25 + (Math.random() * 0.5)
+          size = randomBetween(0, this.size),
+          start = randomBetween(0.125, 0.25),
+          stop = randomBetween(0.25, 0.75)
 
         this.oscillator.detune.setValueAtTime(detune, audio.time(duration))
         this.oscillator.frequency.setValueAtTime(frequency, audio.time(duration))
-        this.gain.gain.exponentialRampToValueAtTime(this.size * Math.random(), audio.time(duration + start))
-        this.gain.gain.exponentialRampToValueAtTime(0.00001, audio.time(duration + start + stop))
+        this.gain.gain.exponentialRampToValueAtTime(size, audio.time(duration + start))
+        this.gain.gain.exponentialRampToValueAtTime(ZERO_GAIN, audio.time(duration + start + stop))
 
         duration += start + stop
       }
 
-      duration += Math.random() * 8
+      duration += randomBetween(0, 8)
 
       setTimeout(() => {this.isChirping = false}, duration * 1000)
     },
@@ -100,7 +101,7 @@ const ambients = [
     onSpawn: function () {
       const context = audio.context()
 
-      this.size = 0.125 + (Math.random() * 0.5)
+      this.size = randomBetween(0.125, 0.625)
 
       this.gain = context.createGain()
       this.gain.connect(this.masterGain)
@@ -111,7 +112,7 @@ const ambients = [
       this.oscillator.connect(this.gain)
       this.oscillator.start()
 
-      this.radius = 1.75 + (Math.random() * 0.25)
+      this.radius = randomBetween(1.75, 2)
     },
     onUpdate: function () {
       if (!this.isChirping) {
@@ -133,7 +134,7 @@ const ambients = [
       this.oscillator.connect(this.gain)
       this.oscillator.start()
 
-      this.radius = 1.5 + (Math.random() * 0.5)
+      this.radius = randomBetween(1.5, 2)
     },
     onUpdate: function () {
       if (!this.isWoofing) {
@@ -148,9 +149,9 @@ const ambients = [
       const duration = strength * 8,
         pause = Math.random()
 
-      this.gain.gain.setValueAtTime(0.00001, audio.time())
+      this.gain.gain.setValueAtTime(ZERO_GAIN, audio.time())
       this.gain.gain.exponentialRampToValueAtTime(strength, audio.time(duration / 2))
-      this.gain.gain.exponentialRampToValueAtTime(0.00001, audio.time(duration))
+      this.gain.gain.exponentialRampToValueAtTime(ZERO_GAIN, audio.time(duration))
 
       setTimeout(() => {this.isWoofing = false}, (duration + pause) * 1000)
     },
@@ -165,10 +166,10 @@ const ambients = [
 
       this.size = Math.random()
       this.speed = Math.random()
-      this.vector = 2 * Math.PI * Math.random()
+      this.vector = randomBetween(0, TAU)
 
       this.gain = context.createGain()
-      this.gain.gain.value = 0.25 + (this.size * 0.25)
+      this.gain.gain.value = randomBetween(0.25, 0.5)
 
       this.oscillator = context.createOscillator()
       this.oscillator.type = 'sawtooth'
@@ -182,7 +183,7 @@ const ambients = [
     onUpdate: function () {
       const {x, y} = position.get()
 
-      this.vector += (Math.random() > 0.5 ? 1 : -1) * Math.random() * this.size
+      this.vector += randomBetween(-this.size, this.size)
       this.x += Math.cos(this.vector) * this.speed
       this.y += Math.sin(this.vector) * this.speed
       this.oscillator.detune.value = Math.sin(this.vector) * 10
@@ -190,10 +191,22 @@ const ambients = [
       if (!this.rampOscilatorFrequency.state) {
         this.rampOscilatorFrequency(
           midiToFrequency(chord.getRandomNote(x, y)),
-          Math.random() * 8
+          randomBetween(0, 8)
         )
       }
     },
   }),
+  inventObject({
+    id: 'Creature',
+    onCull: function () {
+      // TODO: Destroy or create nodes
+    },
+    onSpawn: function () {
+
+    },
+    onUpdate: function () {
+
+    },
+  })
   // TODO: Creature - Moves slower than Insect with a less erratic path, calls out like the subwoofer but with frequency modulation (and up an octave)
 ]

@@ -2,7 +2,7 @@
 
 const chord = (function IIFE() {
   const grid = {}
-  const transpose = Math.floor(Math.random() * 12) - 6
+  const transpose = Math.floor(randomBetween(-6, 6))
 
   const chords = shuffle([
     // Cm

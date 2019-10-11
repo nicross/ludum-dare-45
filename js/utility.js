@@ -160,10 +160,10 @@ function nextSpawnLocation(baseDistance, theta, offset) {
 
   const randomAngle = DEBUG
     ? 0
-    : (Math.random() * theta) + offset
+    : randomBetween(0, theta) + offset
 
-  const angle = (vector.velocity >= 0 ? 1 : -1) * (a + randomAngle),
-    distance = (baseDistance * 0.5) + (Math.random() * baseDistance * 0.5)
+  const angle = randomBetween(-a - randomAngle, a + randomAngle),
+    distance = randomBetween(baseDistance, baseDistance * 2)
 
   return {
     x: x + (Math.cos(angle) * distance),

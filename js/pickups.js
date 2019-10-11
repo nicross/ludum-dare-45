@@ -7,7 +7,7 @@ const pickups = (function IIFE() {
   ]
 
   const pickupRadius = 1,
-    pickupRelocate = 100
+    pickupRelocate = GRID_LENGTH * 2
 
   let nextPickup = 0,
     pickupSpawned = false,
@@ -16,7 +16,7 @@ const pickups = (function IIFE() {
   return {
     activate: () => {
       pickupSpawned = true
-      spawn(footsteps, nextSpawnLocation(25, Math.PI / 4, -Math.PI / 8))
+      spawn(footsteps, nextSpawnLocation(GRID_LENGTH / 2, Math.PI / 4, -Math.PI / 8))
     },
     update: ({d, x, y}) => {
       objects.filter((object) => {
@@ -27,9 +27,9 @@ const pickups = (function IIFE() {
         if (dTo <= pickupRadius) {
           object.pickup()
           pickupSpawned = false
-          nextPickup = d + 25 + (Math.random() * 50)
+          nextPickup = randomBetween(d + 25, d + 100)
         } else if (dTo >= pickupRelocate) {
-          const moveTo = nextSpawnLocation(GRID_LENGTH, Math.PI / 2, -Math.PI / 4)
+          const moveTo = nextSpawnLocation(GRID_LENGTH / 2, Math.PI / 2, -Math.PI / 4)
           object.x = moveTo.x
           object.y = moveTo.y
         }
@@ -37,7 +37,7 @@ const pickups = (function IIFE() {
 
       if (!pickupSpawned && d >= nextPickup && things.length) {
         pickupSpawned = true
-        spawn(things.shift(), nextSpawnLocation(GRID_LENGTH, Math.PI / 2, -Math.PI / 4))
+        spawn(things.shift(), nextSpawnLocation(GRID_LENGTH / 2, Math.PI / 2, -Math.PI / 4))
       }
 
       if (!pickupSpawned && !rewardSpawned && !things.length) {
