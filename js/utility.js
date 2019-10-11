@@ -81,6 +81,23 @@ function createCancelableTimeout(duration) {
   return timeout
 }
 
+function createRamper(audioParam, rampFn) {
+  const container = (...args) => {
+    container.state = true
+
+    const timeout = rampFn(audioParam, ...args)
+    timeout.then(() => container.state = false)
+    container.cancel = () => timeout.cancel()
+
+    return timeout
+  }
+
+  container.cancel = () => {}
+  container.state = false
+
+  return container
+}
+
 function degreesToRadians(degrees) {
   return degrees * Math.PI / 180
 }
