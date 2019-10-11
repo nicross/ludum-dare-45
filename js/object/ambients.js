@@ -13,7 +13,7 @@ const ambients = [
       this.noise.filter.frequency.value = randomBetween(20, 5500)
       this.noise.output.gain.value = randomBetween(0.25, 1)
 
-      this.radius = randomBetween(1.5, 2)
+      this.radius = randomBetween(1, 4)
     },
   }),
   inventObject({
@@ -27,7 +27,7 @@ const ambients = [
       this.noise.output.gain.value = 0.125
       this.noise.output.connect(this.masterGain)
 
-      this.radius = randomBetween(1, 2)
+      this.radius = randomBetween(1, 8)
     },
     onUpdate: function () {
       if (!this.isRampingNoiseFilterFrequency) {
@@ -74,7 +74,7 @@ const ambients = [
       const times = Math.floor(randomBetween(0, 6))
       let duration = 0
 
-      this.gain.gain.setValueAtTime(0.00001, audio.time())
+      this.gain.gain.setValueAtTime(ZERO_GAIN, audio.time())
 
       for (let i = 0; i <= times; i++) {
         const detune = randomBetween(-33.333, 33.333),
@@ -112,7 +112,7 @@ const ambients = [
       this.oscillator.connect(this.gain)
       this.oscillator.start()
 
-      this.radius = randomBetween(1.75, 2)
+      this.radius = randomBetween(0, 1)
     },
     onUpdate: function () {
       if (!this.isChirping) {
@@ -134,7 +134,7 @@ const ambients = [
       this.oscillator.connect(this.gain)
       this.oscillator.start()
 
-      this.radius = randomBetween(1.5, 2)
+      this.radius = randomBetween(2, 4)
     },
     onUpdate: function () {
       if (!this.isWoofing) {
@@ -179,6 +179,8 @@ const ambients = [
       this.gain.connect(this.masterGain)
 
       this.rampOscilatorFrequency = createRamper(this.oscillator.frequency, exponentialRamp)
+
+      this.radius = randomBetween(0, 0.25)
     },
     onUpdate: function () {
       const {x, y} = position.get()
