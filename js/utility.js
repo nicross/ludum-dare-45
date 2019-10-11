@@ -108,10 +108,30 @@ function flattenAngle(angle) {
   return angle
 }
 
+function exponentialRamp(audioParam, value, duration) {
+  audioParam.setValueAtTime(audioParam.value, audio.time())
+  audioParam.exponentialRampToValueAtTime(value, audio.time(duration))
+
+  const timeout = createCancelableTimeout(duration * 1000)
+  timeout.then(null, () => audioParam.cancelAndHoldAtTime(0))
+
+  return timeout
+}
+
 function inventObject(definition, prototype) {
   return Object.setPrototypeOf({
     ...definition,
   }, objectBase.isPrototypeOf(prototype) ? prototype : objectBase)
+}
+
+function linearRamp(audioParam, value, duration) {
+  audioParam.setValueAtTime(audioParam.value, audio.time())
+  audioParam.linearRampToValueAtTime(value, audio.time(duration))
+
+  const timeout = createCancelableTimeout(duration * 1000)
+  timeout.then(null, () => audioParam.cancelAndHoldAtTime(0))
+
+  return timeout
 }
 
 function midiToFrequency(note) {
