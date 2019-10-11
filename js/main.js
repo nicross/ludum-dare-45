@@ -1,7 +1,8 @@
 'use strict'
 
 const CULLING_DISTANCE = 100,
-  DEBUG = false
+  DEBUG = false,
+  ZERO_GAIN = 1 / 10 ** 6
 
 function activate() {
   chord.update(
