@@ -13,9 +13,8 @@ const compass = inventObject({
     this.noise.filter.Q.value = 4
     this.noise.filter.type = 'bandpass'
 
-    this.isRampingNoiseGain = true
-    this.noise.output.gain.linearRampToValueAtTime(0.0625, audio.time(1))
-    setTimeout(() => this.isRampingNoiseGain = false, 1000)
+    this.rampNoiseOutputGain = createRamper(this.noise.output.gain, linearRamp)
+    this.rampNoiseOutputGain(0.0625, 1)
 
     this.dinger.destroy()
     delete this.dinger
@@ -35,13 +34,13 @@ const compass = inventObject({
 
       this.noise.filter.frequency.value = frequency
 
-      if (!this.isRampingNoiseGain) {
+      if (!this.rampNoiseOutputGain.state) {
         let gain = (1 - strength) ** 8
         gain = 0.0625 + (gain * 0.125)
         this.noise.output.gain.value = gain
       }
 
-      if (!this.isRampingMasterPan) {
+      if (!this.rampMasterPan.state) {
         this.masterPan.pan.value = -angleToPan(north)
       }
     }

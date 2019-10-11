@@ -168,6 +168,8 @@ const ambients = [
 
       this.oscillator.connect(this.gain)
       this.gain.connect(this.masterGain)
+
+      this.rampOscilatorFrequency = createRamper(this.oscillator.frequency, exponentialRamp)
     },
     onUpdate: function () {
       const {x, y} = position.get()
@@ -177,18 +179,14 @@ const ambients = [
       this.y += Math.sin(this.vector) * this.speed
       this.oscillator.detune.value = Math.sin(this.vector) * 10
 
-      if (!this.isRampingOscilatorFrequency) {
+      if (!this.rampOscilatorFrequency.state) {
         this.rampOscilatorFrequency(
           midiToFrequency(chord.getRandomNote(x, y)),
           Math.random() * 8
         )
       }
     },
-    rampOscilatorFrequency: function (value, duration) {
-      this.isRampingOscilatorFrequency = true
-      this.oscillator.frequency.exponentialRampToValueAtTime(value, audio.time(duration))
-      setTimeout(() => this.isRampingOscilatorFrequency = false, duration * 1000)
-    },
   }),
   // TODO: Creature - Moves slower than Insect with a less erratic path, calls out like the subwoofer but with frequency modulation (and up an octave)
+  // TODO: Spectre - Moves perpendicular to player and
 ]
