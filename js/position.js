@@ -2,7 +2,7 @@
 
 const position = (function IIFE() {
   const position = {
-    a: -Math.PI / 2,
+    a: Math.PI / 2,
     d: 0,
     grid: {
       x: 0,
@@ -14,7 +14,7 @@ const position = (function IIFE() {
       x: 0,
       y: 0,
     },
-    theta: -Math.PI / 2,
+    theta: Math.PI / 2,
     x: 0,
     y: 0,
   }
