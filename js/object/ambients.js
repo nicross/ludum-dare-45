@@ -200,16 +200,72 @@ const ambients = [
     },
   }),
   inventObject({
-    id: 'Creature',
+    id: 'Oinker',
+    call: function () {
+      this.isCalling = true
+
+      const root = midiToFrequency(chord.getRootNote(this.x, this.y)),
+        times = Math.floor(randomBetween(1, 4))
+
+      let duration = 0
+
+      this.gain.gain.setValueAtTime(ZERO_GAIN, audio.time())
+
+      for (let i = 0; i < times; i++) {
+        const detune = randomBetween(-33.333, 33.333),
+          modulation = randomBetween(20, 80),
+          size = i == 0 ? randomBetween(0.5, 1) : randomBetween(0.166, 0.5),
+          start = randomBetween(0.125, 0.333),
+          stop = i == 0 ? randomBetween(0.75, 1) : randomBetween(0.25, 0.5)
+
+        this.carrier.detune.setValueAtTime(detune, audio.time(duration))
+        this.carrier.frequency.setValueAtTime(root, audio.time(duration))
+        this.modulator.frequency.setValueAtTime(1 + (4 * i), audio.time(duration))
+        this.modulator.frequency.exponentialRampToValueAtTime(modulation, audio.time(duration + start + stop))
+        this.gain.gain.exponentialRampToValueAtTime(size, audio.time(duration + start))
+        this.gain.gain.exponentialRampToValueAtTime(ZERO_GAIN, audio.time(duration + start + stop))
+
+        duration += start + stop
+      }
+
+      duration += randomBetween(4, 8)
+
+      setTimeout(() => {this.isCalling = false}, duration * 1000)
+    },
     onCull: function () {
       // TODO: Destroy or create nodes
     },
     onSpawn: function () {
+      const context = audio.context()
 
+      this.radius = randomBetween(1, 2)
+      this.speed = Math.random()
+      this.vector = randomBetween(0, TAU)
+
+      this.gain = context.createGain()
+      this.gain.gain.value = ZERO_GAIN
+
+      this.carrier = context.createOscillator()
+      this.carrier.type = 'sawtooth'
+      this.carrier.start()
+
+      this.modulator = context.createOscillator()
+      this.modulator.type = 'sine'
+      this.modulator.start()
+
+      this.modulator.connect(this.carrier.frequency)
+      this.carrier.connect(this.gain)
+      this.gain.connect(this.masterGain)
     },
     onUpdate: function () {
+      if (!this.isCalling) {
+        this.call()
+        this.speed = Math.random()
+        this.vector += randomBetween(-Math.PI / 4, Math.PI / 4)
+      }
 
+      this.x += Math.cos(this.vector) * this.speed * IFPS / GRID_LENGTH
+      this.y += Math.sin(this.vector) * this.speed * IFPS / GRID_LENGTH
     },
   })
-  // TODO: Creature - Moves slower than Insect with a less erratic path, calls out like the subwoofer but with frequency modulation (and up an octave)
 ]
