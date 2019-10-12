@@ -83,7 +83,7 @@ const ambients = [
       this.oscillator.connect(this.gain)
       this.oscillator.start()
 
-      this.gainRadius = randomBetween(GRID_LENGTH / 16, GRID_LENGTH / 8)
+      this.gainRadius = randomBetween(GRID_LENGTH / 12, GRID_LENGTH / 6)
       this.panRadius = randomBetween(0, 1)
     },
     onUpdate: function () {
@@ -146,8 +146,8 @@ const ambients = [
 
       const strength = Math.random()
 
-      const duration = scale(strength, 0, 1, 1, 8),
-        gain = scale(strength, 0, 1, 0.25, 0.75),
+      const duration = scale(strength, 0, 1, 2, 8),
+        gain = scale(strength, 0, 1, 0.333, 1),
         pause = Math.random()
 
       this.gain.gain.setValueAtTime(ZERO_GAIN, audio.time())
@@ -181,7 +181,7 @@ const ambients = [
 
       this.rampOscilatorFrequency = createRamper(this.oscillator.frequency, exponentialRamp)
 
-      this.gainRadius = randomBetween(GRID_LENGTH / 16, GRID_LENGTH / 8)
+      this.gainRadius = randomBetween(GRID_LENGTH / 12, GRID_LENGTH / 6)
       this.panRadius = randomBetween(0, 1)
     },
     onUpdate: function () {
