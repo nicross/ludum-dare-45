@@ -55,7 +55,6 @@ const objectBase = {
     this.rampMasterPan = createRamper(this.masterPan.pan, linearRamp)
 
     this.masterGain.gain.value = ZERO_GAIN
-    this.rampMasterGain(distanceToGain(this.d), 1)
 
     this.onSpawn()
 
