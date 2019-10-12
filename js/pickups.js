@@ -27,9 +27,9 @@ const pickups = (function IIFE() {
         if (dTo <= pickupRadius) {
           object.pickup()
           pickupSpawned = false
-          nextPickup = randomBetween(d + 25, d + 100)
+          nextPickup = d + randomBetween(GRID_LENGTH, GRID_LENGTH * 2)
         } else if (dTo >= pickupRelocate) {
-          const moveTo = nextSpawnLocation(GRID_LENGTH / 2, Math.PI / 2, -Math.PI / 4)
+          const moveTo = nextSpawnLocation(GRID_LENGTH, Math.PI / 2, -Math.PI / 4)
           object.x = moveTo.x
           object.y = moveTo.y
         }
