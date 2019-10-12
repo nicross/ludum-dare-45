@@ -16,7 +16,7 @@ const pickups = (function IIFE() {
   return {
     activate: () => {
       pickupSpawned = true
-      spawn(footsteps, nextSpawnLocation(GRID_LENGTH / 2, Math.PI / 4, -Math.PI / 8))
+      spawn(footsteps, nextSpawnLocation(GRID_LENGTH / 4, Math.PI / 4, -Math.PI / 8))
     },
     update: ({d, x, y}) => {
       objects.filter((object) => {
