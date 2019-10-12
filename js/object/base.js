@@ -84,3 +84,17 @@ const objectBase = {
     return this
   },
 }
+
+const debugObject = inventObject({
+  id: 'Debug',
+  radius: 4,
+  onSpawn: function () {
+    const gain = audio.context().createGain()
+    gain.gain.value = 0.25
+    gain.connect(this.masterGain)
+
+    const oscillator = audio.context().createOscillator()
+    oscillator.connect(gain)
+    oscillator.start()
+  },
+})
