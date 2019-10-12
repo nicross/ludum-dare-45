@@ -14,6 +14,7 @@ const position = (function IIFE() {
       x: 0,
       y: 0,
     },
+    theta: -Math.PI / 2,
     x: 0,
     y: 0,
   }
@@ -48,20 +49,48 @@ const position = (function IIFE() {
     }),
     maxVector: () => Object.assign(maxVector),
     update: (state) => {
+      let theta = 0
+
       if (state.moveForward) {
-        if (vector.velocity < 0) {
+        if (vector.velocity < 0 ) {
           vector.velocity = 0
         }
         if (vector.velocity < maxVector.velocity) {
           vector.velocity += acceleration.velocity
         }
+        if (state.moveLeft) {
+          theta = Math.PI / 4
+        } else if (state.moveRight) {
+          theta = Math.PI * 7 / 4
+        }
       } else if (state.moveBackward) {
-        if (vector.velocity > 0) {
+        if (vector.velocity > 0 ) {
           vector.velocity = 0
         }
         if (vector.velocity > -maxVector.velocity) {
           vector.velocity -= acceleration.velocity
         }
+        if (state.moveLeft) {
+          theta = Math.PI * 7 / 4
+        } else if (state.moveRight) {
+          theta = Math.PI / 4
+        }
+      } else if (state.moveLeft) {
+        if (vector.velocity < 0 ) {
+          vector.velocity = 0
+        }
+        if (vector.velocity < maxVector.velocity) {
+          vector.velocity += acceleration.velocity
+        }
+        theta = Math.PI / 2
+      } else if (state.moveRight) {
+        if (vector.velocity < 0 ) {
+          vector.velocity = 0
+        }
+        if (vector.velocity < maxVector.velocity) {
+          vector.velocity += acceleration.velocity
+        }
+        theta = Math.PI * 3 / 2
       } else if (vector.velocity >= acceleration.velocity * 2) {
         vector.velocity -= acceleration.velocity * 2
       } else if (vector.velocity <= -(acceleration.velocity * 2)) {
@@ -98,8 +127,9 @@ const position = (function IIFE() {
         position.a += TAU
       }
 
-      position.x += vector.velocity * Math.cos(position.a)
-      position.y += vector.velocity * Math.sin(position.a)
+      position.theta = position.a + theta
+      position.x += vector.velocity * Math.cos(position.theta)
+      position.y += vector.velocity * Math.sin(position.theta)
       position.d = distance(0, 0, position.x, position.y)
 
       const stepX = Math.round(position.x / STEP_LENGTH),
