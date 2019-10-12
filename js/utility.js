@@ -108,8 +108,15 @@ function distance(x1, y1, x2, y2) {
 }
 
 function distanceToGain(d, radius = 0) {
-  const gain = 1 / (Math.max(1, d - radius) ** 2)
-  return Math.max(ZERO_GAIN, Math.min(1, gain))
+  const adjusted = d - radius
+
+  if (adjusted <= 0) {
+    return 1
+  }
+
+  const gain = 1 / (adjusted ** 2)
+
+  return Math.max(ZERO_GAIN, Math.min(gain, 1))
 }
 
 function flattenAngle(angle) {
