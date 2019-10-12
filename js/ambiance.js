@@ -6,35 +6,48 @@ const ambiance = (function IIFE() {
 
   const spawned = {}
 
-  function hasSpawned(x, y) {
-    return x in spawned && y in spawned[x]
-  }
+  function handleSpawns(gridX, gridY) {
+    for (let x = gridX - 1; x <= gridX + 1; x += 1) {
+      for (let y = gridY - 1; y <= gridY + 1; y += 1) {
+        if (hasSpawned(x, y)) {
+          continue
+        }
 
-  function spawnAmbiance(d) {
-    const count = Math.round(
-      randomBetween(Math.min(d, minSpawns), Math.min(4 * d, maxSpawns))
-    )
-
-    for (let i = 0; i < count; i++) {
-      spawn(randomValue(ambients), nextSpawnLocation(GRID_LENGTH, Math.PI, -Math.PI / 2))
-    }
-  }
-
-  return {
-    activate: function () {
-      spawned[0] = {0: true}
-      return this
-    },
-    update: ({d, x, y}) => {
-      if (!hasSpawned(x, y)) {
         if (!spawned[x]) {
           spawned[x] = {}
         }
 
         spawned[x][y] = true
-        spawnAmbiance(d)
-      }
 
+        spawnAmbient(x, y, distance(0, 0, x, y))
+      }
+    }
+  }
+
+  function hasSpawned(x, y) {
+    return x in spawned && y in spawned[x]
+  }
+
+  function spawnAmbient(x, y, d) {
+    const count = Math.round(
+      randomBetween(Math.min(d, minSpawns), Math.min(4 * d, maxSpawns))
+    )
+
+    for (let i = 0; i < count; i++) {
+      spawn(randomValue(ambients), {
+        x: randomBetween(GRID_LENGTH * x, GRID_LENGTH * (x + 1)) - (GRID_LENGTH / 2),
+        y: randomBetween(GRID_LENGTH * y, GRID_LENGTH * (y + 1)) - (GRID_LENGTH / 2),
+      })
+    }
+  }
+
+  return {
+    activate: function () {
+      handleSpawns(0, 0)
+      return this
+    },
+    update: ({x, y}) => {
+      handleSpawns(x, y)
       return this
     }
   }
