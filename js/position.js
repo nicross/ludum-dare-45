@@ -10,10 +10,6 @@ const position = (function IIFE() {
     },
     isStep: true,
     isGrid: true,
-    step: {
-      x: 0,
-      y: 0,
-    },
     theta: Math.PI / 2,
     x: 0,
     y: 0,
@@ -33,6 +29,8 @@ const position = (function IIFE() {
     rotation: IFPS * maxVector.rotation,
     velocity: IFPS * maxVector.velocity / 4,
   }
+
+  let lastStep = 0
 
   return {
     angleTowardDirection: (radians) => {
@@ -132,15 +130,11 @@ const position = (function IIFE() {
       position.y += vector.velocity * Math.sin(position.theta)
       position.d = distance(0, 0, position.x, position.y)
 
-      const stepX = Math.round(position.x / STEP_LENGTH),
-        stepY = Math.round(position.y / STEP_LENGTH)
 
-      if (stepX != position.step.x || stepY != position.step.y) {
+
+      if (Math.abs(position.d - lastStep) >= STEP_LENGTH) {
+        lastStep = position.d
         position.isStep = true
-        position.step = {
-          x: stepX,
-          y: stepY,
-        }
       } else if (position.isStep) {
         position.isStep = false
       }

@@ -28,9 +28,9 @@ const footsteps = inventObject({
 
     this.noise.filter.frequency.setValueAtTime(1, audio.time(0))
     this.noise.filter.frequency.exponentialRampToValueAtTime(800, audio.time(0.0625))
-    this.noise.filter.frequency.exponentialRampToValueAtTime(1, audio.time(0.25))
+    this.noise.filter.frequency.exponentialRampToValueAtTime(1, audio.time(0.2))
 
-    setTimeout(() => this.isStepping = false, 250)
+    setTimeout(() => this.isStepping = false, 200)
   },
   onUpdate: function () {},
 })
