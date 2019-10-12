@@ -158,7 +158,7 @@ const ambients = [
     },
   }),
   inventObject({
-    id: 'Insect',
+    id: 'Bugger',
     onCull: function () {
       // TODO: Destroy or create nodes
     },
@@ -170,7 +170,7 @@ const ambients = [
       this.vector = randomBetween(0, TAU)
 
       this.gain = context.createGain()
-      this.gain.gain.value = randomBetween(0.25, 0.5)
+      this.gain.gain.value = randomBetween(0.125, 0.25)
 
       this.oscillator = context.createOscillator()
       this.oscillator.type = 'sawtooth'
@@ -180,8 +180,6 @@ const ambients = [
       this.gain.connect(this.masterGain)
 
       this.rampOscilatorFrequency = createRamper(this.oscillator.frequency, exponentialRamp)
-
-      this.radius = randomBetween(0, 0.25)
     },
     onUpdate: function () {
       const {x, y} = position.get()
