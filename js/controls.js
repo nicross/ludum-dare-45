@@ -105,12 +105,12 @@ const controls = (function IIFE() {
       return this
     },
     get: () => ({
-      movingBackward: controls.arrowDown || controls.keyS || controls.uiBackward,
-      movingForward: controls.arrowUp || controls.keyW || controls.uiForward,
-      movingLeft: controls.keyA,
-      movingRight: controls.keyD,
-      turningLeft: controls.arrowLeft || controls.keyQ || controls.uiLeft,
-      turningRight: controls.arrowRight || controls.keyE || controls.uiRight,
+      moveBackward: controls.arrowDown || controls.keyS || controls.uiBackward,
+      moveForward: controls.arrowUp || controls.keyW || controls.uiForward,
+      moveLeft: controls.keyA,
+      moveRight: controls.keyD,
+      turnLeft: controls.arrowLeft || controls.keyQ || controls.uiLeft,
+      turnRight: controls.arrowRight || controls.keyE || controls.uiRight,
     })
   }
 })()

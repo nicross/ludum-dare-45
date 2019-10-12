@@ -48,14 +48,14 @@ const position = (function IIFE() {
     }),
     maxVector: () => Object.assign(maxVector),
     update: (state) => {
-      if (state.movingForward) {
+      if (state.moveForward) {
         if (vector.velocity < 0) {
           vector.velocity = 0
         }
         if (vector.velocity < maxVector.velocity) {
           vector.velocity += acceleration.velocity
         }
-      } else if (state.movingBackward) {
+      } else if (state.moveBackward) {
         if (vector.velocity > 0) {
           vector.velocity = 0
         }
@@ -70,14 +70,14 @@ const position = (function IIFE() {
         vector.velocity = 0
       }
 
-      if (state.turningLeft) {
+      if (state.turnLeft) {
         if (vector.rotation < 0) {
           vector.rotation = 0
         }
         if (vector.rotation < maxVector.rotation) {
           vector.rotation += acceleration.rotation
         }
-      } else if (state.turningRight) {
+      } else if (state.turnRight) {
         if (vector.rotation > 0) {
           vector.rotation = 0
         }
