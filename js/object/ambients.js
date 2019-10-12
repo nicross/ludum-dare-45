@@ -67,9 +67,33 @@ const ambients = [
     },
   }),
   inventObject({
-    id: 'Chirper',
-    chirp: function () {
-      this.isChirping = true
+    id: 'Tweeter',
+    onCull: function () {
+      // TODO: Destroy or create nodes
+    },
+    onSpawn: function () {
+      const context = audio.context()
+
+      this.size = randomBetween(0.125, 0.625)
+
+      this.gain = context.createGain()
+      this.gain.connect(this.masterGain)
+      this.gain.gain.value = 0.00001
+
+      this.oscillator = context.createOscillator()
+      this.oscillator.type = 'triangle'
+      this.oscillator.connect(this.gain)
+      this.oscillator.start()
+
+      this.radius = randomBetween(0, 1)
+    },
+    onUpdate: function () {
+      if (!this.isTweeting) {
+        this.tweet()
+      }
+    },
+    tweet: function () {
+      this.isTweeting = true
 
       const times = Math.floor(randomBetween(0, 6))
       let duration = 0
@@ -93,31 +117,7 @@ const ambients = [
 
       duration += randomBetween(0, 8)
 
-      setTimeout(() => {this.isChirping = false}, duration * 1000)
-    },
-    onCull: function () {
-      // TODO: Destroy or create nodes
-    },
-    onSpawn: function () {
-      const context = audio.context()
-
-      this.size = randomBetween(0.125, 0.625)
-
-      this.gain = context.createGain()
-      this.gain.connect(this.masterGain)
-      this.gain.gain.value = 0.00001
-
-      this.oscillator = context.createOscillator()
-      this.oscillator.type = 'triangle'
-      this.oscillator.connect(this.gain)
-      this.oscillator.start()
-
-      this.radius = randomBetween(0, 1)
-    },
-    onUpdate: function () {
-      if (!this.isChirping) {
-        this.chirp()
-      }
+      setTimeout(() => {this.isTweeting = false}, duration * 1000)
     },
   }),
   inventObject({
