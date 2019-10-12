@@ -50,7 +50,7 @@ const arpeggiator = inventObject({
   },
   isCollectible: true,
   onPickup: function () {
-    this.rampSynthGain(0.125, audio.time(0.5))
+    this.rampSynthGain(0.125, 0.5)
 
     this.synths.forEach((synth, index) => {
       if (index == 0) {
@@ -76,7 +76,7 @@ const arpeggiator = inventObject({
   },
   onUpdate: function () {
     const {grid} = position.get(),
-      chordIndex = chord.getIndex(grid.x, grid.y)
+      chordIndex = this.isCollected ? chord.getIndex(grid.x, grid.y) : chord.getIndex(0, 0)
 
     if (chordIndex == this.chordIndex) {
       return
