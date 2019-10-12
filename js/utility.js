@@ -164,16 +164,16 @@ function midiToFrequency(note) {
   return 440 * Math.pow(2, (note - 69) / 12)
 }
 
-function nextSpawnLocation(baseDistance, theta, offset) {
-  const {a, vector, x, y} = position.get()
+function nextSpawnLocation(baseDistance = GRID_LENGTH, coneAngle = TAU, coneOffset = 0) {
+  const {theta, vector, x, y} = position.get()
   baseDistance += Math.abs(FPS * vector.velocity)
 
   const randomAngle = DEBUG
     ? 0
-    : randomBetween(0, theta) + offset
+    : randomBetween(0, coneAngle) + coneOffset
 
-  const angle = (vector.velocity >= 0 ? 1 : -1) * (a + randomAngle),
-    totalDistance = randomBetween(baseDistance, baseDistance * 2)
+  const angle = (vector.velocity >= 0 ? 1 : -1) * (theta + randomAngle),
+    totalDistance = randomBetween(baseDistance / 2, baseDistance)
 
   return {
     x: x + (Math.cos(angle) * totalDistance),
