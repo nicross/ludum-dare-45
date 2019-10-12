@@ -43,6 +43,7 @@ const objectBase = {
 
     this.d = distance(this.x, this.y, x, y)
     this.isCulled = false
+    this.radius = this.radius || 0
 
     this.masterGain = context.createGain()
     this.masterPan = context.createStereoPanner()
