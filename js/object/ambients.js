@@ -146,11 +146,12 @@ const ambients = [
 
       const strength = Math.random()
 
-      const duration = strength * 8,
+      const duration = scale(strength, 0, 1, 1, 8),
+        gain = scale(strength, 0, 1, 0.25, 0.75),
         pause = Math.random()
 
       this.gain.gain.setValueAtTime(ZERO_GAIN, audio.time())
-      this.gain.gain.exponentialRampToValueAtTime(strength, audio.time(duration / 2))
+      this.gain.gain.exponentialRampToValueAtTime(gain, audio.time(duration / 2))
       this.gain.gain.exponentialRampToValueAtTime(ZERO_GAIN, audio.time(duration))
 
       setTimeout(() => {this.isWoofing = false}, (duration + pause) * 1000)
