@@ -13,6 +13,8 @@ const controls = (function IIFE() {
     arrowUp: false,
     keyA: false,
     keyD: false,
+    keyE: false,
+    keyQ: false,
     keyS: false,
     keyW: false,
     uiBackward: false,
@@ -28,6 +30,8 @@ const controls = (function IIFE() {
     40: 'arrowDown',
     65: 'keyA',
     68: 'keyD',
+    69: 'keyE',
+    81: 'keyQ',
     83: 'keyS',
     87: 'keyW',
   }
@@ -103,8 +107,10 @@ const controls = (function IIFE() {
     get: () => ({
       movingBackward: controls.arrowDown || controls.keyS || controls.uiBackward,
       movingForward: controls.arrowUp || controls.keyW || controls.uiForward,
-      turningLeft: controls.arrowLeft || controls.keyA || controls.uiLeft,
-      turningRight: controls.arrowRight || controls.keyD || controls.uiRight,
+      movingLeft: controls.keyA,
+      movingRight: controls.keyD,
+      turningLeft: controls.arrowLeft || controls.keyQ || controls.uiLeft,
+      turningRight: controls.arrowRight || controls.keyE || controls.uiRight,
     })
   }
 })()
