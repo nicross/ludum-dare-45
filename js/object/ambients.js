@@ -13,7 +13,7 @@ const ambients = [
       this.noise.filter.frequency.value = randomBetween(20, 5500)
       this.noise.output.gain.value = randomBetween(0.25, 1)
 
-      this.radius = randomBetween(1, 4)
+      this.gainRadius = this.panRadius = randomBetween(1, 4)
     },
   }),
   inventObject({
@@ -27,7 +27,7 @@ const ambients = [
       this.noise.output.gain.value = 0.125
       this.noise.output.connect(this.masterGain)
 
-      this.radius = randomBetween(1, 8)
+      this.gainRadius = this.panRadius = randomBetween(1, 8)
     },
     onUpdate: function () {
       if (!this.isRampingNoiseFilterFrequency) {
@@ -85,7 +85,7 @@ const ambients = [
       this.oscillator.connect(this.gain)
       this.oscillator.start()
 
-      this.radius = randomBetween(0, 1)
+      this.gainRadius = this.panRadius = randomBetween(0, 1)
     },
     onUpdate: function () {
       if (!this.isTweeting) {
@@ -134,7 +134,7 @@ const ambients = [
       this.oscillator.connect(this.gain)
       this.oscillator.start()
 
-      this.radius = randomBetween(2, 4)
+      this.gainRadius = this.panRadius = randomBetween(2, 4)
     },
     onUpdate: function () {
       if (!this.isWoofing) {
@@ -236,7 +236,7 @@ const ambients = [
     onSpawn: function () {
       const context = audio.context()
 
-      this.radius = randomBetween(1, 2)
+      this.gainRadius = this.panRadius = randomBetween(1, 2)
       this.speed = Math.random()
       this.vector = randomBetween(0, TAU)
 

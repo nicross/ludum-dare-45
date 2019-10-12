@@ -29,7 +29,7 @@ const objectBase = {
     delete this.y
 
     this.rampMasterGain(1, audio.time(0.5))
-    this.masterPan.pan.value = 0
+    this.rampMasterPan(0, audio.time(0.5))
 
     this.onPickup.apply(this, arguments)
 
@@ -43,7 +43,8 @@ const objectBase = {
 
     this.d = distance(this.x, this.y, x, y)
     this.isCulled = false
-    this.radius = this.radius || 0
+    this.gainRadius = this.gainRadius || 0
+    this.panRadius = this.panRadius || 0
 
     this.masterGain = context.createGain()
     this.masterPan = context.createStereoPanner()
@@ -70,7 +71,7 @@ const objectBase = {
     if (!this.isCollected) {
       if (!this.rampMasterGain.state) {
         this.rampMasterGain(
-          distanceToGain(this.d, this.radius),
+          distanceToGain(this.d, this.gainRadius),
           IFPS / 2
         )
       }
@@ -79,7 +80,7 @@ const objectBase = {
           angleToPan(
             -position.angleTowardPoint(this.x, this.y),
             this.d,
-            this.radius
+            this.panRadius
           ),
           IFPS / 2
         )
