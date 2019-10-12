@@ -71,12 +71,21 @@ const objectBase = {
     if (!this.isCollected) {
       if (!this.rampMasterGain.state) {
         this.masterGain.gain.value = distanceToGain(this.d, this.radius)
+        this.rampMasterGain(
+          distanceToGain(this.d, this.radius),
+          IFPS / 2
+        )
       }
-      this.masterPan.pan.value = angleToPan(
-        -position.angleTowardPoint(this.x, this.y),
-        this.d,
-        this.radius
-      )
+      if (!this.rampMasterPan.state) {
+        this.rampMasterPan(
+          angleToPan(
+            -position.angleTowardPoint(this.x, this.y),
+            this.d,
+            this.radius
+          ),
+          IFPS / 2
+        )
+      }
     }
 
     this.onUpdate.apply(this, arguments)

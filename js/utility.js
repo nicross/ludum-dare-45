@@ -108,6 +108,7 @@ function distance(x1, y1, x2, y2) {
 }
 
 function distanceToGain(d, radius = 0) {
+  // TODO: Roll off gain slightly when inside radius, as if radius is at 50% volume
   const adjusted = d - radius
 
   if (adjusted <= 0) {
