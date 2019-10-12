@@ -6,41 +6,62 @@ const controls = (function IIFE() {
     left = document.querySelector('.o-app--left'),
     right = document.querySelector('.o-app--right')
 
-  let movingBackward = false,
-    movingForward = false,
-    turningLeft = false,
-    turningRight = false
+  const controls = {
+    arrowDown: false,
+    arrowLeft: false,
+    arrowRight: false,
+    arrowUp: false,
+    keyA: false,
+    keyD: false,
+    keyS: false,
+    keyW: false,
+    uiBackward: false,
+    uiForward: false,
+    uiLeft: false,
+    uiRight: false,
+  }
+
+  const keys = {
+    37: 'arrowLeft',
+    38: 'arrowUp',
+    39: 'arrowRight',
+    40: 'arrowDown',
+    65: 'keyA',
+    68: 'keyD',
+    83: 'keyS',
+    87: 'keyW',
+  }
 
   function onBackwardStart() {
-    movingBackward = true
+    controls.uiBackward = true
   }
 
   function onBackwardStop() {
-    movingBackward = false
+    controls.uiBackward = false
   }
 
   function onForwardStart() {
-    movingForward = true
+    controls.uiForward = true
   }
 
   function onForwardStop() {
-    movingForward = false
+    controls.uiForward = false
   }
 
   function onLeftStart() {
-    turningLeft = true
+    controls.uiLeft = true
   }
 
   function onLeftStop() {
-    turningLeft = false
+    controls.uiLeft = false
   }
 
   function onRightStart() {
-    turningRight = true
+    controls.uiRight = true
   }
 
   function onRightStop() {
-    turningRight = false
+    controls.uiRight = false
   }
 
   return {
@@ -66,46 +87,24 @@ const controls = (function IIFE() {
       right.addEventListener('touchend', onRightStop)
 
       window.addEventListener('keydown', (e) => {
-        switch (e.which) {
-          case 38:
-          case 87:
-            return onForwardStart()
-          case 39:
-          case 68:
-            return onRightStart()
-          case 40:
-          case 83:
-            return onBackwardStart()
-          case 37:
-          case 65:
-            return onLeftStart()
+        if (e.which in keys) {
+          controls[keys[e.which]] = true
         }
       })
 
       window.addEventListener('keyup', (e) => {
-        switch (e.which) {
-          case 38:
-          case 87:
-            return onForwardStop()
-          case 39:
-          case 68:
-            return onRightStop()
-          case 40:
-          case 83:
-            return onBackwardStop()
-          case 37:
-          case 65:
-            return onLeftStop()
+        if (e.which in keys) {
+          controls[keys[e.which]] = false
         }
       })
 
       return this
     },
     get: () => ({
-      movingBackward,
-      movingForward,
-      turningLeft,
-      turningRight,
+      movingBackward: controls.arrowDown || controls.keyS || controls.uiBackward,
+      movingForward: controls.arrowUp || controls.keyW || controls.uiForward,
+      turningLeft: controls.arrowLeft || controls.keyA || controls.uiLeft,
+      turningRight: controls.arrowRight || controls.keyD || controls.uiRight,
     })
   }
 })()
