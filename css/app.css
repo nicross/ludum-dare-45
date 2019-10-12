@@ -64,7 +64,9 @@
     left: 50%;
     padding: 1em;
     position: absolute;
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 100%, 0);
+    transition: all 0.5s ease;
+    transition-property: opacity, transform;
     z-index: 3;
   }
   .o-app--credits a {
@@ -105,4 +107,17 @@
 .o-app-inactive .o-app--activate {
   opacity: 1;
   transform: scale(1, 1);
+}
+
+.o-app--credits:focus-within,
+.o-app-inactive .o-app--credits {
+  opacity: 1;
+  transform: translate3d(-50%, 0%, 0);
+  transition-property: opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .o-app--credits {
+    transition-property: opacity;
+  }
 }
