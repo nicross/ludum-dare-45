@@ -1,7 +1,8 @@
 'use strict'
 
-function angleToPan(radians) {
-  return scale(flattenAngle(radians), -Math.PI / 2, Math.PI / 2, -1, 1)
+function angleToPan(radians, distance, radius) {
+  const factor = 1 - Math.max(0, ((radius - distance) / radius) || 0)
+  return factor * scale(flattenAngle(radians), -Math.PI / 2, Math.PI / 2, -1, 1)
 }
 
 function createDinger() {

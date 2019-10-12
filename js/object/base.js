@@ -73,7 +73,9 @@ const objectBase = {
         this.masterGain.gain.value = distanceToGain(this.d, this.radius)
       }
       this.masterPan.pan.value = angleToPan(
-        -position.angleTowardPoint(this.x, this.y)
+        -position.angleTowardPoint(this.x, this.y),
+        this.d,
+        this.radius
       )
     }
 
