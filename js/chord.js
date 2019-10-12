@@ -59,6 +59,11 @@ const chord = (function IIFE() {
     ).sort()
   }
 
+  function getAll(x, y) {
+    const index = Math.abs(Math.round(x + y)) % chords.length
+    return chords[index].reduce((notes, bucket) => [...notes, ...bucket], [])
+  }
+
   function getChord(x, y) {
     if (!grid[x]) {
       grid[x] = {}
@@ -90,8 +95,7 @@ const chord = (function IIFE() {
   }
 
   return {
-    get: () => currentChord,
-    getChord: (x, y) => getChord(normalize(x), normalize(y)),
+    getAll: (x, y) => getAll(x, y),
     getNote: (index) => currentChord[index % currentChord.length],
     getRandomNote: (x, y) => getRandomNote(x, y),
     getRootNote: (x, y) => getRootNote(x, y),
