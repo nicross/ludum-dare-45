@@ -87,7 +87,7 @@ function createRamper(audioParam, rampFn) {
     container.state = true
 
     const timeout = rampFn(audioParam, ...args)
-    timeout.then(() => container.state = false)
+    timeout.then(() => container.state = false, () => {})
     container.cancel = () => timeout.cancel()
 
     return timeout
