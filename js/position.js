@@ -145,8 +145,8 @@ const position = (function IIFE() {
         position.isStep = false
       }
 
-      const gridX = Math.round(position.x / GRID_LENGTH),
-        gridY = Math.round(position.y / GRID_LENGTH)
+      const gridX = Math.round((position.x - (GRID_LENGTH / 2)) / GRID_LENGTH),
+        gridY = Math.round((position.y - (GRID_LENGTH / 2)) / GRID_LENGTH)
 
       if (gridX != position.grid.x || gridY != position.grid.y) {
         position.isGrid = true
