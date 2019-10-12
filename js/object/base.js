@@ -28,8 +28,8 @@ const objectBase = {
     delete this.x
     delete this.y
 
-    this.rampMasterGain(1, audio.time(0.5))
-    this.rampMasterPan(0, audio.time(0.5))
+    this.rampMasterGain(1, 0.5)
+    this.rampMasterPan(0, 0.5)
 
     this.onPickup.apply(this, arguments)
 
