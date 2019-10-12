@@ -38,11 +38,9 @@ function main() {
 
   for (let object of objects) {
     if (!object.isCollectible) {
-      const d = object.getDistance(x, y)
-
-      if (!object.isCulled && d > CULLING_DISTANCE) {
+      if (!object.isCulled && object.d > CULLING_DISTANCE) {
         object.cull(true)
-      } else if (object.isCulled && d < CULLING_DISTANCE) {
+      } else if (object.isCulled && object.d < CULLING_DISTANCE) {
         object.cull(false)
       }
     }

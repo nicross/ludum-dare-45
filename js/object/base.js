@@ -18,9 +18,6 @@ const objectBase = {
     this.masterPan.disconnect()
     return this
   },
-  getDistance: function (x, y) {
-    return distance(this.x, this.y, x, y)
-  },
   onCull: function() {},
   onPickup: function () {},
   onSpawn: function () {},
@@ -44,6 +41,7 @@ const objectBase = {
 
     Object.entries(options).forEach(([key, value]) => this[key] = value)
 
+    this.d = distance(this.x, this.y, x, y)
     this.isCulled = false
 
     this.masterGain = context.createGain()
@@ -56,7 +54,7 @@ const objectBase = {
     this.rampMasterPan = createRamper(this.masterPan.pan, linearRamp)
 
     this.masterGain.gain.value = ZERO_GAIN
-    this.rampMasterGain(distanceToGain(this.getDistance(x, y)), 1)
+    this.rampMasterGain(distanceToGain(this.d), 1)
 
     this.onSpawn()
 
@@ -67,9 +65,11 @@ const objectBase = {
       return this
     }
 
+    this.d = distance(this.x, this.y, x, y)
+
     if (!this.isCollected) {
       if (!this.rampMasterGain.state) {
-        this.masterGain.gain.value = distanceToGain(this.getDistance(x, y), this.radius)
+        this.masterGain.gain.value = distanceToGain(this.d, this.radius)
       }
       this.masterPan.pan.value = angleToPan(
         -position.angleTowardPoint(this.x, this.y)
