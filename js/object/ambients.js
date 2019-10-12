@@ -13,7 +13,7 @@ const ambients = [
       this.noise.filter.frequency.value = randomBetween(20, 5500)
       this.noise.output.gain.value = randomBetween(0.25, 1)
 
-      this.gainRadius = this.panRadius = randomBetween(1, 4)
+      this.gainRadius = this.panRadius = randomBetween(GRID_LENGTH / 8, GRID_LENGTH / 4)
     },
   }),
   inventObject({
@@ -27,7 +27,7 @@ const ambients = [
       this.noise.output.gain.value = 0.125
       this.noise.output.connect(this.masterGain)
 
-      this.gainRadius = this.panRadius = randomBetween(1, 8)
+      this.gainRadius = this.panRadius = randomBetween(GRID_LENGTH / 8, GRID_LENGTH / 2)
     },
     onUpdate: function () {
       if (!this.isRampingNoiseFilterFrequency) {
@@ -74,8 +74,6 @@ const ambients = [
     onSpawn: function () {
       const context = audio.context()
 
-      this.size = randomBetween(0.125, 0.625)
-
       this.gain = context.createGain()
       this.gain.connect(this.masterGain)
       this.gain.gain.value = 0.00001
@@ -85,7 +83,8 @@ const ambients = [
       this.oscillator.connect(this.gain)
       this.oscillator.start()
 
-      this.gainRadius = this.panRadius = randomBetween(0, 1)
+      this.gainRadius = randomBetween(GRID_LENGTH / 16, GRID_LENGTH / 8)
+      this.panRadius = randomBetween(0, 1)
     },
     onUpdate: function () {
       if (!this.isTweeting) {
@@ -103,7 +102,7 @@ const ambients = [
       for (let i = 0; i <= times; i++) {
         const detune = randomBetween(-33.333, 33.333),
           frequency = midiToFrequency(chord.getRandomNote(this.x, this.y)) * 2,
-          size = randomBetween(0, this.size),
+          size = randomBetween(ZERO_GAIN, 1),
           start = randomBetween(0.125, 0.25),
           stop = randomBetween(0.25, 0.75)
 
@@ -134,7 +133,8 @@ const ambients = [
       this.oscillator.connect(this.gain)
       this.oscillator.start()
 
-      this.gainRadius = this.panRadius = randomBetween(2, 4)
+      this.gainRadius = randomBetween(GRID_LENGTH / 8, GRID_LENGTH / 4)
+      this.panRadius = randomBetween(2, 4)
     },
     onUpdate: function () {
       if (!this.isWoofing) {
@@ -180,6 +180,9 @@ const ambients = [
       this.gain.connect(this.masterGain)
 
       this.rampOscilatorFrequency = createRamper(this.oscillator.frequency, exponentialRamp)
+
+      this.gainRadius = randomBetween(GRID_LENGTH / 16, GRID_LENGTH / 8)
+      this.panRadius = randomBetween(0, 1)
     },
     onUpdate: function () {
       const {x, y} = position.get()
@@ -236,7 +239,6 @@ const ambients = [
     onSpawn: function () {
       const context = audio.context()
 
-      this.gainRadius = this.panRadius = randomBetween(1, 2)
       this.speed = Math.random()
       this.vector = randomBetween(0, TAU)
 
@@ -254,6 +256,9 @@ const ambients = [
       this.modulator.connect(this.carrier.frequency)
       this.carrier.connect(this.gain)
       this.gain.connect(this.masterGain)
+
+      this.gainRadius = randomBetween(GRID_LENGTH / 12, GRID_LENGTH / 6)
+      this.panRadius = randomBetween(1, 2)
     },
     onUpdate: function () {
       if (!this.isCalling) {
