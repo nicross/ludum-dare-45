@@ -7,10 +7,11 @@ This game is designed for playing with your eyes closed.
 Headphones are strongly recommended.
 
 ### Objective
-**You start with nothing.** The world is filled with harmless creatures and sounds. And things to pick up:
+**You start with nothing.** The world is filled with harmless creatures and sounds. And things to collect:
 - Footsteps
 - Compass
-- Three synthesizers that change pitch as you explore
+- Three resonators that change pitch as you explore
+- A secret arpeggiator
 
 Each play is randomized. Reload to start over.
 
