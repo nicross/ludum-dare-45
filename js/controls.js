@@ -23,8 +23,6 @@ const controls = (function IIFE() {
     uiRight: false,
   }
 
-  const gamepads = {}
-
   const keys = {
     37: 'arrowLeft',
     38: 'arrowUp',
@@ -57,10 +55,15 @@ const controls = (function IIFE() {
   }
 
   function getGamepadState() {
-    const sticks = []
+    const gamepads = navigator.getGamepads(),
+      sticks = []
 
-    for (let index in gamepads) {
-      const gamepad = gamepads[index]
+    for (let i = 0, length = gamepads.length; i < length; i += 1) {
+      const gamepad = gamepads[i]
+
+      if (!gamepad) {
+        continue;
+      }
 
       if (0 in gamepad.axes && 1 in gamepad.axes) {
         sticks[0] = {
@@ -165,16 +168,6 @@ const controls = (function IIFE() {
         if (e.which in keys) {
           controls[keys[e.which]] = false
         }
-      })
-
-      window.addEventListener('gamepadconnected', (e) => {
-        const gamepad = e.gamepad
-        gamepads[gamepad.index] = gamepad
-      })
-
-      window.addEventListener('gamepaddisconnected', (e) => {
-        const gamepad = e.gamepad
-        delete gamepads[gamepad.index]
       })
 
       return this
