@@ -1,5 +1,5 @@
 # Soundsearcher
-A minimalist auditory exploration game created for [Ludum Dare 45](https://ldjam.com/events/ludum-dare/45).
+A minimalist auditory exploration game originally created for [Ludum Dare 45](https://ldjam.com/events/ludum-dare/45).
 
 ## Getting started
 Open [the index file](https://nicross.github.io/ludum-dare-45/) in your favorite evergreen browser.
@@ -13,7 +13,8 @@ Headphones are strongly recommended.
 - Three resonators that change pitch as you explore
 - A secret arpeggiator
 
-Each play is randomized. Reload to start over.
+Each play is randomized.
+Reload to start over.
 
 ### Controls
 The user interface provides controls for forward and backward movement and turning left and right:
@@ -34,13 +35,3 @@ The keyboard controls allow play with one or both hands:
 
 #### Gamepad
 Basic support is provided for controllers with one or two axes (e.g. analog thumb sticks).
-
-## Technical information
-- Vanilla JavaScript
-- No base code, external libraries, or tools
-- All sounds synthesized via Web Audio API
-
-### Engine features
-- Procedurally generated world
-- 2d spatial audio system
-- Movement physics
