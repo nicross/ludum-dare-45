@@ -38,6 +38,13 @@ const controls = (function IIFE() {
     87: 'keyW',
   }
 
+  function deadzone(input, threshold = 0.25) {
+    const ratio = (Math.abs(input) - threshold) / (1 - threshold),
+      sign = input > 0 ? 1 : -1
+
+    return ratio > 0 ? sign * ratio : 0
+  }
+
   function getControlsState() {
     return {
       moveBackward: controls.arrowDown || controls.keyS || controls.uiBackward,
@@ -57,14 +64,14 @@ const controls = (function IIFE() {
 
       if (0 in gamepad.axes && 1 in gamepad.axes) {
         sticks[0] = {
-          x: gamepad.axes[0],
-          y: -gamepad.axes[1]
+          x: deadzone(gamepad.axes[0]),
+          y: -deadzone(gamepad.axes[1]),
         }
       }
       if (2 in gamepad.axes && 3 in gamepad.axes) {
         sticks[1] = {
-          x: gamepad.axes[2],
-          y: -gamepad.axes[3]
+          x: deadzone(gamepad.axes[2]),
+          y: -deadzone(gamepad.axes[3]),
         }
       }
     }
@@ -198,7 +205,6 @@ const controls = (function IIFE() {
       }
 
       const gamepad = getGamepadState()
-      // TODO: Investigate incorrect axes state
 
       return {
         rotate: controlsRotate,
