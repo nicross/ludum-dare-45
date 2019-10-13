@@ -44,6 +44,7 @@ const ambiance = (function IIFE() {
   return {
     activate: function () {
       handleSpawns(0, 0)
+      spawn(campfire, {x: 0, y: 0})
       return this
     },
     update: ({x, y}) => {
