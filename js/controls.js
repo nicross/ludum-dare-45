@@ -117,7 +117,7 @@ const controls = (function IIFE() {
       return {
         rotate: -sticks[0].x,
         translate: {
-          radius: distance(0, 0, 0, sticks[0].y),
+          radius: Math.min(1, distance(0, 0, 0, sticks[0].y)),
           theta: Math.atan2(sticks[0].y, 0),
         },
       }
@@ -128,7 +128,7 @@ const controls = (function IIFE() {
     return {
       rotate: -sticks[1].x,
       translate: {
-        radius: distance(0, 0, sticks[0].x, translateY),
+        radius: Math.min(1, distance(0, 0, sticks[0].x, translateY)),
         theta: Math.atan2(translateY, sticks[0].x),
       },
     }
