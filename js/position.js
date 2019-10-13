@@ -30,8 +30,6 @@ const position = (function IIFE() {
     velocity: IFPS * maxVector.velocity / 4,
   }
 
-  let lastStep = 0
-
   return {
     angleTowardDirection: (radians) => {
       return normalizeAngle(radians - position.a)
@@ -47,8 +45,6 @@ const position = (function IIFE() {
     }),
     maxVector: () => Object.assign(maxVector),
     update: (state) => {
-      // TODO: Reset velocity to 0 if theta changes by ~180 degrees
-      
       if (state.translate.radius > 0) {
         if (vector.velocity < maxVector.velocity) {
           vector.velocity += acceleration.velocity * state.translate.radius
@@ -91,13 +87,6 @@ const position = (function IIFE() {
       position.x += vector.velocity * Math.cos(position.theta)
       position.y += vector.velocity * Math.sin(position.theta)
       position.d = distance(0, 0, position.x, position.y)
-
-      if (Math.abs(position.d - lastStep) >= STEP_LENGTH) {
-        lastStep = position.d
-        position.isStep = true
-      } else if (position.isStep) {
-        position.isStep = false
-      }
 
       const gridX = Math.round((position.x - (GRID_LENGTH / 2)) / GRID_LENGTH),
         gridY = Math.round((position.y - (GRID_LENGTH / 2)) / GRID_LENGTH)

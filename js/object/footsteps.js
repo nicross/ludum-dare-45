@@ -19,18 +19,25 @@ const footsteps = inventObject({
     this.dinger = createDinger()
     this.dinger.output.connect(this.masterGain)
   },
-  onStep: function () {
-    if (!this.isCollected || this.isStepping) {
-      return
+  onUpdate: function ({vector}) {
+    if (this.isCollected && !this.isStepping && vector.velocity > 0) {
+      this.step(vector.velocity)
     }
-
+  },
+  step: function (velocity) {
     this.isStepping = true
 
+    const maxVector = position.maxVector(),
+      ratio = velocity / maxVector.velocity
+
+    const duration = scale(ratio, 0, 1, 1, 0.25),
+      lower = scale(ratio, 0, 1, 400, 800),
+      upper = scale(ratio, 0, 1, 800, 1200)
+
     this.noise.filter.frequency.setValueAtTime(1, audio.time(0))
-    this.noise.filter.frequency.exponentialRampToValueAtTime(randomBetween(800, 1000), audio.time(0.0625))
+    this.noise.filter.frequency.exponentialRampToValueAtTime(randomBetween(lower, upper), audio.time(0.0625))
     this.noise.filter.frequency.exponentialRampToValueAtTime(1, audio.time(0.2))
 
-    setTimeout(() => this.isStepping = false, 200)
+    setTimeout(() => this.isStepping = false, duration * 1000)
   },
-  onUpdate: function () {},
 })
