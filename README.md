@@ -32,6 +32,9 @@ The keyboard controls allow play with one or both hands:
 |Turn left|<kbd>E</kbd> or <kbd aria-label="Left Arrow">←</kbd>|
 |Turn right|<kbd>Q</kbd> or <kbd aria-label="Right Arrow">→</kbd>|
 
+#### Gamepad
+Basic support is provided for controllers with one or two axes (e.g. analog thumb sticks).
+
 ## Technical information
 - Vanilla JavaScript
 - No base code, external libraries, or tools
