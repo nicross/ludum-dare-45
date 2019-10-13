@@ -44,14 +44,44 @@ const controls = (function IIFE() {
   }
 
   function getControlsState() {
-    return {
-      moveBackward: controls.arrowDown || controls.keyS || controls.uiBackward,
-      moveForward: controls.arrowUp || controls.keyW || controls.uiForward,
-      moveLeft: controls.keyA,
-      moveRight: controls.keyD,
-      turnLeft: controls.arrowLeft || controls.keyQ || controls.uiLeft,
-      turnRight: controls.arrowRight || controls.keyE || controls.uiRight,
+    const moveBackward = controls.arrowDown || controls.keyS || controls.uiBackward,
+      moveForward = controls.arrowUp || controls.keyW || controls.uiForward,
+      strafeLeft = controls.keyA,
+      strafeRight = controls.keyD,
+      turnLeft = controls.arrowLeft || controls.keyQ || controls.uiLeft,
+      turnRight = controls.arrowRight || controls.keyE || controls.uiRight
+
+    let controlsLongitudinal = 0,
+      controlsTransverse = 0
+
+    if (moveBackward && !moveForward) {
+      controlsLongitudinal = -1
+    } else if (moveForward && !moveBackward) {
+      controlsLongitudinal = 1
     }
+
+    if (strafeLeft && !strafeRight) {
+      controlsTransverse = -1
+    } else if (strafeRight && !strafeLeft) {
+      controlsTransverse = 1
+    }
+
+    const result = {}
+
+    if (turnLeft && !turnRight) {
+      result.rotate = 1
+    } else if (turnRight && !turnLeft) {
+      result.rotate = -1
+    }
+
+    if (controlsLongitudinal || controlsTransverse) {
+      result.translate = {
+        radius: 1,
+        theta: Math.atan2(controlsLongitudinal, controlsTransverse),
+      }
+    }
+
+    return result
   }
 
   function getGamepadState() {
@@ -173,39 +203,14 @@ const controls = (function IIFE() {
       return this
     },
     get: () => {
-      const controls = getControlsState()
-
-      let controlsTranslateX = 0,
-        controlsTranslateY = 0,
-        controlsRotate = 0
-
-      if (controls.moveBackward && !controls.moveForward) {
-        controlsTranslateX = -1
-      } else if (controls.moveForward && !controls.moveBackward) {
-        controlsTranslateX = 1
-      }
-
-      if (controls.moveLeft && !controls.moveRight) {
-        controlsTranslateY = -1
-      } else if (controls.moveRight && !controls.moveLeft) {
-        controlsTranslateY = 1
-      }
-
-      if (controls.turnLeft && !controls.turnRight) {
-        controlsRotate = 1
-      } else if (controls.turnRight && !controls.turnLeft) {
-        controlsRotate = -1
-      }
-
-      const gamepad = getGamepadState()
-
       return {
-        rotate: controlsRotate,
+        rotate: 0,
         translate: {
-          radius: distance(0, 0, controlsTranslateX, controlsTranslateY),
-          theta: Math.atan2(controlsTranslateX, controlsTranslateY),
+          radius: 0,
+          theta: 0,
         },
-        ...gamepad,
+        ...getGamepadState(),
+        ...getControlsState(),
       }
     }
   }
