@@ -85,10 +85,10 @@ const controls = (function IIFE() {
 
     if (sticks.length == 1) {
       return {
-        rotate: sticks[0].x,
+        rotate: -sticks[0].x,
         translate: {
           radius: distance(0, 0, 0, sticks[0].y),
-          theta: Math.atan2(0, sticks[0].y),
+          theta: Math.atan2(sticks[0].y, 0),
         },
       }
     }
@@ -96,10 +96,10 @@ const controls = (function IIFE() {
     const translateY = Math.max(-1, Math.min(sticks[0].y + sticks[1].y, 1))
 
     return {
-      rotate: sticks[1].x,
+      rotate: -sticks[1].x,
       translate: {
         radius: distance(0, 0, sticks[0].x, translateY),
-        theta: Math.atan2(sticks[0].x, translateY),
+        theta: Math.atan2(translateY, sticks[0].x),
       },
     }
   }
