@@ -23,6 +23,8 @@ const controls = (function IIFE() {
     uiRight: false,
   }
 
+  const gamepads = {}
+
   const keys = {
     37: 'arrowLeft',
     38: 'arrowUp',
@@ -34,6 +36,62 @@ const controls = (function IIFE() {
     81: 'keyQ',
     83: 'keyS',
     87: 'keyW',
+  }
+
+  function getControlsState() {
+    return {
+      moveBackward: controls.arrowDown || controls.keyS || controls.uiBackward,
+      moveForward: controls.arrowUp || controls.keyW || controls.uiForward,
+      moveLeft: controls.keyA,
+      moveRight: controls.keyD,
+      turnLeft: controls.arrowLeft || controls.keyQ || controls.uiLeft,
+      turnRight: controls.arrowRight || controls.keyE || controls.uiRight,
+    }
+  }
+
+  function getGamepadState() {
+    const sticks = []
+
+    for (let index in gamepads) {
+      const gamepad = gamepads[index]
+
+      if (0 in gamepad.axes && 1 in gamepad.axes) {
+        sticks[0] = {
+          x: gamepad.axes[0],
+          y: -gamepad.axes[1]
+        }
+      }
+      if (2 in gamepad.axes && 3 in gamepad.axes) {
+        sticks[1] = {
+          x: gamepad.axes[2],
+          y: -gamepad.axes[3]
+        }
+      }
+    }
+
+    if (sticks.length == 0) {
+      return {}
+    }
+
+    if (sticks.length == 1) {
+      return {
+        rotate: sticks[0].x,
+        translate: {
+          radius: distance(0, 0, 0, sticks[0].y),
+          theta: Math.atan2(0, sticks[0].y),
+        },
+      }
+    }
+
+    const translateY = Math.max(-1, Math.min(sticks[0].y + sticks[1].y, 1))
+
+    return {
+      rotate: sticks[1].x,
+      translate: {
+        radius: distance(0, 0, sticks[0].x, translateY),
+        theta: Math.atan2(sticks[0].x, translateY),
+      },
+    }
   }
 
   function onBackwardStart() {
@@ -102,15 +160,54 @@ const controls = (function IIFE() {
         }
       })
 
+      window.addEventListener('gamepadconnected', (e) => {
+        const gamepad = e.gamepad
+        gamepads[gamepad.index] = gamepad
+      })
+
+      window.addEventListener('gamepaddisconnected', (e) => {
+        const gamepad = e.gamepad
+        delete gamepads[gamepad.index]
+      })
+
       return this
     },
-    get: () => ({
-      moveBackward: controls.arrowDown || controls.keyS || controls.uiBackward,
-      moveForward: controls.arrowUp || controls.keyW || controls.uiForward,
-      moveLeft: controls.keyA,
-      moveRight: controls.keyD,
-      turnLeft: controls.arrowLeft || controls.keyQ || controls.uiLeft,
-      turnRight: controls.arrowRight || controls.keyE || controls.uiRight,
-    })
+    get: () => {
+      const controls = getControlsState()
+
+      let controlsTranslateX = 0,
+        controlsTranslateY = 0,
+        controlsRotate = 0
+
+      if (controls.moveBackward && !controls.moveForward) {
+        controlsTranslateX = -1
+      } else if (controls.moveForward && !controls.moveBackward) {
+        controlsTranslateX = 1
+      }
+
+      if (controls.moveLeft && !controls.moveRight) {
+        controlsTranslateY = -1
+      } else if (controls.moveRight && !controls.moveLeft) {
+        controlsTranslateY = 1
+      }
+
+      if (controls.turnLeft && !controls.turnRight) {
+        controlsRotate = 1
+      } else if (controls.turnRight && !controls.turnLeft) {
+        controlsRotate = -1
+      }
+
+      const gamepad = getGamepadState()
+      // TODO: Investigate incorrect axes state
+
+      return {
+        rotate: controlsRotate,
+        translate: {
+          radius: distance(0, 0, controlsTranslateX, controlsTranslateY),
+          theta: Math.atan2(controlsTranslateX, controlsTranslateY),
+        },
+        ...gamepad,
+      }
+    }
   }
 })()

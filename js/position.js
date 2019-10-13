@@ -47,69 +47,31 @@ const position = (function IIFE() {
     }),
     maxVector: () => Object.assign(maxVector),
     update: (state) => {
-      let theta = 0
-
-      if (state.moveForward) {
-        if (vector.velocity < 0 ) {
-          vector.velocity = 0
-        }
+      // TODO: Reset velocity to 0 if theta changes by ~180 degrees
+      
+      if (state.translate.radius > 0) {
         if (vector.velocity < maxVector.velocity) {
-          vector.velocity += acceleration.velocity
+          vector.velocity += acceleration.velocity * state.translate.radius
         }
-        if (state.moveLeft) {
-          theta = Math.PI / 4
-        } else if (state.moveRight) {
-          theta = Math.PI * 7 / 4
-        }
-      } else if (state.moveBackward) {
-        if (vector.velocity > 0 ) {
-          vector.velocity = 0
-        }
-        if (vector.velocity > -maxVector.velocity) {
-          vector.velocity -= acceleration.velocity
-        }
-        if (state.moveLeft) {
-          theta = Math.PI * 7 / 4
-        } else if (state.moveRight) {
-          theta = Math.PI / 4
-        }
-      } else if (state.moveLeft) {
-        if (vector.velocity < 0 ) {
-          vector.velocity = 0
-        }
-        if (vector.velocity < maxVector.velocity) {
-          vector.velocity += acceleration.velocity
-        }
-        theta = Math.PI / 2
-      } else if (state.moveRight) {
-        if (vector.velocity < 0 ) {
-          vector.velocity = 0
-        }
-        if (vector.velocity < maxVector.velocity) {
-          vector.velocity += acceleration.velocity
-        }
-        theta = Math.PI * 3 / 2
       } else if (vector.velocity >= acceleration.velocity * 2) {
         vector.velocity -= acceleration.velocity * 2
-      } else if (vector.velocity <= -(acceleration.velocity * 2)) {
-        vector.velocity += acceleration.velocity * 2
       } else if (vector.velocity != 0) {
         vector.velocity = 0
       }
 
-      if (state.turnLeft) {
+      if (state.rotate > 0) {
         if (vector.rotation < 0) {
           vector.rotation = 0
         }
         if (vector.rotation < maxVector.rotation) {
-          vector.rotation += acceleration.rotation
+          vector.rotation += acceleration.rotation * state.rotate
         }
-      } else if (state.turnRight) {
+      } else if (state.rotate < 0) {
         if (vector.rotation > 0) {
           vector.rotation = 0
         }
         if (vector.rotation > -maxVector.rotation) {
-          vector.rotation -= acceleration.rotation
+          vector.rotation += acceleration.rotation * state.rotate
         }
       } else if (vector.rotation >= acceleration.rotation * 2) {
         vector.rotation -= acceleration.rotation * 2
@@ -125,12 +87,10 @@ const position = (function IIFE() {
         position.a += TAU
       }
 
-      position.theta = position.a + theta
+      position.theta = position.a + state.translate.theta - (Math.PI / 2)
       position.x += vector.velocity * Math.cos(position.theta)
       position.y += vector.velocity * Math.sin(position.theta)
       position.d = distance(0, 0, position.x, position.y)
-
-
 
       if (Math.abs(position.d - lastStep) >= STEP_LENGTH) {
         lastStep = position.d
