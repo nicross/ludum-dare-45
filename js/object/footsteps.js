@@ -30,9 +30,9 @@ const footsteps = inventObject({
     const maxVector = position.maxVector(),
       ratio = velocity / maxVector.velocity
 
-    const duration = scale(ratio, 0, 1, 1, 0.25),
+    const duration = scale(ratio, 0, 1, 0.5, 0.25),
       lower = scale(ratio, 0, 1, 400, 800),
-      upper = scale(ratio, 0, 1, 800, 1200)
+      upper = scale(ratio, 0, 1, 800, 1600)
 
     this.noise.filter.frequency.setValueAtTime(1, audio.time(0))
     this.noise.filter.frequency.exponentialRampToValueAtTime(randomBetween(lower, upper), audio.time(0.0625))

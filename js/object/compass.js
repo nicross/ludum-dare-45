@@ -7,7 +7,7 @@ const compass = inventObject({
     this.noise = createNoiseMachine()
     this.noise.output.connect(this.masterGain)
 
-    this.rampMasterGain(0.125, 1)
+    this.rampMasterGain(0.25, 1)
     this.rampMasterPan(0, 1)
 
     this.noise.filter.Q.value = 4
