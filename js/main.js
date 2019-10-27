@@ -56,10 +56,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
     this.classList.remove('o-app-inactive')
     this.removeEventListener('click', onClick)
-  })
 
-  document.querySelector('.o-app--activate').addEventListener('transitionend', function onTransitionEnd() {
-    this.hidden = true
-    this.removeEventListener('transitionend', onTransitionEnd)
+    this.querySelector('.o-app--activate').addEventListener('transitionend', function onTransitionEnd() {
+      this.hidden = true
+      this.removeEventListener('transitionend', onTransitionEnd)
+    })
   })
 })
