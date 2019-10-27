@@ -2,7 +2,7 @@
 A minimalist auditory exploration game originally created for [Ludum Dare 45](https://ldjam.com/events/ludum-dare/45).
 
 ## Getting started
-Open [the index file](https://nicross.github.io/ludum-dare-45/) in your favorite evergreen browser.
+Open [the index file](https://nicross.github.io/soundsearcher/) in your favorite evergreen browser.
 This game is designed for playing with your eyes closed.
 Headphones are strongly recommended.
 
